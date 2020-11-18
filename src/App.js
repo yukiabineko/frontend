@@ -1,9 +1,25 @@
-import React, { Component } from "react";
+import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
 import "./App.css";
+import { Navbar, Nav } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Index from './users/Index';
+
 
 export default function App(){
   return(
-    <div>sample</div>
+    <BrowserRouter>
+     <Navbar bg="dark">
+        <Navbar.Brand href="#home"　className="text-white font-weight-bold">加工依頼アプリ</Navbar.Brand>
+        <Nav className="mr-auto">
+          <Nav.Link href="/" className="text-white border">Home</Nav.Link>
+        </Nav>
+        <Nav className="mr-right">
+          <Nav.Link href="/login" className="text-white border">ログイン</Nav.Link>
+        </Nav>
+      </Navbar>
+      <Route path="/" component={Index} />
+    </BrowserRouter>
   )
 }
 
