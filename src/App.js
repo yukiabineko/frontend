@@ -4,6 +4,7 @@ import "./App.css";
 import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Index from './users/Index';
+import Login from './Login';
 
 
 export default function App(){
@@ -18,7 +19,8 @@ export default function App(){
           <Nav.Link href="/login" className="text-white border">ログイン</Nav.Link>
         </Nav>
       </Navbar>
-      <Route path="/" component={Index} />
+      <Route exact path="/" component={Index} />
+      <Route path="/login" component={Login} />
     </BrowserRouter>
   )
 }
