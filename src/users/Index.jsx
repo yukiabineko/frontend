@@ -1,29 +1,27 @@
 import { useState } from 'react';
-import { Row, Col, Table } from 'react-bootstrap';
-import { useStore } from 'react-redux';
+import { Row, Col, Table, Button } from 'react-bootstrap';
+import axios from 'axios';
 
 export default function Index(){
-  
+  const[state,setState] = useState({
+    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
+  })
   /*************APIによるuser一覧**********************************/
-  async function userCall(){
-    const fetchInit = {
-      method: "GET",
-      headers: { "content-type": "application/json" }
-    };
-    let response = await fetch("https://uematsu-backend.herokuapp.com/users", fetchInit);
-    if (response.ok) { 
-      let json = await response.json();
-      console.log(json);
-      localStorage.setItem('users', json);
-    } else {
-      alert("HTTP-Error: " + response.status);
-    }
-    
+   function userCall(){
+     axios
+       .get('https://uematsu-backend.herokuapp.com/users')
+       .then((res)=>{
+          localStorage.setItem('users', JSON.stringify(res.data));
+          setState({
+            data: JSON.parse(localStorage.getItem('users'))
+          })
+       })
+       .catch((error)=>{
+          console.log(error);
+       })
   }
- /*************ステート**********************************/
-    const[state,setState] = useState({
-      data: localStorage.getItem('users') ?localStorage.getItem('users') : []
-    })
+    useState(userCall());
+    
  
   return(
     <>
@@ -32,7 +30,7 @@ export default function Index(){
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
-          {state.length > 0 ?
+          {state.data.length > 0 ?
 
             <Table striped bordered hover>
               <thead>
@@ -43,10 +41,16 @@ export default function Index(){
                 </tr>
               </thead>
               <tbody>
-                {state.map((value)=>(
-                  <tr>
+                {state.data.map((value)=>(
+                  <tr key={value.name}>
                      <td className="text-center align-middle">
                        {value.name}
+                    </td>
+                    <td  className="text-center align-middle">
+                      {value.email}
+                    </td>
+                    <td>
+
                     </td>
                   </tr>
                 ))}

@@ -36,3 +36,8 @@
     transform: rotate(360deg);
   }
 }
+input::placeholder {
+  color: red;
+  font-size: 5px;
+  font-style: italic;
+}
