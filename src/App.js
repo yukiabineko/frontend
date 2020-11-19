@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 import "./App.css";
 import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -14,10 +14,10 @@ export default function App(){
      <Navbar bg="dark">
         <Navbar.Brand href="#home"　className="text-white font-weight-bold">加工依頼アプリ</Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Link href="/" className="text-white border">Home</Nav.Link>
+          <Nav.Item><Link to="/" className="text-light p-3">HOME</Link></Nav.Item>
         </Nav>
         <Nav className="mr-right">
-          <Nav.Link href="/login" className="text-white border">ログイン</Nav.Link>
+        <Nav.Item><Link to="/login" className="text-light p-3">ログイン</Link></Nav.Item>
         </Nav>
       </Navbar>
       <Route exact path="/" component={Index} />
