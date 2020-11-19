@@ -41,3 +41,13 @@ input::placeholder {
   font-size: 5px;
   font-style: italic;
 }
+.nav-item a{
+  background-color: #494951;
+  font-weight: bold;
+  border: 1px solid #fff;
+ 
+}
+.nav-item a:hover {
+  background-color: orange;
+  text-decoration: none;
+}
