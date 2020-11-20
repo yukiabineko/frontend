@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
+import { withRouter } from 'react-router';
 
-export default function Index(){
+ function Index(props){
   const[state,setState] = useState({
     data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
   })
@@ -21,7 +22,11 @@ export default function Index(){
        })
   }
     useState(userCall());
-    
+  /****************************編集**************************************** */
+   const editPage = (id)=>{
+     props.editIdget(id);
+     props.history.push("/users/edit");
+   } 
  
   return(
     <>
@@ -50,7 +55,7 @@ export default function Index(){
                       {value.email}
                     </td>
                     <td>
-
+                      <Button veriant="primary" onClick={(i)=>editPage(value.id)}>編集</Button>
                     </td>
                   </tr>
                 ))}
@@ -64,3 +69,4 @@ export default function Index(){
     </>
   )
 }
+export default withRouter(Index)
