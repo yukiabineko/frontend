@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import '../App.css';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
+import axios from 'axios';
 
 const  New = (props)=>{
 
@@ -9,22 +10,34 @@ const  New = (props)=>{
     name: '',
     email: '',
     password: '',
-    password_confirmatin: '',
-    data: []
+    confirmation: ''
   })
 
   const loginComponent = ()=>{
     props.history.push('/login')  
   }
   const userInput = (e)=>{
-    const target = e.target.value;
-    const name = e.target.name;
-    const value = e.target.value;
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
     setState({...state, [name]: value});
   }
   const sendUserParameter = (e)=>{
     e.preventDefault();
-    alert(JSON.stringify(state));
+    let data = {
+      name: state.name,
+      email: state.email,
+      password: state.password,
+      confirmation: state.confirmation
+    }
+    axios.post('http://192.168.1.9:3000/users', data)
+    .then(function (response) {
+      /*railsからメッセージ*/
+      alert(response.data.message); 
+    })
+    .catch(function(){
+      alert('error');
+    })
   }
   return(
    <>
@@ -43,22 +56,24 @@ const  New = (props)=>{
           <Form onSubmit={sendUserParameter}>
             <Form.Group>
               <Form.Label>お名前</Form.Label>
-              <Form.Control type="text" name="name" placeholder="*必須です。" className="h8" required onChange={userInput} />
+              <Form.Control type="text" name="name" placeholder="*必須です。" className="h8" required onChange={userInput} value={state.name} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>メールアドレス</Form.Label>
-              <Form.Control type="email" name="email" placeholder="*必須です。" required onChange={userInput} />
+              <Form.Control type="email" name="email" placeholder="*必須です。" required onChange={userInput} value={state.email} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>パスワード</Form.Label>
-              <Form.Control type="password" name="password" placeholder="*必須です。" required onChange={userInput} />
+              <Form.Control type="password" name="password" placeholder="*必須です。" required onChange={userInput} value={state.password} />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>パスワード確認</Form.Label>
-              <Form.Control type="password" name="password_confirmation" placeholder="*もう一度入力ください。" required onChange={userInput} />
+              <Form.Control type="password" name="confirmation" placeholder="*もう一度入力ください。" required onChange={userInput}
+                value={state.confirmation}
+               />
             </Form.Group>
 
               <Button 
