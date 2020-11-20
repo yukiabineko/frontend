@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import '../App.css';
+import './users.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 
 const  New = (props)=>{
+
+  const[show,setShow] =useState({
+    display: 'none'
+  })
 
   const[state, setState] = useState({
     name: '',
@@ -24,20 +29,33 @@ const  New = (props)=>{
   }
   const sendUserParameter = (e)=>{
     e.preventDefault();
-    let data = {
-      name: state.name,
-      email: state.email,
-      password: state.password,
-      confirmation: state.confirmation
+    if(state.password === state.confirmation){
+      let data = {
+        name: state.name,
+        email: state.email,
+        password: state.password,
+        confirmation: state.confirmation
+      }
+      setShow({display: 'none'});
+      axios.post('http://192.168.1.9:3000/users', data)
+      .then(function (response) {
+        /*railsからメッセージ*/
+        alert(response.data.message); 
+        setState({
+          name: '',
+          email: '',
+          password: '',
+          confirmation: ''
+        })
+      })
+      .catch(function(){
+        alert('error');
+      })
     }
-    axios.post('http://192.168.1.9:3000/users', data)
-    .then(function (response) {
-      /*railsからメッセージ*/
-      alert(response.data.message); 
-    })
-    .catch(function(){
-      alert('error');
-    })
+    /*password不一致警告解除*/
+    else{
+      setShow({display: 'block'});
+    }
   }
   return(
    <>
@@ -65,12 +83,19 @@ const  New = (props)=>{
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>パスワード</Form.Label>
+              <Form.Label>パスワード</Form.Label><br/>
+              <div class="balloon1" style={show}>
+                <p>パスワードが一致してません。</p>
+              </div>
               <Form.Control type="password" name="password" placeholder="*必須です。" required onChange={userInput} value={state.password} />
+             
             </Form.Group>
 
             <Form.Group>
-              <Form.Label>パスワード確認</Form.Label>
+              <Form.Label>パスワード確認</Form.Label><br />
+              <div class="balloon1" style={show}>
+                <p>パスワードが一致してません。</p>
+              </div>
               <Form.Control type="password" name="confirmation" placeholder="*もう一度入力ください。" required onChange={userInput}
                 value={state.confirmation}
                />
