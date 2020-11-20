@@ -49,7 +49,7 @@ const  Edit = (props)=>{
         confirmation: state.confirmation
       }
       setShow({display: 'none'});
-      axios.post(`https://uematsu-backend.herokuapp.com/users/${props.id}`, data)
+      axios.patch(`https://uematsu-backend.herokuapp.com/users/${props.id}`, data)
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
