@@ -37,7 +37,7 @@ const  New = (props)=>{
         confirmation: state.confirmation
       }
       setShow({display: 'none'});
-      axios.post('http://192.168.1.9:3000/users', data)
+      axios.post('https://uematsu-backend.herokuapp.com/users', data)
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
