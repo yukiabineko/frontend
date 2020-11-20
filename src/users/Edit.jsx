@@ -5,6 +5,7 @@ import './users.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 
+/**************************************************************************************** */
 const  Edit = (props)=>{
 
  const getuserData = ()=>{
@@ -29,8 +30,8 @@ const  Edit = (props)=>{
     confirmation: ''
   })
 
-  const loginComponent = ()=>{
-    props.history.push('/login')  
+  const homeComponent = ()=>{
+    props.history.push('/')  
   }
   const userInput = (e)=>{
     const target = e.target;
@@ -48,7 +49,7 @@ const  Edit = (props)=>{
         confirmation: state.confirmation
       }
       setShow({display: 'none'});
-      axios.post('https://uematsu-backend.herokuapp.com/users', data)
+      axios.post(`https://uematsu-backend.herokuapp.com/users/${props.id}`, data)
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
@@ -77,7 +78,7 @@ const  Edit = (props)=>{
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
         <Button 
           variant="secondary" 
-          onClick={loginComponent}
+          onClick={homeComponent}
           className="mb-3"
         >
          戻る
@@ -128,3 +129,4 @@ const  Edit = (props)=>{
   )
 }
 export default withRouter(Edit)
+/***************************************************************************************************** */
