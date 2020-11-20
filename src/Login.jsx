@@ -6,7 +6,7 @@ import { withRouter } from 'react-router'
 const  Login = (props)=>{
 
   const newUserComponent = ()=>{
-    props.history.push('/users/new')  
+    props.history.push('/users/new');  
   }
   return(
    <>
