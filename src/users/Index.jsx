@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router';
+import './users.css';
 
  function Index(props){
   const[state,setState] = useState({
@@ -29,7 +30,7 @@ import { withRouter } from 'react-router';
    } 
  
   return(
-    <>
+    <div className="image">
       <div className="text-center mt-5 mb-4">
         <h2>会員一覧</h2>
       </div>
@@ -55,7 +56,17 @@ import { withRouter } from 'react-router';
                       {value.email}
                     </td>
                     <td>
-                      <Button veriant="primary" onClick={(i)=>editPage(value.id)}>編集</Button>
+                      <Button 
+                        variant="primary"
+                        onClick={(i)=>editPage(value.id)}
+                        className="ml-3"
+                      >編集</Button>
+
+                      <Button 
+                        variant="danger"
+                        onClick={(i)=>editPage(value.id)}
+                        className="ml-3"
+                      >削除</Button>
                     </td>
                   </tr>
                 ))}
@@ -66,7 +77,7 @@ import { withRouter } from 'react-router';
             }
         </Col>
       </Row>
-    </>
+    </div>
   )
 }
 export default withRouter(Index)
