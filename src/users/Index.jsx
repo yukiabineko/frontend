@@ -32,7 +32,7 @@ import './users.css';
   return(
     <div className="image">
       <div className="text-center mt-5 mb-4">
-        <h2>会員一覧</h2>
+        <h2 data-testid="usertitle">会員一覧</h2>
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
