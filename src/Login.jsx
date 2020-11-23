@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import './App.css'
 import { withRouter } from 'react-router'
+import { useStore } from 'react-redux';
 
 const  Login = (props)=>{
 
+  const[state, setState] = useState({
+    email: '',
+    password: ''
+  })
+
   const newUserComponent = ()=>{
     props.history.push('/users/new');  
+  }
+  const accesslogin = (e)=>{
+    e.preventDefault();
+    alert(JSON.stringify(state));
+  }
+  const inputText = (e)=>{
+    const target = e.target;
+    const name = target.name;
+    const value = target.value;
+    setState({...state, [name]:value});
   }
   return(
    <>
@@ -15,15 +31,28 @@ const  Login = (props)=>{
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="p-5 bg-light shadow">
-          <Form>
+          <Form onSubmit={accesslogin}>
             <Form.Group>
               <Form.Label>メールアドレス</Form.Label>
-              <Form.Control type="email" placeholder="(例)sample@example.com" className="h8" />
+              <Form.Control 
+                type="email" 
+                name="email"
+                placeholder="(例)sample@example.com" 
+                className="h8" 
+                onChange={inputText}
+                value={state.email}
+              />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>パスワード</Form.Label>
-              <Form.Control type="password" placeholder="(例)password" />
+              <Form.Control
+                 type="password" 
+                 name="password"
+                 placeholder="(例)password" 
+                 onChange={inputText}
+                 value={state.password}
+              />
             </Form.Group>
 
               <Button 
