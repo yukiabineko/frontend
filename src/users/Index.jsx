@@ -30,6 +30,20 @@ import './users.css';
      props.editIdget(id);
      props.history.push("/users/edit");
    } 
+   /****************************削除*********************************************** */
+   function deleteUser(i){
+    if(window.confirm('削除してよろしいですか？')){
+      axios
+       .delete(`https://uematsu-backend.herokuapp.com/users/${i}`)
+       .then((response)=>{
+         alert(response.data.message); 
+       })
+       .catch((error)=>{
+          console.log(error);
+       })
+    
+    }
+   }
  
   return(
     <div className="image">
@@ -66,7 +80,7 @@ import './users.css';
 
                       <Button 
                         variant="danger"
-                        onClick={(i)=>editPage(value.id)}
+                        onClick={(i)=>deleteUser(value.id)}
                         className="ml-3"
                       >削除</Button>
                     </td>
