@@ -1,10 +1,13 @@
+
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import App from '../App';
 import New from '../users/New';
-import Enzyme from 'enzyme';
+import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+
+Enzyme.configure({adapter: new Adapter()});
 
 let container = null;
 beforeEach(() => {
@@ -29,7 +32,8 @@ describe('Top表示', ()=>{
 });
 describe('新規ユーザー登録表示', ()=>{
   it("新規ページ表示", () => {
-   
+      let component = shallow(<New.WrappedComponent />);
+     expect(component.find("[data-testid='userNewtitle']").text()).toBe('新規会員登録');
   });
 });
 
