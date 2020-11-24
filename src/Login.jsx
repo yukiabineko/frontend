@@ -3,7 +3,8 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import './App.css'
 import { withRouter } from 'react-router'
 import axios from 'axios'
-import { useStore } from 'react-redux';
+import { connect} from 'react-redux';
+import { sendLoginData } from './store/Store';
 
 const  Login = (props)=>{
 
@@ -23,6 +24,8 @@ const  Login = (props)=>{
     }
     axios.post('https://uematsu-backend.herokuapp.com/sessions', data)
       .then(function (response) {
+        let action = sendLoginData(response.data);
+        props.dispatch(action);
         /*railsからメッセージ*/
         alert('ログインしました'); 
         setState({
@@ -32,8 +35,8 @@ const  Login = (props)=>{
           confirmation: ''
         })
       })
-      .catch(function(){
-        alert('error');
+      .catch(function(err){
+        alert(err);
       })
   }
   const inputText = (e)=>{
@@ -93,4 +96,4 @@ const  Login = (props)=>{
    </>
   )
 }
-export default withRouter(Login)
+export default withRouter(connect((state)=>state)(Login))
