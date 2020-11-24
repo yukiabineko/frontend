@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import './users.css';
 
  function Index(props){
@@ -9,18 +9,20 @@ import './users.css';
     data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
   })
   /*************APIによるuser一覧**********************************/
-   function userCall(){
-     axios
+   async function userCall(){
+     
+     await axios
        .get('https://uematsu-backend.herokuapp.com/users')
        .then((res)=>{
           localStorage.setItem('users', JSON.stringify(res.data));
-          setState({
-            data: JSON.parse(localStorage.getItem('users'))
-          })
+          
        })
        .catch((error)=>{
           console.log(error);
        })
+       setState({
+        data: JSON.parse(localStorage.getItem('users'))
+      })
   }
     useState(userCall());
   /****************************編集**************************************** */
@@ -28,6 +30,20 @@ import './users.css';
      props.editIdget(id);
      props.history.push("/users/edit");
    } 
+   /****************************削除*********************************************** */
+   function deleteUser(i){
+    if(window.confirm('削除してよろしいですか？')){
+      axios
+       .delete(`https://uematsu-backend.herokuapp.com/users/${i}`)
+       .then((response)=>{
+         alert(response.data.message); 
+       })
+       .catch((error)=>{
+          console.log(error);
+       })
+    
+    }
+   }
  
   return(
     <div className="image">
@@ -64,7 +80,7 @@ import './users.css';
 
                       <Button 
                         variant="danger"
-                        onClick={(i)=>editPage(value.id)}
+                        onClick={(i)=>deleteUser(value.id)}
                         className="ml-3"
                       >削除</Button>
                     </td>
