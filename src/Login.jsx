@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import './App.css'
 import { withRouter } from 'react-router'
+import axios from 'axios'
 import { useStore } from 'react-redux';
 
 const  Login = (props)=>{
@@ -16,7 +17,24 @@ const  Login = (props)=>{
   }
   const accesslogin = (e)=>{
     e.preventDefault();
-    alert(JSON.stringify(state));
+    let data = {
+      email: state.email,
+      password: state.password,
+    }
+    axios.post('https://uematsu-backend.herokuapp.com/sessions', data)
+      .then(function (response) {
+        /*railsからメッセージ*/
+        alert('ログインしました'); 
+        setState({
+          name: '',
+          email: '',
+          password: '',
+          confirmation: ''
+        })
+      })
+      .catch(function(){
+        alert('error');
+      })
   }
   const inputText = (e)=>{
     const target = e.target;
