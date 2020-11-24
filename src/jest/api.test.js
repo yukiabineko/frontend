@@ -5,6 +5,8 @@ import App from '../App';
 import Index from '../users/Index'
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
+import store from '../store/Store';
 
 let container = null;
 beforeEach(() => {
@@ -34,9 +36,10 @@ describe('ユーザー一覧', () => {
     );
     act(()=>{
       
-      render(<App><Index /></App>, container);
-      
-    })
+      render(<Provider store={store}>
+               <App><Index /></App>
+             </Provider>, container);
+             })
    
     expect(axios.get).toHaveBeenCalledTimes(1)
   });

@@ -6,6 +6,9 @@ import App from '../App';
 import New from '../users/New';
 import Enzyme, { mount, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { Provider } from 'react-redux';
+import store from '../store/Store';
+
 
 Enzyme.configure({adapter: new Adapter()});
 
@@ -24,7 +27,7 @@ afterEach(() => {
 describe('Top表示', ()=>{
   it("topページ表示される", () => {
     act(() => {
-      render(<App />, container);
+      render(<Provider store={store}><App /></Provider>, container);
     });
     let userTitle = container.querySelector("[data-testid='usertitle']")
     expect(userTitle.textContent).toBe("会員一覧");

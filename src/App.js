@@ -7,9 +7,10 @@ import Index from './users/Index';
 import Login from './Login';
 import userNew from './users/New'
 import Edit from './users/Edit'
+import { connect } from "react-redux";
 
 
-export default function App(){
+ function App(){
   const[state, setState] = useState({
     editId: 0,
     deleteId: 0
@@ -29,7 +30,7 @@ export default function App(){
           <Nav.Item><Link to="/" className="text-light p-3">HOME</Link></Nav.Item>
         </Nav>
         <Nav className="mr-right">
-        <Nav.Item><Link to="/login" className="text-light p-3">ログイン</Link></Nav.Item>
+          <Nav.Item><Link to="/login" className="text-light p-3">ログイン</Link></Nav.Item>
         </Nav>
       </Navbar>
       <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} />
@@ -39,6 +40,7 @@ export default function App(){
     </BrowserRouter>
   )
 }
+export default connect()(App);
 
 
 
