@@ -8,6 +8,8 @@ const storeReducer = (state = init_data, action)=>{
   switch (action.type) {
     case 'LOGIN':
       return loginReducer(state, action);
+    case 'LOGOUT':
+      return logoutReducer(state, action);
     default:
       return state
   }
@@ -22,11 +24,25 @@ const loginReducer = (state, action)=>{
     userData: newData
   }
 }
+const logoutReducer =(state, action)=>{
+  if(action.out){
+    let newData = state.userData.slice();
+    newData.splice(0);
+    return{
+      userData: newData
+    }
+  }
+}
+
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
   return{
     type:'LOGIN',
     user: user
   };
+}
+export const logoutAction =(state, action)=>{
+  type: 'LOGOUT'
+  out: true
 }
 export default createStore(storeReducer)
