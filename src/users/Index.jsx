@@ -70,7 +70,7 @@ const userLink ={
     }
    }
    const userShowaccess = (id)=>{
-     alert(id);
+     props.history.push('/users/show')
    }
  
   return(
