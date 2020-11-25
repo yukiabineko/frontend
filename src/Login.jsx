@@ -48,7 +48,7 @@ const  Login = (props)=>{
   return(
    <>
     <div className="text-center mt-5 mb-4">
-        <h2>ログイン</h2>
+        <h2 className="text-secondary">ログイン</h2>
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="p-5 bg-light shadow">
@@ -61,6 +61,7 @@ const  Login = (props)=>{
                 placeholder="(例)sample@example.com" 
                 className="h8" 
                 onChange={inputText}
+                required
                 value={state.email}
               />
             </Form.Group>
@@ -72,6 +73,7 @@ const  Login = (props)=>{
                  name="password"
                  placeholder="(例)password" 
                  onChange={inputText}
+                 required
                  value={state.password}
               />
             </Form.Group>

@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import './users.css';
+import { connect } from 'react-redux';
 
  function Index(props){
   const[state,setState] = useState({
-    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
+    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [],
+    logincheck: props.Login
   })
   /*************APIによるuser一覧**********************************/
    async function userCall(){
@@ -25,11 +27,23 @@ import './users.css';
       })
   }
     useState(userCall());
+/******************************ログイン/未ログイン切り替え********************************************************** */
+    const loginUserCheck = ()=>{
+      if(props.userData.length===0){
+        props.history.push('/login');  
+      }
+    }
+   useEffect(()=>{
+     loginUserCheck();
+   })
+
   /****************************編集**************************************** */
    const editPage = (id)=>{
      props.editIdget(id);
      props.history.push("/users/edit");
    } 
+
+
    /****************************削除*********************************************** */
    function deleteUser(i){
     if(window.confirm('削除してよろしいですか？')){
@@ -96,4 +110,4 @@ import './users.css';
     </div>
   )
 }
-export default withRouter(Index)
+export default withRouter(connect((state)=>state)(Index))

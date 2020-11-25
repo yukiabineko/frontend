@@ -19,21 +19,18 @@ const loginReducer = (state, action)=>{
   let newData = state.userData.slice();
   newData.splice(0);
   newData.push(action.user);
-  alert(JSON.stringify(newData));
+ 
   return{
     userData: newData
   }
 }
 const logoutReducer =(state, action)=>{
-  if(action.out){
     let newData = state.userData.slice();
     newData.splice(0);
     return{
       userData: newData
     }
   }
-}
-
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
   return{
@@ -41,8 +38,9 @@ export  const sendLoginData = (user)=>{
     user: user
   };
 }
-export const logoutAction =(state, action)=>{
-  type: 'LOGOUT'
-  out: true
+export const logoutAction =()=>{
+  return{
+    type: 'LOGOUT'
+  }
 }
 export default createStore(storeReducer)
