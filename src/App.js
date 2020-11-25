@@ -7,6 +7,7 @@ import Index from './users/Index';
 import Login from './Login';
 import userNew from './users/New'
 import Edit from './users/Edit'
+import UserShow from './users/Show';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -56,6 +57,7 @@ import { logoutAction } from './store/Store';
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
+      <Route path="/users/show" component={UserShow} />
     </BrowserRouter>
   )
 }
