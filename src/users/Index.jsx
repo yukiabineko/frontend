@@ -5,10 +5,21 @@ import { withRouter } from 'react-router-dom';
 import './users.css';
 import { connect } from 'react-redux';
 
+
+const userLink ={
+  border: 'none',
+  background: 'none',
+  color: '#333399',
+  outline: 'none',
+  fontWeight: 'bold',
+  textDecoration: 'underline',
+  
+}
+
+
  function Index(props){
   const[state,setState] = useState({
-    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : [],
-    logincheck: props.Login
+    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
   })
   /*************APIによるuser一覧**********************************/
    async function userCall(){
@@ -58,6 +69,9 @@ import { connect } from 'react-redux';
     
     }
    }
+   const userShowaccess = (id)=>{
+     alert(id);
+   }
  
   return(
     <div className="image">
@@ -80,7 +94,10 @@ import { connect } from 'react-redux';
                 {state.data.map((value)=>(
                   <tr key={value.name}>
                      <td className="text-center align-middle">
-                       {value.name}
+                       <button 
+                         style={userLink} 
+                         onClick={(i)=>userShowaccess(value.id)}
+                       >{value.name}</button>
                     </td>
                     <td  className="text-center align-middle">
                       {value.email}

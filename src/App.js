@@ -14,17 +14,12 @@ import { logoutAction } from './store/Store';
  function App(props){
   const[state, setState] = useState({
     editId: 0,
-    deleteId: 0,
-    login: false
+    deleteId: 0
   })
   const userlogout = ()=>{
     let action = logoutAction();
     props.dispatch(action);
-    setState({
-      editId: state.editId,
-      deleteId: state.deleteId,
-      login: false
-    })
+    
   }
   const getEditId = (id)=>{
 
@@ -48,15 +43,16 @@ import { logoutAction } from './store/Store';
              <button 
               className="logout"
               onClick={userlogout}
+              data-testid="logintrue"
             >ログアウト</button>
            </Nav.Item>
           : 
-          <Nav.Item><Link to="/login" className="text-light p-3">ログイン</Link></Nav.Item>
+          <Nav.Item><Link to="/login" className="text-light p-3" data-testid="loginfalse">ログイン</Link></Nav.Item>
           }
          
         </Nav>
       </Navbar>
-      <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} Login={state.login} />} /> 
+      <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
