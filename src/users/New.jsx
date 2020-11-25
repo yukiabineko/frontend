@@ -17,6 +17,11 @@ const  New = (props)=>{
     password: '',
     confirmation: ''
   })
+  const loginUserCheck = ()=>{
+    if(!props.userData){
+      props.history.push('/login')  
+    }
+  }
 
   const loginComponent = ()=>{
     props.history.push('/login')  

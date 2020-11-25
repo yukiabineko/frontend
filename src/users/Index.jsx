@@ -1,8 +1,21 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import './users.css';
+import { connect } from 'react-redux';
+
+
+const userLink ={
+  border: 'none',
+  background: 'none',
+  color: '#333399',
+  outline: 'none',
+  fontWeight: 'bold',
+  textDecoration: 'underline',
+  
+}
+
 
  function Index(props){
   const[state,setState] = useState({
@@ -25,11 +38,23 @@ import './users.css';
       })
   }
     useState(userCall());
+/******************************ログイン/未ログイン切り替え********************************************************** */
+    const loginUserCheck = ()=>{
+      if(props.userData.length===0){
+        props.history.push('/login');  
+      }
+    }
+   useEffect(()=>{
+     loginUserCheck();
+   })
+
   /****************************編集**************************************** */
    const editPage = (id)=>{
      props.editIdget(id);
      props.history.push("/users/edit");
    } 
+
+
    /****************************削除*********************************************** */
    function deleteUser(i){
     if(window.confirm('削除してよろしいですか？')){
@@ -43,6 +68,9 @@ import './users.css';
        })
     
     }
+   }
+   const userShowaccess = (id)=>{
+     alert(id);
    }
  
   return(
@@ -66,7 +94,10 @@ import './users.css';
                 {state.data.map((value)=>(
                   <tr key={value.name}>
                      <td className="text-center align-middle">
-                       {value.name}
+                       <button 
+                         style={userLink} 
+                         onClick={(i)=>userShowaccess(value.id)}
+                       >{value.name}</button>
                     </td>
                     <td  className="text-center align-middle">
                       {value.email}
@@ -96,4 +127,4 @@ import './users.css';
     </div>
   )
 }
-export default withRouter(Index)
+export default withRouter(connect((state)=>state)(Index))
