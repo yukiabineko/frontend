@@ -2,7 +2,8 @@ import React, { useState} from 'react';
 import axios from 'axios';
 import { render, screen } from '@testing-library/react';
 import App from '../App';
-import Index from '../users/Index'
+import Index from '../users/Index';
+import ItemIndex from '../items/Index';
 import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';

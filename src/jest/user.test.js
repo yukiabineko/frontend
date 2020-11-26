@@ -5,7 +5,7 @@ import { act } from "react-dom/test-utils";
 import App from '../App';
 import Login from '../Login';
 import New from '../users/New';
-import Enzyme, { mount, shallow } from 'enzyme';
+import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Provider } from 'react-redux';
 import store from '../store/Store';

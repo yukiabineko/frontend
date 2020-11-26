@@ -8,6 +8,7 @@ import Login from './Login';
 import userNew from './users/New'
 import Edit from './users/Edit'
 import UserShow from './users/Show';
+import ItemIndex from './items/Index';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -35,9 +36,11 @@ import { logoutAction } from './store/Store';
      <Navbar bg="dark">
         <Navbar.Brand href="#home"　className="text-white font-weight-bold">加工依頼アプリ</Navbar.Brand>
         <Nav className="mr-auto">
-        <Nav.Item className="text-info">{props.userData.length >0  ?`${props.userData[0].name}さん`: ''}</Nav.Item>
+          <Nav.Item className="text-info">{props.userData.length >0  ?`${props.userData[0].name}さん`: ''}</Nav.Item>
           <Nav.Item><Link to="/" className="text-light p-3">HOME</Link></Nav.Item>
+          <Nav.Item><Link to="/items" className="text-light p-3">商品一覧</Link></Nav.Item>
         </Nav>
+        
         <Nav className="mr-right">
           {props.userData.length >0? 
            <Nav.Item>
@@ -58,6 +61,7 @@ import { logoutAction } from './store/Store';
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
+      <Route path="/items" component={ItemIndex} />
     </BrowserRouter>
   )
 }
