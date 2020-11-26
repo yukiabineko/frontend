@@ -4,10 +4,23 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-
+let itemData = [];
 
  function Index(props){
   
+  /*************APIによるitem一覧**********************************/
+  async function itemsCall(){
+    await axios
+      .get('https://uematsu-backend.herokuapp.com/items')
+      .then((res)=>{
+         itemData = res.data;
+      })
+      .catch((error)=>{
+         console.log(error);
+      })
+     
+   }
+   useState(itemsCall());
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
@@ -37,7 +50,15 @@ import { connect } from 'react-redux';
                   <th className="text-center align-middle bg-dark text-white">カテゴリー</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                {itemData.map((item)=>(
+                  <tr>
+                    <td>{item.name}</td>
+                    <td>{item.price}</td>
+                    <td>{item.category}</td>
+                  </tr>
+                ))}
+              </tbody>
                
             </Table>
             :
