@@ -21,12 +21,21 @@ const  New = (props)=>{
     props.history.push('/login')  
   }
   const itemInput = (e)=>{
-   
+   const target = e.target;
+   const name = target.name;
+   const value = target.value;
+   setState({...state, [name]: value})
   }
   const sendItemParameter = (e)=>{
     e.preventDefault();
-    
-    
+    if(state.category === ''){
+      setShow({display: 'block'});
+    }
+    else{
+      alert(JSON.stringify(state));
+      setShow({display: 'none'});
+    }
+ 
   }
   return(
    <>
@@ -55,7 +64,11 @@ const  New = (props)=>{
 
             <Form.Group>
               <Form.Label>カテゴリー</Form.Label>
-                <Form.Control as="select" defaultValue="Choose...">
+              <div class="balloon1" style={show}>
+                <p>選択してください。</p>
+              </div>
+                <Form.Control as="select" name="category" value={state.category} onChange={itemInput}>
+                  <option value="">選択してください  </option>
                  {["青魚","白身魚","大型魚","いか、タコ","貝","その他"].map((value, i)=>
                    <option key={i} value={value}>{value}</option>
                  )}
@@ -64,7 +77,13 @@ const  New = (props)=>{
                
             <Form.Group>
               <Form.Label>商品説明</Form.Label>
-              <textarea name="i fo" cols="30" rows="10" className="form-control"></textarea>
+              <textarea 
+                name="info" 
+                cols="30" 
+                rows="10" 
+                value={state.info}
+                onChange={itemInput}
+                className="form-control">{state.info}</textarea>
             </Form.Group>
 
               <Button 
