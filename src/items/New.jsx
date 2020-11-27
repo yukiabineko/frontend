@@ -17,8 +17,8 @@ const  New = (props)=>{
   })
   
 
-  const loginComponent = ()=>{
-    props.history.push('/login')  
+  const indexComponent = ()=>{
+    props.history.push('/items')  
   }
   const itemInput = (e)=>{
    const target = e.target;
@@ -32,7 +32,26 @@ const  New = (props)=>{
       setShow({display: 'block'});
     }
     else{
-      alert(JSON.stringify(state));
+      let data = {
+        name: state.name,
+        price: state.price,
+        category: state.category,
+        info: state.info
+      }
+      axios.post('https://uematsu-backend.herokuapp.com/items', data)
+      .then(function (response) {
+        /*railsからメッセージ*/
+        alert(response.data.message); 
+        setState({
+          name: '',
+          price: '',
+          category: '',
+          info: ''
+        })
+      })
+      .catch(function(){
+        alert('error');
+      })
       setShow({display: 'none'});
     }
  
@@ -46,7 +65,7 @@ const  New = (props)=>{
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
         <Button 
           variant="secondary" 
-          onClick={loginComponent}
+          onClick={indexComponent}
           className="mb-3"
         >
          戻る
