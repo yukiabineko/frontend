@@ -31,7 +31,9 @@ let itemData = [];
    useEffect(()=>{
      loginUserCheck();
    })
-
+   const newPage = ()=>{
+    props.history.push('/items_new')
+   }
   
   return(
     <div className>
@@ -40,8 +42,11 @@ let itemData = [];
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
-          {props.userData.length > 0 ?
-
+          <Button 
+            variant="primary"
+            onClick={newPage}
+          >新規商品登録</Button>
+          {itemData.length > 0 ?
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -62,7 +67,9 @@ let itemData = [];
                
             </Table>
             :
-            <div>データなし</div>
+            <div className="text-center bg-info text-white font-weight-bold p-5 mt-3">
+              データを表示できません。
+            </div>
             }
         </Col>
       </Row>
