@@ -9,6 +9,7 @@ import userNew from './users/New'
 import Edit from './users/Edit'
 import UserShow from './users/Show';
 import ItemIndex from './items/Index';
+import ItemNew from './items/New';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -62,6 +63,7 @@ import { logoutAction } from './store/Store';
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
       <Route path="/items" component={ItemIndex} />
+      <Route path="/items_new" component={ItemNew} />
     </BrowserRouter>
   )
 }
