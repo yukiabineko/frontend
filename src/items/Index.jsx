@@ -42,7 +42,8 @@ import { connect } from 'react-redux';
    }
    /****************************編集**************************************** */
    const editPage = (id)=>{
-    props.history.push("/item_edit");
+    props.itemEditIdget(id);
+    props.history.push("/items_edit");
   } 
   
   return(
