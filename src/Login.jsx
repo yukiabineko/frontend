@@ -34,6 +34,7 @@ const  Login = (props)=>{
           password: '',
           confirmation: ''
         })
+        props.history.push('/users/show');
       })
       .catch(function(err){
         alert(err);
