@@ -42,6 +42,33 @@ const  ItemEdit = (props)=>{
   }
   const sendItemParameter = (e)=>{
     e.preventDefault();
+    if(state.category === ''){
+      setShow({display: 'block'});
+    }
+    else{
+      let data = {
+        name: state.name,
+        price: state.price,
+        category: state.category,
+        info: state.info
+      }
+      axios.patch(`https://uematsu-backend.herokuapp.com/items/${props.id}`, data)
+      .then(function (response) {
+        /*railsからメッセージ*/
+        alert(response.data.message); 
+        setState({
+          name: '',
+          price: '',
+          category: '',
+          info: ''
+        })
+        props.history.push('/items');
+      })
+      .catch(function(){
+        alert('error');
+      })
+      setShow({display: 'none'});
+    }
     
   }
   return(

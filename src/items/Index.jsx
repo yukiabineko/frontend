@@ -3,19 +3,21 @@ import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import Show from '../items/Show';
 
 
  function Index(props){
   let localData = JSON.parse(localStorage.getItem('items'))
-  let itemData = localData ? localData : [];
+  const[itemData, setState] = useState(
+    localData ? localData : []
+  )
   /*************APIによるitem一覧**********************************/
   async function itemsCall(){
     await axios
       .get('https://uematsu-backend.herokuapp.com/items')
       .then((res)=>{
          localStorage.removeItem('items');
-         itemData = res.data;
+         setState(res.data);
          localStorage.setItem('items', JSON.stringify(res.data));
       })
       .catch((error)=>{
@@ -24,9 +26,6 @@ import { connect } from 'react-redux';
      
    }
    useState(itemsCall());
-   useEffect(()=>{
-     itemsCall();
-   })
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
@@ -51,12 +50,14 @@ import { connect } from 'react-redux';
       <div className="text-center mt-5 mb-4">
         <h2 data-testid="usertitle">商品一覧</h2>
       </div>
+      
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
           <Button 
             variant="primary"
             onClick={newPage}
           >新規商品登録</Button>
+          <Show />
           {itemData.length > 0 ?
             <Table striped bordered hover>
               <thead>
