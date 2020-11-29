@@ -10,7 +10,6 @@ import Edit from './users/Edit'
 import UserShow from './users/Show';
 import ItemIndex from './items/Index';
 import ItemNew from './items/New';
-import ItemShow from './items/Show';
 import ItemEdit from './items/Edit';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
