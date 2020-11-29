@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
-const userLink ={
+const itemLink ={
   border: 'none',
   background: 'none',
   color: '#333399',
@@ -66,6 +66,20 @@ const userLink ={
     props.itemEditIdget(id);
     props.history.push("/items_edit");
   } 
+  /************************************************************************** */
+  const deleteItem = (i)=>{
+    if(window.confirm('削除してよろしいですか？')){
+      axios
+       .delete(`https://uematsu-backend.herokuapp.com/items/${i}`)
+       .then((response)=>{
+         alert(response.data.message); 
+       })
+       .catch((error)=>{
+          console.log(error);
+       })
+    
+    }
+  }
   /*****************************モーダル開く********************************************** */
   const openModal = (item)=>{
     modalData.splice(0);
@@ -79,7 +93,7 @@ const userLink ={
   return(
     <div className>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="usertitle">商品一覧</h2>
+        <h2 data-testid="itemstitle">商品一覧</h2>
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
@@ -103,7 +117,7 @@ const userLink ={
                   <tr>
                     <td>
                       <button 
-                         style={userLink} 
+                         style={itemLink} 
                          onClick={(i)=>openModal(item)}
                        >{item.name}</button>
                     </td>
@@ -115,6 +129,11 @@ const userLink ={
                         onClick={(i)=>editPage(item.id)}
                         className="ml-3"
                       >編集</Button>
+                    <Button 
+                        variant="danger"
+                        onClick={(i)=>deleteItem(item.id)}
+                        className="ml-3"
+                      >削除</Button>
                     </td>
                   </tr>
                 ))}
@@ -140,7 +159,28 @@ const userLink ={
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-         
+          <Table bordered>
+           <tbody>
+             <tr>
+               <th className="bg-primary text-white">商品名</th>
+               <td className="text-center font-weight-bold">{show.data.length ===0? '' : show.data[0].name}</td>
+             </tr>
+             <tr>
+               <th className="bg-primary text-white">価格</th>
+               <td className="text-center font-weight-bold">{show.data.length ===0? '' : show.data[0].price}</td>
+             </tr>
+             <tr>
+               <th className="bg-primary text-white">カテゴリー</th>
+               <td className="text-center font-weight-bold">{show.data.length ===0? '' : show.data[0].category}</td>
+             </tr>
+             <tr>
+               <th colSpan="2" className="text-center bg-primary text-white">商品説明</th>
+             </tr>
+             <tr>
+               <td colSpan="2">{show.data.length ===0? '' : show.data[0].info}</td>
+             </tr>
+           </tbody>
+          </Table>
         </Modal.Body>
       </Modal>
     </div>
