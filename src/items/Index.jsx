@@ -1,16 +1,38 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Table, Button } from 'react-bootstrap';
+import { Row, Col, Table, Button,Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Show from '../items/Show';
+
+
+const userLink ={
+  border: 'none',
+  background: 'none',
+  color: '#333399',
+  outline: 'none',
+  fontWeight: 'bold',
+  textDecoration: 'underline',
+  
+}
 
 
  function Index(props){
   let localData = JSON.parse(localStorage.getItem('items'))
+  let modalData = [];
+
+
+  /************************ステート*************************************** */
   const[itemData, setState] = useState(
     localData ? localData : []
   )
+  /*--モーダル--*/
+  const [show, setShow] = useState({
+    status: false,
+    data: []
+  });
+
+  const handleClose = () => setShow({status: false, data: show.data});
+  
   /*************APIによるitem一覧**********************************/
   async function itemsCall(){
     await axios
@@ -44,20 +66,28 @@ import Show from '../items/Show';
     props.itemEditIdget(id);
     props.history.push("/items_edit");
   } 
+  /*****************************モーダル開く********************************************** */
+  const openModal = (item)=>{
+    modalData.splice(0);
+    modalData.push(item);
   
+    setShow({
+      status: true,
+      data: modalData
+    })
+  }
   return(
     <div className>
       <div className="text-center mt-5 mb-4">
         <h2 data-testid="usertitle">商品一覧</h2>
       </div>
-      
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
           <Button 
             variant="primary"
             onClick={newPage}
           >新規商品登録</Button>
-          <Show />
+         
           {itemData.length > 0 ?
             <Table striped bordered hover>
               <thead>
@@ -69,9 +99,14 @@ import Show from '../items/Show';
                 </tr>
               </thead>
               <tbody>
-                {itemData.map((item)=>(
+                {itemData.map((item,i)=>(
                   <tr>
-                    <td>{item.name}</td>
+                    <td>
+                      <button 
+                         style={userLink} 
+                         onClick={(i)=>openModal(item)}
+                       >{item.name}</button>
+                    </td>
                     <td className="text-right text-danger">{item.price}</td>
                     <td>{item.category}</td>
                     <td>
@@ -93,6 +128,21 @@ import Show from '../items/Show';
             }
         </Col>
       </Row>
+      <Modal
+         show={show.status}
+         onHide={handleClose}
+         backdrop="static"
+         keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title className="font-weight-bold">
+             {show.data.length ===0? '' : `${show.data[0].name}詳細`}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+         
+        </Modal.Body>
+      </Modal>
     </div>
   )
 }
