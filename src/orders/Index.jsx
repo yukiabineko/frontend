@@ -1,0 +1,116 @@
+import { useEffect, useState } from 'react';
+import { Row, Col, Table, Button } from 'react-bootstrap';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+
+ function Index(props){
+  const[state,setState] = useState({
+    data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
+  })
+  /*************APIによるuser一覧**********************************/
+   async function orderCall(){
+     
+     await axios
+       .get('https://uematsu-backend.herokuapp.com/orders')
+       .then((res)=>{
+          localStorage.setItem('orders', JSON.stringify(res.data));
+          
+       })
+       .catch((error)=>{
+          console.log(error);
+       })
+       setState({
+        data: JSON.parse(localStorage.getItem('orders'))
+      })
+  }
+    useState(orderCall());
+/******************************ログイン/未ログイン切り替え********************************************************** */
+    const loginUserCheck = ()=>{
+      if(props.userData.length===0){
+        props.history.push('/login');  
+      }
+    }
+   useEffect(()=>{
+     loginUserCheck();
+   })
+
+  /****************************編集**************************************** */
+   const editPage = (id)=>{
+     props.editIdget(id);
+     props.history.push("order-edit");
+   } 
+
+
+   /****************************削除*********************************************** */
+   function deleteOrder(i){
+    if(window.confirm('削除してよろしいですか？')){
+      axios
+       .delete(`https://uematsu-backend.herokuapp.com/orders/${i}`)
+       .then((response)=>{
+         alert(response.data.message); 
+       })
+       .catch((error)=>{
+          console.log(error);
+       })
+    
+    }
+   }
+ 
+  return(
+    <div className="image">
+      <div className="text-center mt-5 mb-4">
+        <h2 data-testid="usertitle">店頭商品一覧</h2>
+      </div>
+      <Row>
+
+        <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
+          <Button 
+            variant="primary"
+            onClick={()=>props.history.push('orders_new')}
+          >店頭商品追加</Button>
+          {state.data.length > 0 ?
+
+            <Table striped bordered hover>
+              <thead>
+                <tr>
+                  <th className="text-center align-middle bg-dark text-white">商品名</th>
+                  <th className="text-center align-middle bg-dark text-white">価格</th>
+                  <th className="text-center align-middle bg-dark text-white">カテゴリー</th>
+                  <th className="text-center align-middle bg-dark text-white">在庫</th>
+                  <th className="text-center align-middle bg-dark text-white"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {state.data.map((value)=>(
+                  <tr key={value.name}>
+                    <td className="text-center align-middle">{value.name}</td>
+                    <td  className="text-center align-middle">{value.price}</td>
+                    <td  className="text-center align-middle">{value.category}</td>
+                    <td  className="text-center align-middle">{value.stock}</td>
+                    <td>
+                      <Button 
+                        variant="primary"
+                        onClick={(i)=>editPage(value.id)}
+                        className="ml-3"
+                      >編集</Button>
+
+                      <Button 
+                        variant="danger"
+                        className="ml-3"
+                      >削除</Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            :
+            <div>データなし</div>
+            }
+        </Col>
+      </Row>
+    </div>
+  )
+}
+export default withRouter(connect((state)=>state)(Index))

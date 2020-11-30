@@ -11,6 +11,8 @@ import UserShow from './users/Show';
 import ItemIndex from './items/Index';
 import ItemNew from './items/New';
 import ItemEdit from './items/Edit';
+import OrderIndex from './orders/Index';
+import OrderNew from './orders/New';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -51,6 +53,7 @@ import { logoutAction } from './store/Store';
           <Nav.Item className="text-info">{props.userData.length >0  ?`${props.userData[0].name}さん`: ''}</Nav.Item>
           <Nav.Item><Link to="/" className="text-light p-3">HOME</Link></Nav.Item>
           <Nav.Item><Link to="/items" className="text-light p-3">商品一覧</Link></Nav.Item>
+          <Nav.Item><Link to="/orders" className="text-light p-3">店頭商品一覧</Link></Nav.Item>
         </Nav>
         
         <Nav className="mr-right">
@@ -76,6 +79,8 @@ import { logoutAction } from './store/Store';
       <Route path="/items"  render={()=><ItemIndex itemEditIdget={(id)=>getItemEditId(id)} />} />
       <Route path="/items_new" component={ItemNew} />
       <Route path="/items_edit" render={ () => <ItemEdit id={state.itemEditId} />}  />
+      <Route path="/orders" component={OrderIndex} />
+      <Route path="/orders_new" component={OrderNew} />
     </BrowserRouter>
   )
 }
