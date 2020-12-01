@@ -77,7 +77,7 @@ import { connect } from 'react-redux';
                 <tr>
                   <th className="text-center align-middle bg-dark text-white">商品名</th>
                   <th className="text-center align-middle bg-dark text-white">価格</th>
-                  <th className="text-center align-middle bg-dark text-white">カテゴリー</th>
+                  <th className="text-center align-middle bg-dark text-white">合計金額</th>
                   <th className="text-center align-middle bg-dark text-white">在庫</th>
                   <th className="text-center align-middle bg-dark text-white"></th>
                 </tr>
@@ -87,7 +87,7 @@ import { connect } from 'react-redux';
                   <tr key={value.name}>
                     <td className="text-center align-middle">{value.name}</td>
                     <td  className="text-center align-middle">{value.price}</td>
-                    <td  className="text-center align-middle">{value.category}</td>
+                    <td  className="text-center align-middle">{Number(value.price) * Number(value.stock)}</td>
                     <td  className="text-center align-middle">{value.stock}</td>
                     <td>
                       <Button 
