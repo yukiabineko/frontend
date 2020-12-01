@@ -3,9 +3,12 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import '../App.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
+import Select from 'react-select';
+import 'react-select/dist/react-select.browser.cjs';
+import { formSelectItems } from './setItem';
 
 const  New = (props)=>{
-
+  const options = formSelectItems();
   return(
    <>
       <div className="text-center mt-5 mb-4">
@@ -22,7 +25,11 @@ const  New = (props)=>{
           <Form>
             <Form.Group>
               <Form.Label>商品名</Form.Label>
-              <Form.Control type="text" name="name" placeholder="*必須です。" className="h8" required />
+              <Select
+                valueKey="id"
+                labelKey="item"
+                options={options}
+              />
             </Form.Group>
 
             <Form.Group>
