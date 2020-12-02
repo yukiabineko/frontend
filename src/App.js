@@ -13,6 +13,7 @@ import ItemNew from './items/New';
 import ItemEdit from './items/Edit';
 import OrderIndex from './orders/Index';
 import OrderNew from './orders/New';
+import OrderEdit from './orders/Edit';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -21,7 +22,8 @@ import { logoutAction } from './store/Store';
   const[state, setState] = useState({
     editId: 0,
     deleteId: 0,
-    itemEditId:0
+    itemEditId:0,
+    OrderEditId: 0
   })
   const userlogout = ()=>{
     let action = logoutAction();
@@ -33,7 +35,8 @@ import { logoutAction } from './store/Store';
     setState({
       editId: id,
       deleteId: state.deleteId,
-      itemEditId: state.itemEditId
+      itemEditId: state.itemEditId,
+      OrderEditId: state.OrderEditId
     })
   }
   const getItemEditId = (id)=>{
@@ -41,7 +44,17 @@ import { logoutAction } from './store/Store';
     setState({
       editId: state.editId,
       deleteId: state.deleteId,
-      itemEditId: id
+      itemEditId: id,
+      OrderEditId: state.OrderEdit
+    })
+  }
+  const getOrderEditId = (id)=>{
+
+    setState({
+      editId: state.editId,
+      deleteId: state.deleteId,
+      itemEditId: state.itemEditId,
+      OrderEditId: id
     })
   }
   
@@ -79,8 +92,9 @@ import { logoutAction } from './store/Store';
       <Route path="/items"  render={()=><ItemIndex itemEditIdget={(id)=>getItemEditId(id)} />} />
       <Route path="/items_new" component={ItemNew} />
       <Route path="/items_edit" render={ () => <ItemEdit id={state.itemEditId} />}  />
-      <Route path="/orders" component={OrderIndex} />
+      <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
+      <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />
     </BrowserRouter>
   )
 }

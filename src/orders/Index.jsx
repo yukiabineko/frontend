@@ -38,8 +38,8 @@ import { connect } from 'react-redux';
 
   /****************************編集**************************************** */
    const editPage = (id)=>{
-     props.editIdget(id);
-     props.history.push("order-edit");
+     props.orderEditIdget(id);
+     props.history.push("/orders_edit");
    } 
 
 
