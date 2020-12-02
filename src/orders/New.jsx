@@ -8,7 +8,37 @@ import 'react-select/dist/react-select.browser.cjs';
 import { formSelectItems } from './setItem';
 
 const  New = (props)=>{
+  const[state, setState] = useState({
+    price: '',
+    stock: ''
+  });
+  const [selectedOption, setSelectedOption] = useState(null);
   const options = formSelectItems();
+
+  
+  const dochange = (e)=>{
+    const target = e.target;
+    const name = target.name;
+    const value = target.value
+    setState({...state, [name]: value});
+  }
+  const doSubmit = (e)=>{
+    e.preventDefault();
+    let sendData ={name: selectedOption.value, price: state.price, stock: state.stock};
+    axios.post('https://uematsu-backend.herokuapp.com/orders', sendData)
+      .then(function (response) {
+        /*railsからメッセージ*/
+        alert(response.data.message); 
+        setState({
+          price: '',
+          stock: '',
+        })
+        setSelectedOption(null);
+      })
+      .catch(function(){
+        alert('error');
+      })
+  }
   return(
    <>
       <div className="text-center mt-5 mb-4">
@@ -22,19 +52,35 @@ const  New = (props)=>{
         >
          戻る
         </Button>
-          <Form>
+          <Form onSubmit={doSubmit}>
             <Form.Group>
               <Form.Label>商品名</Form.Label>
               <Select
-                valueKey="id"
-                labelKey="item"
                 options={options}
+                defaultvalue={selectedOption}
+                onChange={setSelectedOption}
               />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>価格</Form.Label>
-              <Form.Control type="price" name="price" placeholder="*必須です。" required />
+              <Form.Control 
+                type="number" 
+                name="price" 
+                placeholder="*必須です。" 
+                value={state.price} required
+                onChange={dochange}
+              />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>在庫</Form.Label>
+              <Form.Control 
+                type="number" 
+                name="stock" 
+                value={state.stock}
+                onChange={dochange}
+              />
             </Form.Group>
 
 
