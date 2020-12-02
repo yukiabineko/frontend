@@ -1,22 +1,39 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import '../App.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import Select from 'react-select';
+import '../users/users.css';
 import 'react-select/dist/react-select.browser.cjs';
 import { formSelectItems } from './setItem';
 
-const  New = (props)=>{
-  const[state, setState] = useState({
-    price: '',
-    stock: ''
+/**************************************************************************************** */
+const  OrderEdit = (props)=>{
+
+ const getitemData = ()=>{
+  let orders = []
+  let datas = JSON.parse(localStorage.getItem('orders'));
+  datas.forEach((data)=>{
+    if(data.id === props.id){
+     orders.push(data);
+    }
   });
-  const [selectedOption, setSelectedOption] = useState(null);
+  return orders
+ }
+ let orders = getitemData();
+ 
+
+/*********************************state******************************************************* */
+  
+  const[state, setState] = useState({
+    price: orders[0].price,
+    stock: orders[0].stock
+  })
+  const [selectedOption, setSelectedOption] = useState({value:　orders[0].name});
   const options = formSelectItems();
 
-  const backIndex = ()=>{
-    props.history.push('/orders');
+  const homeComponent = ()=>{
+    props.history.push('/orders')  
   }
   const dochange = (e)=>{
     const target = e.target;
@@ -26,19 +43,11 @@ const  New = (props)=>{
   }
   const doSubmit = (e)=>{
     e.preventDefault();
-    let sendData ={name: selectedOption.value, price: state.price, stock: state.stock};
-    axios.post('https://uematsu-backend.herokuapp.com/orders', sendData)
-      .then(function (response) {
-        /*railsからメッセージ*/
-        alert(response.data.message); 
-      })
-      .catch(function(){
-        alert('error');
-      })
-      props.history.push('/orders');
+    
   }
+  
   return(
-   <>
+    <>
       <div className="text-center mt-5 mb-4">
         <h2 data-testid="userNewtitle">店頭商品追加</h2>
       </div> 
@@ -47,7 +56,7 @@ const  New = (props)=>{
         <Button 
           variant="secondary" 
           className="mb-3"
-          onClick={backIndex}
+          onClick={homeComponent}
         >
          戻る
         </Button>
@@ -94,6 +103,7 @@ const  New = (props)=>{
         </Col>
       </Row>
    </>
-  )
+   )
 }
-export default withRouter(New)
+export default withRouter(OrderEdit)
+/***************************************************************************************************** */
