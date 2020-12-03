@@ -8,6 +8,9 @@ const  New = (props)=>{
   const[show,setShow] =useState({
     display: 'none'
   })
+  const[image, setImage] = useState({
+    file: null
+  })
 
   const[state, setState] = useState({
     name: '',
@@ -19,6 +22,11 @@ const  New = (props)=>{
 
   const indexComponent = ()=>{
     props.history.push('/items')  
+  }
+  const updateFile = (e)=>{
+    setImage({
+      file: e.target.files[0]
+    })
   }
   const itemInput = (e)=>{
    const target = e.target;
@@ -32,6 +40,26 @@ const  New = (props)=>{
       setShow({display: 'block'});
     }
     else{
+      /* PHPへの送信 */
+      const params = new FormData();
+      params.append('file', image.file);
+      params.append('name', state.name);
+      axios.post('http://yukiabineko.sakura.ne.jp/send-react.php',
+      　　　　　　　params,
+                  {
+                    headers:{
+                      'content-type': 'multipart/form-data',
+                    },
+                  }
+      ).then((res)=>{
+          console.log(res.data);
+      }).catch(()=>{
+        alert('ERROR');
+      })
+
+
+      /* rails側への送信*/
+      
       let data = {
         name: state.name,
         price: state.price,
@@ -54,7 +82,9 @@ const  New = (props)=>{
       })
       setShow({display: 'none'});
     }
- 
+    setImage({
+      file: null
+    })
   }
   return(
    <>
@@ -71,6 +101,9 @@ const  New = (props)=>{
          戻る
         </Button>
           <Form onSubmit={sendItemParameter}>
+            <Form.Group>
+              <Form.File  label="商品画像" multiple accept="image/*" onChange={updateFile} />
+            </Form.Group>
             <Form.Group>
               <Form.Label>商品名</Form.Label>
               <Form.Control type="text" name="name" placeholder="*必須です。" className="h8" required onChange={itemInput} value={state.name} />
