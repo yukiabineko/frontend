@@ -1,22 +1,35 @@
 import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
-import '../App.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
-import Select from 'react-select';
-import 'react-select/dist/react-select.browser.cjs';
-import { formSelectItems } from './setItem';
+import '../users/users.css';
 
-const  New = (props)=>{
-  const[state, setState] = useState({
-    price: '',
-    stock: ''
+/**************************************************************************************** */
+const  OrderEdit = (props)=>{
+
+ const getitemData = ()=>{
+  let orders = []
+  let datas = JSON.parse(localStorage.getItem('orders'));
+  datas.forEach((data)=>{
+    if(data.id === props.id){
+     orders.push(data);
+    }
   });
-  const [selectedOption, setSelectedOption] = useState(null);
-  const options = formSelectItems();
+  return orders
+ }
+ let orders = getitemData();
+ 
 
-  const backIndex = ()=>{
-    props.history.push('/orders');
+/*********************************state******************************************************* */
+  
+  const[state, setState] = useState({
+    name: orders[0].name,
+    price: orders[0].price,
+    stock: orders[0].stock
+  })
+
+  const homeComponent = ()=>{
+    props.history.push('/orders')  
   }
   const dochange = (e)=>{
     const target = e.target;
@@ -26,8 +39,8 @@ const  New = (props)=>{
   }
   const doSubmit = (e)=>{
     e.preventDefault();
-    let sendData ={name: selectedOption.value, price: state.price, stock: state.stock};
-    axios.post('https://uematsu-backend.herokuapp.com/orders', sendData)
+    let sendData ={name:state.name, price: state.price, stock: state.stock};
+    axios.patch(`https://uematsu-backend.herokuapp.com/orders/${props.id}`, sendData)
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
@@ -37,28 +50,29 @@ const  New = (props)=>{
       })
       props.history.push('/orders');
   }
+  
   return(
-   <>
+    <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle">店頭商品追加</h2>
+        <h2 data-testid="userNewtitle">{orders[0].name}編集</h2>
       </div> 
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
         <Button 
           variant="secondary" 
           className="mb-3"
-          onClick={backIndex}
+          onClick={homeComponent}
         >
          戻る
         </Button>
           <Form onSubmit={doSubmit}>
             <Form.Group>
               <Form.Label>商品名</Form.Label>
-              <Select
-                options={options}
-                defaultvalue={selectedOption}
-                onChange={setSelectedOption}
-              />
+              <div className="font-weight-bold">{state.name}</div>
+              <Form.Control 
+                type="hidden"
+                name="name"
+                value={state.name} />
             </Form.Group>
 
             <Form.Group>
@@ -94,6 +108,7 @@ const  New = (props)=>{
         </Col>
       </Row>
    </>
-  )
+   )
 }
-export default withRouter(New)
+export default withRouter(OrderEdit)
+/***************************************************************************************************** */
