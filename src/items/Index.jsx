@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Table, Button,Modal } from 'react-bootstrap';
+import { Row, Col, Table, Button,Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -13,6 +13,10 @@ const itemLink ={
   fontWeight: 'bold',
   textDecoration: 'underline',
   
+}
+const image={
+  width: '80px',
+  height: '80px'
 }
 
 
@@ -106,6 +110,7 @@ const itemLink ={
             <Table striped bordered hover>
               <thead>
                 <tr>
+                  <th className="text-center align-middle bg-dark text-white">画像</th>
                   <th className="text-center align-middle bg-dark text-white">商品名</th>
                   <th className="text-center align-middle bg-dark text-white">価格</th>
                   <th className="text-center align-middle bg-dark text-white">カテゴリー</th>
@@ -116,14 +121,17 @@ const itemLink ={
                 {itemData.map((item,i)=>(
                   <tr>
                     <td>
+                      <Image src={`http://yukiabineko.sakura.ne.jp/react/${item.name}.jpg`} style={image} roundedCircle />
+                    </td>
+                    <td className="align-middle">
                       <button 
                          style={itemLink} 
                          onClick={(i)=>openModal(item)}
                        >{item.name}</button>
                     </td>
-                    <td className="text-right text-danger">{item.price}</td>
-                    <td>{item.category}</td>
-                    <td>
+                    <td className="text-right text-danger align-middle font-weight-bold">{item.price}</td>
+                    <td className="align-middle">{item.category}</td>
+                    <td className="align-middle">
                     <Button 
                         variant="primary"
                         onClick={(i)=>editPage(item.id)}
