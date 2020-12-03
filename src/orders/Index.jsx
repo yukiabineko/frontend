@@ -98,6 +98,7 @@ import { connect } from 'react-redux';
 
                       <Button 
                         variant="danger"
+                        onClick={(i)=>deleteOrder(value.id)}
                         className="ml-3"
                       >削除</Button>
                     </td>

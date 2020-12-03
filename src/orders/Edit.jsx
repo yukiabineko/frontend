@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
-import Select from 'react-select';
 import '../users/users.css';
-import 'react-select/dist/react-select.browser.cjs';
-import { formSelectItems } from './setItem';
 
 /**************************************************************************************** */
 const  OrderEdit = (props)=>{
@@ -26,11 +23,10 @@ const  OrderEdit = (props)=>{
 /*********************************state******************************************************* */
   
   const[state, setState] = useState({
+    name: orders[0].name,
     price: orders[0].price,
     stock: orders[0].stock
   })
-  const [selectedOption, setSelectedOption] = useState({value:　orders[0].name});
-  const options = formSelectItems();
 
   const homeComponent = ()=>{
     props.history.push('/orders')  
@@ -43,13 +39,22 @@ const  OrderEdit = (props)=>{
   }
   const doSubmit = (e)=>{
     e.preventDefault();
-    
+    let sendData ={name:state.name, price: state.price, stock: state.stock};
+    axios.patch(`https://uematsu-backend.herokuapp.com/orders/${props.id}`, sendData)
+      .then(function (response) {
+        /*railsからメッセージ*/
+        alert(response.data.message); 
+      })
+      .catch(function(){
+        alert('error');
+      })
+      props.history.push('/orders');
   }
   
   return(
     <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle">店頭商品追加</h2>
+        <h2 data-testid="userNewtitle">{orders[0].name}編集</h2>
       </div> 
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
@@ -63,11 +68,11 @@ const  OrderEdit = (props)=>{
           <Form onSubmit={doSubmit}>
             <Form.Group>
               <Form.Label>商品名</Form.Label>
-              <Select
-                options={options}
-                defaultvalue={selectedOption}
-                onChange={setSelectedOption}
-              />
+              <div className="font-weight-bold">{state.name}</div>
+              <Form.Control 
+                type="hidden"
+                name="name"
+                value={state.name} />
             </Form.Group>
 
             <Form.Group>
