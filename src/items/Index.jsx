@@ -18,6 +18,10 @@ const image={
   width: '80px',
   height: '80px'
 }
+const imageShow={
+  width: '150px',
+  height: '150px'
+}
 
 
  function Index(props){
@@ -121,7 +125,7 @@ const image={
                 {itemData.map((item,i)=>(
                   <tr>
                     <td>
-                      <Image src={`http://yukiabineko.sakura.ne.jp/react/${item.name}.jpg`} style={image} roundedCircle />
+                      <Image src={`http://yukiabineko.sakura.ne.jp/react/${item.name}.jpg`} alt="表示できません" style={image} roundedCircle />
                     </td>
                     <td className="align-middle">
                       <button 
@@ -168,7 +172,17 @@ const image={
         </Modal.Header>
         <Modal.Body>
           <Table bordered>
-           <tbody>
+           <tbody>  
+             <tr>
+               <td colSpan="2" className="text-center">
+                <Image 
+                  src={show.data.length ===0? '' : `http://yukiabineko.sakura.ne.jp/react/${show.data[0].name}.jpg`} 
+                  alt="表示できません" 
+                  style={imageShow} 
+                  rounded 
+                />
+               </td>
+             </tr>
              <tr>
                <th className="bg-primary text-white">商品名</th>
                <td className="text-center font-weight-bold">{show.data.length ===0? '' : show.data[0].name}</td>
