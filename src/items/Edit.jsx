@@ -3,22 +3,12 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import '../users/users.css';
+import { getitemData } from './setItemData';
 
 /**************************************************************************************** */
 const  ItemEdit = (props)=>{
 
- const getitemData = ()=>{
-  let item = []
-  let datas = JSON.parse(localStorage.getItem('items'));
-  datas.forEach((data)=>{
-    if(data.id === props.id){
-     item.push(data);
-    }
-  });
-  return item
- }
  let item = getitemData();
- 
 
 /*********************************state******************************************************* */
   const[show,setShow] =useState({

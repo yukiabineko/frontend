@@ -74,7 +74,7 @@ const imageShow={
     props.itemEditIdget(id);
     props.history.push("/items_edit");
   } 
-  /************************************************************************** */
+  /*****************************削除********************************************* */
   const deleteItem = (i)=>{
     if(window.confirm('削除してよろしいですか？')){
       axios
@@ -87,6 +87,11 @@ const imageShow={
        })
     
     }
+  }
+  /*****************************加工ページ********************************************* */
+  const processItem = (i)=>{
+    props.processIdget(i);
+    props.history.push('/items_process');
   }
   /*****************************モーダル開く********************************************** */
   const openModal = (item)=>{
@@ -141,6 +146,13 @@ const imageShow={
                         onClick={(i)=>editPage(item.id)}
                         className="ml-3"
                       >編集</Button>
+
+                     <Button 
+                        variant="primary"
+                        onClick={(i)=>processItem(item.id)}
+                        className="ml-3"
+                      >加工法管理</Button>
+                    
                     <Button 
                         variant="danger"
                         onClick={(i)=>deleteItem(item.id)}
