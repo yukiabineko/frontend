@@ -7,19 +7,17 @@ import '../users/users.css';
 /**************************************************************************************** */
 const  ItemEdit = (props)=>{
 
- const getitemData = ()=>{
-  let item = []
-  let datas = JSON.parse(localStorage.getItem('items'));
-  datas.forEach((data)=>{
-    if(data.id === props.id){
-     item.push(data);
-    }
-  });
-  return item
- }
- let item = getitemData();
- 
-
+  const getitemData = ()=>{
+    let item = []
+    let datas = JSON.parse(localStorage.getItem('items'));
+    datas.forEach((data)=>{
+      if(data.id === props.id){
+       item.push(data);
+      }
+    });
+    return item
+   }
+   let item = getitemData();
 /*********************************state******************************************************* */
   const[show,setShow] =useState({
     display: 'none'

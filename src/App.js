@@ -11,6 +11,7 @@ import UserShow from './users/Show';
 import ItemIndex from './items/Index';
 import ItemNew from './items/New';
 import ItemEdit from './items/Edit';
+import Process from './items/Process';
 import OrderIndex from './orders/Index';
 import OrderNew from './orders/New';
 import OrderEdit from './orders/Edit';
@@ -23,6 +24,7 @@ import { logoutAction } from './store/Store';
     editId: 0,
     deleteId: 0,
     itemEditId:0,
+    processId: 0,
     OrderEditId: 0
   })
   const userlogout = ()=>{
@@ -36,6 +38,7 @@ import { logoutAction } from './store/Store';
       editId: id,
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
+      processId: state.processId,
       OrderEditId: state.OrderEditId
     })
   }
@@ -45,6 +48,17 @@ import { logoutAction } from './store/Store';
       editId: state.editId,
       deleteId: state.deleteId,
       itemEditId: id,
+      processId: state.processId,
+      OrderEditId: state.OrderEdit
+    })
+  }
+  const getProcessId = (id)=>{
+
+    setState({
+      editId: state.editId,
+      deleteId: state.deleteId,
+      itemEditId: state.itemEditId,
+      processId: id,
       OrderEditId: state.OrderEdit
     })
   }
@@ -54,6 +68,7 @@ import { logoutAction } from './store/Store';
       editId: state.editId,
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
+      processId: state.processId,
       OrderEditId: id
     })
   }
@@ -89,8 +104,12 @@ import { logoutAction } from './store/Store';
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
-      <Route path="/items"  render={()=><ItemIndex itemEditIdget={(id)=>getItemEditId(id)} />} />
+      <Route path="/items"  render={()=><ItemIndex 
+        itemEditIdget={(id)=>getItemEditId(id)} 
+        processIdget={(id)=>getProcessId(id)}
+        />} />
       <Route path="/items_new" component={ItemNew} />
+      <Route path="/items_process" render={ () => <Process id={state.processId} />}  />
       <Route path="/items_edit" render={ () => <ItemEdit id={state.itemEditId} />}  />
       <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
