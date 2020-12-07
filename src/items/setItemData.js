@@ -1,13 +1,4 @@
-export const getitemData = ()=>{
-  let item = []
-  let datas = JSON.parse(localStorage.getItem('items'));
-  datas.forEach((data)=>{
-    if(data.id === props.id){
-     item.push(data);
-    }
-  });
-  return item
- }
+
  export const getOption = ()=>{
    return [
     { value: '刺身', label: '刺身' },
