@@ -207,6 +207,18 @@ const imageShow={
                <th className="bg-primary text-white">カテゴリー</th>
                <td className="text-center font-weight-bold">{show.data.length ===0? '' : show.data[0].category}</td>
              </tr>
+             {show.data.length ===0? 
+               '' 
+                : 
+               <tr>
+                 <th className="bg-primary text-white align-middle">可能調理法</th>
+                 <td>
+                   {show.data[0].processes.map((process)=>(
+                     <td>{process}</td>
+                   ))}
+                 </td>
+               </tr>
+             }
              <tr>
                <th colSpan="2" className="text-center bg-primary text-white">商品説明</th>
              </tr>
