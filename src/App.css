@@ -75,7 +75,7 @@ article{
 }
 .customor-right{
   width: 230px;
-  background-color: #c0c0c0c0;
+  background-color: #fff;
   float: right;
   padding: 10px;
   margin-top: 20px;
@@ -86,13 +86,28 @@ article{
   padding: 0;
 }
 .gallery ul li{
-  width: 220px;
+  width: 272px;
   margin: 0 30px 30px 0;
-  padding: 10px 0;
+  padding: 10px 5px;
   border: solid 1px #ccc;
+  float: left;
+  text-align: center;
+  font-weight: bold;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+}
+.gallery ul li:nth-child(3n){
+  margin-right: 0;
 }
 .gallery ul li img{
   width: 200px;
   height: 200px;
+}
+.customer-article-title{
+  background-color: #f0f0f0;
+  color: #444999;
+  text-align: center;
+  margin:20px 0;
+  padding: 6px 0;
+
 }
 

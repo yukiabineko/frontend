@@ -35,7 +35,7 @@ import image from '../images/fishs2.jpg';
     　　　<h1 className="customor-main-title">本日入荷商品紹介</h1>
          <article>
            <section class="gallery">
-             <h2>本日入荷商品</h2>
+             <h2 className="customer-article-title">商品紹介</h2>
              {itemData.length > 0 ? 
                <ul>
                  {itemData.map((item)=>(
