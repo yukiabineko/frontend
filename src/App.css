@@ -51,3 +51,33 @@ input::placeholder {
   background-color: orange;
   text-decoration: none;
 }
+.costomer-imag{
+  width: 100%;
+}
+.customor-main{
+  width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+.customor-main-title{
+  padding: 10px;
+  background-color: orange;
+  color: #fff;
+  border-left: 12px solid red;
+  text-align: center;
+}
+article{
+  width:900px;
+  float: left;
+  background-color: #fff;
+  padding: 10px;
+  margin-top: 20px;
+}
+.customor-right{
+  width: 230px;
+  background-color: #c0c0c0c0;
+  float: right;
+  padding: 10px;
+  margin-top: 20px;
+}
+
