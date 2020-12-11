@@ -1,11 +1,33 @@
 import { useEffect, useState } from 'react';
-import { Row, Col, Table, Button,Image } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import '../App.css'
 import { connect } from 'react-redux';
 import image from '../images/fishs2.jpg';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
+const nameTitle={
+  background: '#136FFF',
+  padding: '5px',
+  color:'white',
+  border:'1px solid #f0f0f0',
+  maxWidth: '100%',
+  margin: '0'
+}
+const buycheck={
+  padding: '5px 0',
+  background: 'brown',
+  color:'white',
+  fontSize:'16px',
+  textAlign: 'center',
+  borderLeft:'6px solid #c0c0c0'
+
+}
+const buttonHeight={
+  height:'100px'
+}
 
  function Index(props){
   let localData = JSON.parse(localStorage.getItem('items'))
@@ -26,8 +48,10 @@ import image from '../images/fishs2.jpg';
    useEffect(()=>{
      loginUserCheck();
    })
-
- 
+/*******************************************買い物ボタン*********************************************************************** */
+  const buyItem = (item)=>{
+    props.history.push('/customor-show');
+  }
   return(
     <div>
        <img src={image} alt="画像" className="costomer-imag"/>
@@ -40,7 +64,23 @@ import image from '../images/fishs2.jpg';
                <ul>
                  {itemData.map((item)=>(
                    <li>
-                       <Image src={`http://yukiabineko.sakura.ne.jp/react/${item.name}.jpg`} alt="表示できません" roundedCircle />
+                       <Image src={`http://yukiabineko.sakura.ne.jp/react/${item.name}.jpg`} alt="表示できません" roundedCircle /><br/>
+                       <ul>
+                         <li style={nameTitle}>{`商品名${item.name}`}</li>
+                         <li style={nameTitle}>
+                           価格&emsp;
+                           <span className="text-warning font-weight-bold">{item.price}</span>円
+                         </li>
+                         <li style={nameTitle} className="bg-white">
+                           <button 
+                             className="btn btn-success btn-block"
+                             onClick={()=>buyItem(item)}
+                           >
+                            <FontAwesomeIcon icon={faCartPlus}  />買い物する
+                           </button>
+                         </li>
+                       </ul>
+                     
                    </li>
                  ))}
                </ul>
@@ -52,7 +92,15 @@ import image from '../images/fishs2.jpg';
 
          </article>
          <div className="customor-right">
-
+           <h5 style={buycheck}>買い物確認</h5>
+            <p className="font-weight-bold text-center">{props.userData[0].name}さん</p>
+            <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">0</span>件</p>
+            <p className="m-0">合計金額</p>
+            <p className="font-weight-bold bg-dark p-2 text-white text-right">2000円</p>
+            <button 
+              className="btn btn-primary btn-block font-weight-bold" 
+               style={buttonHeight}
+            >買い物確定</button>
          </div>
       </div>
     </div>
