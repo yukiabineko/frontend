@@ -30,7 +30,7 @@ const buttonHeight={
 }
 
  function Index(props){
-  let localData = JSON.parse(localStorage.getItem('items'))
+  let localData = JSON.parse(localStorage.getItem('orders'))
   let modalData = [];
 
 
@@ -50,7 +50,8 @@ const buttonHeight={
    })
 /*******************************************買い物ボタン*********************************************************************** */
   const buyItem = (item)=>{
-    props.history.push('/customor-show');
+    props.sendCustomerData(item);
+    props.history.push('/customor_show');
   }
   return(
     <div>
