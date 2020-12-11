@@ -16,6 +16,7 @@ import OrderIndex from './orders/Index';
 import OrderNew from './orders/New';
 import OrderEdit from './orders/Edit';
 import CustomorIndex from './customer/Index'
+import CustomorShow from './customer/Show'
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -76,7 +77,8 @@ import { logoutAction } from './store/Store';
   
   return(
     <BrowserRouter>
-     <Navbar bg="dark">
+    <div class='fixed-top'>
+     <Navbar fill  bg="dark">
         <Navbar.Brand href="#home"　className="text-white font-weight-bold">加工依頼アプリ</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Item className="text-light">{props.userData.length >0  ?`${props.userData[0].name}さん`: ''}</Nav.Item>
@@ -101,6 +103,7 @@ import { logoutAction } from './store/Store';
          
         </Nav>
       </Navbar>
+      </div>
       <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
@@ -117,6 +120,7 @@ import { logoutAction } from './store/Store';
       <Route path="/orders_new" component={OrderNew} />
       <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />
       <Route path="/customor/index" component={CustomorIndex} />
+      <Route path="/customor_show" component={CustomorShow} />
     </BrowserRouter>
   )
 }
