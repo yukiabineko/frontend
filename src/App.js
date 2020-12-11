@@ -27,7 +27,8 @@ import { logoutAction } from './store/Store';
     deleteId: 0,
     itemEditId:0,
     processId: 0,
-    OrderEditId: 0
+    OrderEditId: 0,
+    customerItem: null
   })
   const userlogout = ()=>{
     let action = logoutAction();
@@ -41,7 +42,8 @@ import { logoutAction } from './store/Store';
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
       processId: state.processId,
-      OrderEditId: state.OrderEditId
+      OrderEditId: state.OrderEditId,
+      customerItem: state.customerItem
     })
   }
   const getItemEditId = (id)=>{
@@ -51,7 +53,8 @@ import { logoutAction } from './store/Store';
       deleteId: state.deleteId,
       itemEditId: id,
       processId: state.processId,
-      OrderEditId: state.OrderEdit
+      OrderEditId: state.OrderEdit,
+      customerItem: state.customerItem
     })
   }
   const getProcessId = (id)=>{
@@ -61,7 +64,8 @@ import { logoutAction } from './store/Store';
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
       processId: id,
-      OrderEditId: state.OrderEdit
+      OrderEditId: state.OrderEdit,
+      customerItem: state.customerItem
     })
   }
   const getOrderEditId = (id)=>{
@@ -71,13 +75,25 @@ import { logoutAction } from './store/Store';
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
       processId: state.processId,
-      OrderEditId: id
+      OrderEditId: id,
+      customerItem: state.customerItem
+    })
+  }
+  /*お客様買うボタンより*/
+  const customerItem = (item)=>{
+    setState({
+      editId: state.editId,
+      deleteId: state.deleteId,
+      itemEditId: state.itemEditId,
+      processId: state.processId,
+      OrderEditId: state.OrderEditId,
+      customerItem: item
     })
   }
   
   return(
     <BrowserRouter>
-    <div class='fixed-top'>
+    <div class='fixed-top' className="mb-3">
      <Navbar fill  bg="dark">
         <Navbar.Brand href="#home"　className="text-white font-weight-bold">加工依頼アプリ</Navbar.Brand>
         <Nav className="mr-auto">
@@ -119,8 +135,8 @@ import { logoutAction } from './store/Store';
       <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
       <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />
-      <Route path="/customor/index" component={CustomorIndex} />
-      <Route path="/customor_show" component={CustomorShow} />
+      <Route path="/customor/index"  render={()=><CustomorIndex sendCustomerData={(item)=>customerItem(item)} />} />
+      <Route path="/customor_show" render={()=><CustomorShow itemData={state.customerItem} />} />
     </BrowserRouter>
   )
 }
