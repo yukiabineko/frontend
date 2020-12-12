@@ -57,6 +57,7 @@ import { connect } from 'react-redux';
     
     }
    }
+  
  
   return(
     <div className="image">

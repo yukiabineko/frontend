@@ -15,6 +15,10 @@ const select={
 /**************************************************************************************** */
 
 const  Show = (props)=>{
+  const[state, setState] = useState({
+    number: null,
+    total: props.itemData.price
+  })
   const stockOption = ()=>{
     let array = []
     for(let i=1; i<=Number(props.itemData.stock); i++){
@@ -22,6 +26,17 @@ const  Show = (props)=>{
     }
     return array
   }
+ /********************************カテゴリーの配列化************************************************** */
+ const categoryArray = ()=>{
+   return  props.itemData.process.split(',')
+ }
+ /********************************注文数変更************************************************** */
+ const numberChange = (e)=>{
+   setState({
+     number: e.target.value,
+     total:  Number(props.itemData.price) * Number(e.target.value)
+   })
+}
   return(
    <>
       <div className="text-center mt-5 mb-4  font-weight-bold">
@@ -41,16 +56,22 @@ const  Show = (props)=>{
                <tbody>
                  <tr>
                    <td className="font-weight-bold text-center align-middle">{props.itemData.name}</td>
-                   <td className="font-weight-bold text-center align-middle">{props.itemData.price}</td>
+                   <td className="font-weight-bold text-center align-middle text-danger">{props.itemData.price}</td>
                    <td className="font-weight-bold text-center">
-                     <select style={select}>
+                     <select className="form-control" onChange={numberChange}>
                        {stockOption().map((num)=>(
                          <option>{num}</option>
                        ))}
                      </select>
                    </td>
-                   <td className="font-weight-bold text-center align-middle"></td>
-                   <td className="font-weight-bold text-center align-middle"></td>
+                   <td className="font-weight-bold text-center align-middle">
+                   <select className="form-control">
+                       {categoryArray().map((process)=>(
+                         <option>{process}</option>
+                       ))}
+                     </select>
+                   </td>
+                   <td className="font-weight-bold text-center align-middle text-danger">{state.total}</td>
                  </tr>
                </tbody>
              </Table>
