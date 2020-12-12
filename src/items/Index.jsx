@@ -70,8 +70,8 @@ const imageShow={
     props.history.push('/items_new')
    }
    /****************************編集**************************************** */
-   const editPage = (id)=>{
-    props.itemEditIdget(id);
+   const editPage = (item)=>{
+    props.itemEditIdget(item);
     props.history.push("/items_edit");
   } 
   /*****************************削除********************************************* */
@@ -89,8 +89,8 @@ const imageShow={
     }
   }
   /*****************************加工ページ********************************************* */
-  const processItem = (i)=>{
-    props.processIdget(i);
+  const processItem = (item)=>{
+    props.processIdget(item);
     props.history.push('/items_process');
   }
   /*****************************モーダル開く********************************************** */
@@ -143,13 +143,13 @@ const imageShow={
                     <td className="align-middle">
                     <Button 
                         variant="primary"
-                        onClick={(i)=>editPage(item.id)}
+                        onClick={(i)=>editPage(item)}
                         className="ml-3"
                       >編集</Button>
 
                      <Button 
                         variant="primary"
-                        onClick={(i)=>processItem(item.id)}
+                        onClick={(i)=>processItem(item)}
                         className="ml-3"
                       >加工法管理</Button>
                     

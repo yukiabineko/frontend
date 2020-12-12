@@ -46,24 +46,24 @@ import { logoutAction } from './store/Store';
       customerItem: state.customerItem
     })
   }
-  const getItemEditId = (id)=>{
+  const getItemEditId = (item)=>{
 
     setState({
       editId: state.editId,
       deleteId: state.deleteId,
-      itemEditId: id,
+      itemEditId: item,
       processId: state.processId,
       OrderEditId: state.OrderEdit,
       customerItem: state.customerItem
     })
   }
-  const getProcessId = (id)=>{
+  const getProcessId = (item)=>{
 
     setState({
       editId: state.editId,
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
-      processId: id,
+      processId: item,
       OrderEditId: state.OrderEdit,
       customerItem: state.customerItem
     })
@@ -126,12 +126,12 @@ import { logoutAction } from './store/Store';
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
       <Route path="/items"  render={()=><ItemIndex 
-        itemEditIdget={(id)=>getItemEditId(id)} 
-        processIdget={(id)=>getProcessId(id)}
+        itemEditIdget={(item)=>getItemEditId(item)} 
+        processIdget={(item)=>getProcessId(item)}
         />} />
       <Route path="/items_new" component={ItemNew} />
-      <Route path="/items_process" render={ () => <Process id={state.processId} />}  />
-      <Route path="/items_edit" render={ () => <ItemEdit id={state.itemEditId} />}  />
+      <Route path="/items_process" render={ () => <Process item={state.processId} />}  />
+      <Route path="/items_edit" render={ () => <ItemEdit item={state.itemEditId} />}  />
       <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
       <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />

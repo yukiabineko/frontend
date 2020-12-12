@@ -7,26 +7,17 @@ import '../users/users.css';
 /**************************************************************************************** */
 const  ItemEdit = (props)=>{
 
-  const getitemData = ()=>{
-    let item = []
-    let datas = JSON.parse(localStorage.getItem('items'));
-    datas.forEach((data)=>{
-      if(data.id === props.id){
-       item.push(data);
-      }
-    });
-    return item
-   }
-   let item = getitemData();
+ 
+   let item = props.item;
 /*********************************state******************************************************* */
   const[show,setShow] =useState({
     display: 'none'
   })
   const[state, setState] = useState({
-    name: item[0].name,
-    price: item[0].price,
-    category: item[0].category,
-    info: item[0].info
+    name: item.name,
+    price: item.price,
+    category: item.category,
+    info: item.info
   })
 
   const[image, setImage] = useState({
@@ -80,7 +71,7 @@ const  ItemEdit = (props)=>{
         category: state.category,
         info: state.info
       }
-      axios.patch(`https://uematsu-backend.herokuapp.com/items/${props.id}`, data)
+      axios.patch(`https://uematsu-backend.herokuapp.com/items/${props.item.id}`, data)
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
