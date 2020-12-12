@@ -16,6 +16,7 @@ import OrderIndex from './orders/Index';
 import OrderNew from './orders/New';
 import OrderEdit from './orders/Edit';
 import CustomorIndex from './customer/Index'
+import CustomorShow from './customer/Show'
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -26,7 +27,8 @@ import { logoutAction } from './store/Store';
     deleteId: 0,
     itemEditId:0,
     processId: 0,
-    OrderEditId: 0
+    OrderEditId: 0,
+    customerItem: null
   })
   const userlogout = ()=>{
     let action = logoutAction();
@@ -40,27 +42,30 @@ import { logoutAction } from './store/Store';
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
       processId: state.processId,
-      OrderEditId: state.OrderEditId
+      OrderEditId: state.OrderEditId,
+      customerItem: state.customerItem
     })
   }
-  const getItemEditId = (id)=>{
+  const getItemEditId = (item)=>{
 
     setState({
       editId: state.editId,
       deleteId: state.deleteId,
-      itemEditId: id,
+      itemEditId: item,
       processId: state.processId,
-      OrderEditId: state.OrderEdit
+      OrderEditId: state.OrderEdit,
+      customerItem: state.customerItem
     })
   }
-  const getProcessId = (id)=>{
+  const getProcessId = (item)=>{
 
     setState({
       editId: state.editId,
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
-      processId: id,
-      OrderEditId: state.OrderEdit
+      processId: item,
+      OrderEditId: state.OrderEdit,
+      customerItem: state.customerItem
     })
   }
   const getOrderEditId = (id)=>{
@@ -70,13 +75,26 @@ import { logoutAction } from './store/Store';
       deleteId: state.deleteId,
       itemEditId: state.itemEditId,
       processId: state.processId,
-      OrderEditId: id
+      OrderEditId: id,
+      customerItem: state.customerItem
+    })
+  }
+  /*お客様買うボタンより*/
+  const customerItem = (item)=>{
+    setState({
+      editId: state.editId,
+      deleteId: state.deleteId,
+      itemEditId: state.itemEditId,
+      processId: state.processId,
+      OrderEditId: state.OrderEditId,
+      customerItem: item
     })
   }
   
   return(
     <BrowserRouter>
-     <Navbar bg="dark">
+    <div class='fixed-top' className="mb-3">
+     <Navbar fill  bg="dark">
         <Navbar.Brand href="#home"　className="text-white font-weight-bold">加工依頼アプリ</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Item className="text-light">{props.userData.length >0  ?`${props.userData[0].name}さん`: ''}</Nav.Item>
@@ -101,22 +119,24 @@ import { logoutAction } from './store/Store';
          
         </Nav>
       </Navbar>
+      </div>
       <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
       <Route path="/items"  render={()=><ItemIndex 
-        itemEditIdget={(id)=>getItemEditId(id)} 
-        processIdget={(id)=>getProcessId(id)}
+        itemEditIdget={(item)=>getItemEditId(item)} 
+        processIdget={(item)=>getProcessId(item)}
         />} />
       <Route path="/items_new" component={ItemNew} />
-      <Route path="/items_process" render={ () => <Process id={state.processId} />}  />
-      <Route path="/items_edit" render={ () => <ItemEdit id={state.itemEditId} />}  />
+      <Route path="/items_process" render={ () => <Process item={state.processId} />}  />
+      <Route path="/items_edit" render={ () => <ItemEdit item={state.itemEditId} />}  />
       <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
       <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />
-      <Route path="/customor/index" component={CustomorIndex} />
+      <Route path="/customor/index"  render={()=><CustomorIndex sendCustomerData={(item)=>customerItem(item)} />} />
+      <Route path="/customor_show" render={()=><CustomorShow itemData={state.customerItem} />} />
     </BrowserRouter>
   )
 }

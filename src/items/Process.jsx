@@ -10,7 +10,7 @@ const Process = (props)=>{
 /********************加工データ************************************************************** */
   const getProcessData = ()=>{
      axios
-        .get(`https://uematsu-backend.herokuapp.com/processings/${props.id}`)
+        .get(`https://uematsu-backend.herokuapp.com/processings/${props.item.id}`)
         .then((res)=>{
            
            localStorage.removeItem('process');
@@ -22,23 +22,12 @@ const Process = (props)=>{
            console.log(error);
         })
      }
-/********************商品データ***************************************************** */
-  const getitemData = ()=>{
-    let item = []
-    let datas = JSON.parse(localStorage.getItem('items'));
-    datas.forEach((data)=>{
-      if(data.id === props.id){
-       item.push(data);
-      }
-    });
-    return item
-   }
 
 /*************************ステートおよび各種セット************************************************ */
    useEffect(()=>{
      getProcessData();
    })
-   let item = getitemData();
+   let item = props.item;
    let options = getOption();
 
    const[process, setProcess] = useState([]);
@@ -48,13 +37,12 @@ const Process = (props)=>{
      e.preventDefault();
      let data = selectedOption;
      let obj={};
-     obj["id"] = props.id;
+     obj["id"] = props.item.id;
      obj["data"] = selectedOption;
      axios.post('https://uematsu-backend.herokuapp.com/processings', obj)
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
-        item = getitemData(); /*更新する*/
       })
       .catch(function(){
         alert('error');
@@ -89,7 +77,7 @@ const Process = (props)=>{
 
   return(
    <>
-    <div className="text-center font-weight-bold h2 mt-5 mb-3">{item[0].name}加工法管理画面</div>
+    <div className="text-center font-weight-bold h2 mt-5 mb-3">{item.name}加工法管理画面</div>
     <Row>
       <Col md={{ span: 4, offset: 4 }} className="p-5 bg-light shadow">
       <Form onSubmit={addProcess}>
