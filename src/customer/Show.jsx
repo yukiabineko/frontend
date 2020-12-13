@@ -21,7 +21,7 @@ const  Show = (props)=>{
   })
   const stockOption = ()=>{
     let array = []
-    for(let i=1; i<=Number(props.itemData.stock); i++){
+    for(let i=0; i<=Number(props.itemData.stock); i++){
        array.push(i)
     }
     return array
@@ -37,6 +37,21 @@ const  Show = (props)=>{
      total:  Number(props.itemData.price) * Number(e.target.value)
    })
 }
+/********************************サブミット************************************************** */
+
+  const doSubmit = (e)=>{
+    e.preventDefault();
+    let propData = props.itemData;
+    let stock = Number(props.itemData.stock);
+    let minusNumber = Number(state.number);
+    stock -= minusNumber;
+    propData.stock = stock;
+    props.changeItemData(propData);
+    props.history.push('/customor/index')
+
+  }
+
+/********************************************************************************************************************************** */
   return(
    <>
       <div className="text-center mt-5 mb-4  font-weight-bold">
@@ -44,7 +59,7 @@ const  Show = (props)=>{
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-          <Row>
+            <form onSubmit={doSubmit} className="W-100">
              <Table  style={table}>
                <thead>
                  <th className="bg-dark text-center text-white">商品名</th>
@@ -75,7 +90,10 @@ const  Show = (props)=>{
                  </tr>
                </tbody>
              </Table>
-          </Row>  
+              <div className="text-left">
+                <input type="submit" value="追加"　className="btn btn-primary btn-lg" />
+              </div>
+             </form>
         </Col>    
       </Row>
    </>

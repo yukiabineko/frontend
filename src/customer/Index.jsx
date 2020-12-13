@@ -31,8 +31,15 @@ const buttonHeight={
 
  function Index(props){
   let localData = JSON.parse(localStorage.getItem('orders'))
+  if(props.fixItemData){
+    localData.forEach((data,i)=>{
+      if(props.fixItemData.id == data.id){
+        localData[i] = props.fixItemData;
+      }
+    })
+  }
   let modalData = [];
-
+ 
 
   /************************ステート*************************************** */
   const[itemData, setState] = useState(

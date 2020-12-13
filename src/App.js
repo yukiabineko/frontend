@@ -3,6 +3,8 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import "./App.css";
 import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
 import Index from './users/Index';
 import Login from './Login';
 import userNew from './users/New'
@@ -90,14 +92,34 @@ import { logoutAction } from './store/Store';
       customerItem: item
     })
   }
+  /*ストック数およびお買い物リストの更新*/
+  const changeItem =(item)=>{
+    setState({
+      editId: state.editId,
+      deleteId: state.deleteId,
+      itemEditId: state.itemEditId,
+      processId: state.processId,
+      OrderEditId: state.OrderEditId,
+      customerItem: item
+    })
+   
+  }
   
   return(
     <BrowserRouter>
-    <div class='fixed-top' className="mb-3">
+    <div className='fixed-top'>
      <Navbar fill  bg="dark">
-        <Navbar.Brand href="#home"　className="text-white font-weight-bold">加工依頼アプリ</Navbar.Brand>
+        <Navbar.Brand href="#home"　className="text-white font-weight-bold">
+          <FontAwesomeIcon icon={faUtensils} />&nbsp;
+            加工依頼アプリ
+        </Navbar.Brand>
         <Nav className="mr-auto">
-          <Nav.Item className="text-light">{props.userData.length >0  ?`${props.userData[0].name}さん`: ''}</Nav.Item>
+          <Nav.Item className="text-light">
+            {props.userData.length >0
+                  ?<span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
+            : 
+            ''
+            }</Nav.Item>
           <Nav.Item><Link to="/customor/index" className="text-light p-3">お買い物</Link></Nav.Item>
           <Nav.Item><Link to="/" className="text-light p-3">HOME</Link></Nav.Item>
           <Nav.Item><Link to="/items" className="text-light p-3">商品一覧</Link></Nav.Item>
@@ -119,7 +141,7 @@ import { logoutAction } from './store/Store';
          
         </Nav>
       </Navbar>
-      </div>
+      </div><br/>
       <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
@@ -135,8 +157,18 @@ import { logoutAction } from './store/Store';
       <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
       <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />
-      <Route path="/customor/index"  render={()=><CustomorIndex sendCustomerData={(item)=>customerItem(item)} />} />
-      <Route path="/customor_show" render={()=><CustomorShow itemData={state.customerItem} />} />
+      <Route path="/customor/index"  
+        render={()=>
+        <CustomorIndex 
+          sendCustomerData={(item)=>customerItem(item)} 
+          fixItemData={state.customerItem}
+        />} />
+      <Route path="/customor_show" 
+      render={()=>
+        <CustomorShow 
+          itemData={state.customerItem}
+          changeItemData={(item)=>changeItem(item)}
+      />} />
     </BrowserRouter>
   )
 }
