@@ -18,6 +18,7 @@ const select={
 const  Show = (props)=>{
   const[state, setState] = useState({
     number: null,
+    process: '',
     total: props.itemData.price
   })
   const stockOption = ()=>{
@@ -35,12 +36,22 @@ const  Show = (props)=>{
  const numberChange = (e)=>{
    setState({
      number: e.target.value,
+     process: state.process,
      total:  Number(props.itemData.price) * Number(e.target.value)
    })
+}
+/********************************加工方法変更************************************************** */
+const processChange = (e)=>{
+  setState({
+    number: state.number,
+    process: e.target.value,
+    total:  Number(props.itemData.price) * Number(e.target.value)
+  })
 }
 /********************************サブミット************************************************** */
 
   const doSubmit = (e)=>{
+    alert(JSON.stringify(state));
     e.preventDefault();
     let propData = props.itemData;
     let stock = Number(props.itemData.stock);
@@ -83,7 +94,8 @@ const  Show = (props)=>{
                      </select>
                    </td>
                    <td className="font-weight-bold text-center align-middle">
-                   <select className="form-control">
+                   <select className="form-control" onChange={processChange}>
+                       <option value="">--加工法を選択してください--</option>
                        {categoryArray().map((process)=>(
                          <option>{process}</option>
                        ))}

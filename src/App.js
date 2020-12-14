@@ -107,40 +107,56 @@ import { logoutAction } from './store/Store';
   
   return(
     <BrowserRouter>
-    <div className='fixed-top'>
-     <Navbar fill  bg="dark">
-        <Navbar.Brand href="#home"　className="text-white font-weight-bold">
-          <FontAwesomeIcon icon={faUtensils} />&nbsp;
-            加工依頼アプリ
-        </Navbar.Brand>
-        <Nav className="mr-auto">
-          <Nav.Item className="text-light">
-            {props.userData.length >0
-                  ?<span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
+    <div className='fixed-top'> 
+    <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
+      <a className="navbar-brand text-white" href="#"><FontAwesomeIcon icon={faUtensils} />&nbsp;
+            加工依頼アプリ</a>
+      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+        
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav mr-auto">
+          {props.userData.length >0?
+            <li class="nav-item active">
+             <span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
+            </li>
+            
             : 
             ''
-            }</Nav.Item>
-          <Nav.Item><Link to="/customor/index" className="text-light p-3">お買い物</Link></Nav.Item>
-          <Nav.Item><Link to="/" className="text-light p-3">HOME</Link></Nav.Item>
-          <Nav.Item><Link to="/items" className="text-light p-3">商品一覧</Link></Nav.Item>
-          <Nav.Item><Link to="/orders" className="text-light p-3">店頭商品一覧</Link></Nav.Item>
-        </Nav>
-        
-        <Nav className="mr-right">
-          {props.userData.length >0? 
-           <Nav.Item>
+          }
+          <li className="nav-item">
+            <Link to="/" className="text-light p-3">HOME</Link>
+          </li>
+          <li className="nav-item active">
+            <Link to="/customor/index" className="text-light p-3">お買い物</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/items" className="text-light p-3">商品一覧</Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/orders" className="text-light p-3">店頭商品一覧</Link>
+          </li>
+          
+        </ul>
+
+        <ul className="navbar-nav">
+        {props.userData.length >0? 
+           <li className="nav-item">
              <button 
               className="logout"
               onClick={userlogout}
               data-testid="logintrue"
             >ログアウト</button>
-           </Nav.Item>
+           </li>
           : 
-          <Nav.Item><Link to="/login" className="text-light p-3" data-testid="loginfalse">ログイン</Link></Nav.Item>
+          <li className="nav-item"><Link to="/login" className="text-light p-3" data-testid="loginfalse">ログイン</Link></li>
           }
-         
-        </Nav>
-      </Navbar>
+        </ul>
+      </div>
+      
+    </nav>
+     
       </div><br/>
       <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
       <Route path="/login" render={()=><Login />} />
