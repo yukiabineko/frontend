@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { cartsAdd } from '../store/Store';
 
 const table ={
   width: '100%',
@@ -47,6 +48,8 @@ const  Show = (props)=>{
     stock -= minusNumber;
     propData.stock = stock;
     props.changeItemData(propData);
+    let action = cartsAdd({name: propData.name, num: state.number, price: propData.price});
+    props.dispatch(action);
     props.history.push('/customor/index')
 
   }

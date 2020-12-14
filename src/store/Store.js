@@ -1,7 +1,8 @@
 import { createStore } from "redux";
 
 let init_data ={
-  userData: []
+  userData: [],
+  buyCarts: []
 }
 
 const storeReducer = (state = init_data, action)=>{
@@ -10,6 +11,8 @@ const storeReducer = (state = init_data, action)=>{
       return loginReducer(state, action);
     case 'LOGOUT':
       return logoutReducer(state, action);
+    case 'CARTADD':
+      return cartReducer(state, action);
     default:
       return state
   }
@@ -21,16 +24,27 @@ const loginReducer = (state, action)=>{
   newData.push(action.user);
  
   return{
-    userData: newData
+    userData: newData,
+    buyCarts: state.buyCarts
   }
 }
 const logoutReducer =(state, action)=>{
     let newData = state.userData.slice();
     newData.splice(0);
     return{
-      userData: newData
+      userData: newData,
+      buyCarts: state.buyCarts
     }
   }
+const cartReducer = (state, action)=>{
+  let data = state.buyCarts.slice();
+  data.push(action.data);
+  
+  return{
+    userData: state.userData,
+    buyCarts: data
+  }
+}
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
   return{
@@ -41,6 +55,12 @@ export  const sendLoginData = (user)=>{
 export const logoutAction =()=>{
   return{
     type: 'LOGOUT'
+  }
+}
+export const cartsAdd = (item)=>{
+  return{
+    type: 'CARTADD',
+    data: item
   }
 }
 export default createStore(storeReducer)

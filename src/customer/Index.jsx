@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Image } from 'react-bootstrap';
-import axios from 'axios';
+import { Image, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import '../App.css'
 import { connect } from 'react-redux';
 import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
+
+const rightAreaTable={
+  height: '200px',
+  overflow: 'scroll'
+}
 
 const nameTitle={
   background: '#136FFF',
@@ -31,12 +35,16 @@ const buttonHeight={
 
  function Index(props){
   let localData = JSON.parse(localStorage.getItem('orders'))
+
+  /*買い物カゴに入れた際の在庫の更新*/
+
   if(props.fixItemData){
     localData.forEach((data,i)=>{
       if(props.fixItemData.id == data.id){
         localData[i] = props.fixItemData;
       }
     })
+
   }
   let modalData = [];
  
@@ -60,6 +68,14 @@ const buttonHeight={
     props.sendCustomerData(item);
     props.history.push('/customor_show');
   }
+/********************************************買い物カゴ合計金額*************************************************************************************** */
+ const itemTotalMoney = ()=>{
+   let total = 0;
+   props.buyCarts.map((data)=>{
+     total += Number(data.price) * Number(data.num);
+   })
+   return total;
+ }
   return(
     <div>
        <img src={image} alt="画像" className="costomer-imag"/>
@@ -80,12 +96,17 @@ const buttonHeight={
                            <span className="text-warning font-weight-bold">{item.price}</span>円
                          </li>
                          <li style={nameTitle} className="bg-white">
-                           <button 
-                             className="btn btn-success btn-block"
-                             onClick={()=>buyItem(item)}
-                           >
-                            <FontAwesomeIcon icon={faCartPlus}  />買い物する
-                           </button>
+                           {Number(item.stock) > 0? 
+                              <button 
+                                className="btn btn-success btn-block"
+                                onClick={()=>buyItem(item)}
+                              >
+                               <FontAwesomeIcon icon={faCartPlus}  />買い物する
+                              </button>
+                             : 
+                             <span className="text-danger font-weight-bold">売り切れ</span>
+                           }
+                          
                          </li>
                        </ul>
                      
@@ -102,13 +123,41 @@ const buttonHeight={
          <div className="customor-right">
            <h5 style={buycheck}>買い物確認</h5>
             <p className="font-weight-bold text-center">{props.userData[0].name}さん</p>
-            <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">0</span>件</p>
+            <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>
+            
+            {props.buyCarts.length >0 ? 
+             <div style={ rightAreaTable}>
+              <Table bordered>
+                <thead className="bg-primary text-white">
+                  <th>商品名</th>
+                  <th>個数</th>
+                  
+                </thead>
+                <tbody>
+                  {props.buyCarts.map((data)=>(
+                    <tr>
+                      <td className="align-middle">{data.name}</td>
+                      <td className="text-center">
+                        {data.num}<br/>
+                        <button className="btn btn-danger">削除</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+              </div>
+              : 
+              ''
+            }
+          
             <p className="m-0">合計金額</p>
-            <p className="font-weight-bold bg-dark p-2 text-white text-right">2000円</p>
+            <p className="font-weight-bold bg-dark p-2 text-white text-right">{itemTotalMoney()}</p>
             <button 
               className="btn btn-primary btn-block font-weight-bold" 
-               style={buttonHeight}
-            >買い物確定</button>
+              style={buttonHeight}>
+              <FontAwesomeIcon icon={faCashRegister} />
+                &nbsp;買い物確定
+            </button>
          </div>
       </div>
     </div>
