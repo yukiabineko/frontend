@@ -45,7 +45,7 @@ const processChange = (e)=>{
   setState({
     number: state.number,
     process: e.target.value,
-    total:  Number(props.itemData.price) * Number(e.target.value)
+    total:  state.total
   })
 }
 /********************************サブミット************************************************** */
@@ -59,7 +59,7 @@ const processChange = (e)=>{
     stock -= minusNumber;
     propData.stock = stock;
     props.changeItemData(propData);
-    let action = cartsAdd({name: propData.name, num: state.number, price: propData.price});
+    let action = cartsAdd({name: propData.name, num: state.number, price: propData.price, process:　state.process});
     props.dispatch(action);
     props.history.push('/customor/index')
 
