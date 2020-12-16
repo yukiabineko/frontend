@@ -76,6 +76,10 @@ const buttonHeight={
    })
    return total;
  }
+ /********************************************サーバーに買い物情報送信*************************************************************************************** */
+ const sendShoppingData =()=>{
+   props.history.push('/customer_confirm');
+ }
   return(
     <div>
        <img src={image} alt="画像" className="costomer-imag"/>
@@ -154,6 +158,7 @@ const buttonHeight={
             <p className="font-weight-bold bg-dark p-2 text-white text-right">{itemTotalMoney()}</p>
             <button 
               className="btn btn-primary btn-block font-weight-bold" 
+              onClick={sendShoppingData}
               style={buttonHeight}>
               <FontAwesomeIcon icon={faCashRegister} />
                 &nbsp;買い物確定

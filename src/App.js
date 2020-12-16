@@ -19,6 +19,7 @@ import OrderNew from './orders/New';
 import OrderEdit from './orders/Edit';
 import CustomorIndex from './customer/Index'
 import CustomorShow from './customer/Show'
+import Confirm from './customer/confirm';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -185,6 +186,7 @@ import { logoutAction } from './store/Store';
           itemData={state.customerItem}
           changeItemData={(item)=>changeItem(item)}
       />} />
+     <Route path="/customer_confirm" component={Confirm} />
     </BrowserRouter>
   )
 }
