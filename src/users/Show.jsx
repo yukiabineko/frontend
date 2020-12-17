@@ -2,9 +2,24 @@ import React, { useState } from 'react';
 import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 /**************************************************************************************** */
 const  Show = (props)=>{
+  /*************APIによるuser一覧**********************************/
+   async function orderCall(){
+     
+    await axios
+      .get('https://uematsu-backend.herokuapp.com/orders')
+      .then((res)=>{
+         localStorage.setItem('orders', JSON.stringify(res.data));
+         
+      })
+      .catch((error)=>{
+         console.log(error);
+      })
+ }
+   useState(orderCall());
   return(
    <>
       <div className="text-center mt-5 mb-4  font-weight-bold">

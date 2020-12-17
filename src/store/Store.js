@@ -13,6 +13,8 @@ const storeReducer = (state = init_data, action)=>{
       return logoutReducer(state, action);
     case 'CARTADD':
       return cartReducer(state, action);
+    case 'CARTRESET':
+      return cartResetReducer(state, action);
     default:
       return state
   }
@@ -45,6 +47,14 @@ const cartReducer = (state, action)=>{
     buyCarts: data
   }
 }
+const cartResetReducer = (state, action)=>{
+  let data = state.buyCarts.slice();
+  data.splice(0);
+  return{
+    userData: state.userData,
+    buyCarts: data
+  }
+}
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
   return{
@@ -61,6 +71,11 @@ export const cartsAdd = (item)=>{
   return{
     type: 'CARTADD',
     data: item
+  }
+}
+export const cartEmpty = ()=>{
+  return{
+    type: 'CARTRESET'
   }
 }
 export default createStore(storeReducer)
