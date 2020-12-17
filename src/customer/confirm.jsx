@@ -3,8 +3,9 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios'
+import { cartEmpty } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faShoppingCart　} from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 
 const title={
   fontFamily: 'ヒラギノ明朝',
@@ -18,7 +19,7 @@ const span ={
 }
 const th={
   background: '#8EB8FF',
-  color: '#0000CD',
+  color: '#eee',
   textAlign: 'center'
 }
 
@@ -34,7 +35,7 @@ const sendServer = ()=>{
    let obj = {}
    obj['id'] = props.userData[0].id;
    obj['data'] = sendData
-   axios.post('http://localhost:3001/shoppings', obj)
+   axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
@@ -42,6 +43,9 @@ const sendServer = ()=>{
       .catch(function(){
         alert('error');
       }) 
+    props.history.push('/users/show');  /*ユーザーページへ移動*/
+    props.dispatch(cartEmpty());  /*買い物カゴリセット*/
+
   }
 /********************************************************************************************************************************** */
   return(
@@ -57,14 +61,62 @@ const sendServer = ()=>{
          <Form>
            <Table bordered className="mt-3">
              <thead>
-               <th style={th}>商品名</th>
-               <th style={th}>価格</th>
-               <th style={th}>注文数</th>
-               <th style={th}>加工法</th>
+               <th style={th}>
+                  <span className="text-primary mr-2 h5">
+                    <FontAwesomeIcon icon={faFish} />
+                  </span>
+                  商品名
+               </th>
+               <th style={th}>
+                  <span className="text-primary mr-2 h5">
+                    <FontAwesomeIcon icon={faYenSign} />
+                  </span>
+                  価格
+               </th>
+               <th style={th}>
+                  <span className="text-primary mr-2 h5">
+                    <FontAwesomeIcon icon={faCalculator} />
+                  </span>
+                  数
+               </th>
+               <th style={th}>
+                 <span className="text-primary mr-2 h5">
+                    <FontAwesomeIcon icon={faUtensils} />
+                  </span>
+                  加工法
+               </th>
                <th style={th}>合計</th>
                <th style={th}></th>
              </thead>
+             <tbody>
+               {props.buyCarts.map((data)=>(
+                 <tr>
+                   <td className="text-dark text-center font-weight-bold">{data.name}</td>
+                   <td className="text-dark text-center font-weight-bold">{data.price}</td>
+                   <td className="text-dark text-center font-weight-bold">{data.num}</td>
+                   <td className="text-dark text-center font-weight-bold">{data.process}</td>
+                   <td className="text-dark text-center font-weight-bold">{Number(data.price) * Number(data.num)}</td>
+                   <td className="text-dark text-center font-weight-bold">
+                     <Button 
+                       variant="danger"
+                     >
+                    削除
+                     </Button>
+                   </td>
+                 </tr>
+               ))}
+             </tbody>
            </Table>
+           <div className="text-center">
+             <Button  
+               variant="primary"
+               className="btn-lg"
+               onClick={sendServer}
+             >
+             <span><FontAwesomeIcon icon={faCashRegister} /></span>
+             注文確定
+             </Button>
+           </div>
          </Form>
         </Col>
       </Row>
