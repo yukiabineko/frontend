@@ -20,6 +20,7 @@ import OrderEdit from './orders/Edit';
 import CustomorIndex from './customer/Index'
 import CustomorShow from './customer/Show'
 import Confirm from './customer/confirm';
+import ShoppingIndex from './shopping/Index';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -138,6 +139,9 @@ import { logoutAction } from './store/Store';
           <li className="nav-item">
             <Link to="/orders" className="text-light p-3">店頭商品一覧</Link>
           </li>
+          <li className="nav-item">
+            <Link to="/shoppings" className="text-light p-3">注文状況</Link>
+          </li>
           
         </ul>
 
@@ -187,6 +191,7 @@ import { logoutAction } from './store/Store';
           changeItemData={(item)=>changeItem(item)}
       />} />
      <Route path="/customer_confirm" component={Confirm} />
+     <Route path="/shoppings" component={ShoppingIndex} />
     </BrowserRouter>
   )
 }
