@@ -3,6 +3,16 @@ import { Row, Col, Table, Button,Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import '../App.css';
+
+ const customButton ={
+   border: "none",
+   borderBottom: "1px solid #0000bb",
+   background: "none",
+   color: "#0000bb",
+   outline: 'none',
+   fontWeight: 'bold'
+ }
 
  function Index(props){
   let localData = JSON.parse(localStorage.getItem('shoppings'));
@@ -38,13 +48,72 @@ import { connect } from 'react-redux';
    useEffect(()=>{
      loginUserCheck();
    })
+/***************************************ステータス分岐********************************************************************** */
+  const orderStatus = (status)=>{
+    switch (status) {
+      case 0:
+        return <div className="bg-info text-center text-white mt-3">申請中</div>;
+      case 1:
+        return <div className="bg-warning text-center text-white mt-3">加工済み</div>;
+      case 2:
+        return <div className="bg-danger text-center text-white mt-3">受け渡し済み</div>;
+    default:
+        break;
+    }
+  }
+  /****************************************カスタムbutton hover*************************************************** */
+  const hoverButton = (i)=>{
+    document.getElementById('customButton' + i).style.background = "#BAD3FF";
+  }
+  /****************************************カスタムbutton out*************************************************** */
+  const outButton = (i)=>{
+    document.getElementById('customButton' + i).style.background = "none";
+  }
+
   return(
     <div className>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="itemstitle">注文確認表</h2>
+        <h2 data-testid="itemstitle" className="font-weight-bold text-info">注文確認表</h2>
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
+          {shopingData.length >0? 
+            <Table bordered striped>
+              <thead>
+                <th className="bg-primary text-white text-center">商品名</th>
+                <th className="bg-primary text-white text-center">価格</th>
+                <th className="bg-primary text-white text-center">個数</th>
+                <th className="bg-primary text-white text-center">加工法</th>
+                <th className="bg-primary text-white text-center">合計金額</th>
+              </thead>
+              <tbody>
+                {shopingData.map((data,i)=>(
+                  <tr>
+                    <td className="font-weight-bold text-center align-center">
+                      <button 
+                        style={customButton} 
+                        id={`customButton${i}`}
+                        onMouseOver={()=>hoverButton(i)}
+                        onMouseOut={()=>outButton(i)}
+                        className="customButton"
+                        >{data.name}</button>
+                      
+                      <br/>
+                      {orderStatus(data.status)}
+                    </td>
+                    <td className="font-weight-bold text-center text-danger align-middle">{data.price}</td>
+                    <td className="font-weight-bold text-center align-middle">{data.num}</td>
+                    <td className="font-weight-bold text-center align-middle">{data.process}</td>
+                    <td className="font-weight-bold text-center text-danger align-middle">
+                      { Number(data.price) * Number(data.num) }
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            : 
+            ''
+          }
           
         </Col>
       </Row>
