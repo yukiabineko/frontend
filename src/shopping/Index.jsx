@@ -69,6 +69,10 @@ import '../App.css';
   const outButton = (i)=>{
     document.getElementById('customButton' + i).style.background = "none";
   }
+  /*************************************ステータス変更/確認ページへ************************************************************************ */
+  const showShoppingStatus =()=>{
+    props.history.push('/shoppings_show');
+  }
 
   return(
     <div className>
@@ -81,6 +85,7 @@ import '../App.css';
             <Table bordered striped>
               <thead>
                 <th className="bg-primary text-white text-center">商品名</th>
+                <th className="bg-primary text-white text-center">お客様名</th>
                 <th className="bg-primary text-white text-center">価格</th>
                 <th className="bg-primary text-white text-center">個数</th>
                 <th className="bg-primary text-white text-center">加工法</th>
@@ -96,11 +101,13 @@ import '../App.css';
                         onMouseOver={()=>hoverButton(i)}
                         onMouseOut={()=>outButton(i)}
                         className="customButton"
+                        onClick={showShoppingStatus}
                         >{data.name}</button>
                       
                       <br/>
                       {orderStatus(data.status)}
                     </td>
+                    <td className="font-weight-bold text-center align-middle">{`${data.user_name}様`}</td>
                     <td className="font-weight-bold text-center text-danger align-middle">{data.price}</td>
                     <td className="font-weight-bold text-center align-middle">{data.num}</td>
                     <td className="font-weight-bold text-center align-middle">{data.process}</td>

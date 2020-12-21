@@ -31,10 +31,30 @@ const  Confirm = (props)=>{
 
 /***********************サーバー送信***************************************************************** */
 const sendServer = ()=>{
+    const params = new FormData();
+    params.append('email', props.userData[0].email);
+    params.append('name', props.userData[0].name);
+
+     /* PHP送信　*/
+    axios.post('http://yukiabineko.sakura.ne.jp/mail.php',
+　　　 params,
+      {
+        headers:{
+          'content-type': 'multipart/form-data',
+        },
+      }
+    ).then((res)=>{
+        console.log(res.data);
+    }).catch(()=>{
+    })
+
+
   let sendData = props.buyCarts;
    let obj = {}
    obj['id'] = props.userData[0].id;
    obj['data'] = sendData
+
+   /* rails送信　*/
    axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
       .then(function (response) {
         /*railsからメッセージ*/

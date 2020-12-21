@@ -51,7 +51,6 @@ const processChange = (e)=>{
 /********************************サブミット************************************************** */
 
   const doSubmit = (e)=>{
-    alert(JSON.stringify(state));
     e.preventDefault();
     let propData = props.itemData;
     let stock = Number(props.itemData.stock);

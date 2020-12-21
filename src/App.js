@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import "./App.css";
-import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
@@ -21,6 +20,7 @@ import CustomorIndex from './customer/Index'
 import CustomorShow from './customer/Show'
 import Confirm from './customer/confirm';
 import ShoppingIndex from './shopping/Index';
+import ShoppingShow from './shopping/Show';
 import { connect } from "react-redux";
 import { logoutAction } from './store/Store';
 
@@ -192,6 +192,7 @@ import { logoutAction } from './store/Store';
       />} />
      <Route path="/customer_confirm" component={Confirm} />
      <Route path="/shoppings" component={ShoppingIndex} />
+     <Route path="/shoppings_show" component={ShoppingShow} />
     </BrowserRouter>
   )
 }
