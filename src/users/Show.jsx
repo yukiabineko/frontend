@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -20,9 +20,20 @@ const  Show = (props)=>{
       })
  }
    useState(orderCall());
+/******************************ログイン/未ログイン切り替え********************************************************** */
+    const loginUserCheck = ()=>{
+      if(props.userData.length===0){
+        props.history.push('/login');  
+      }
+    }
+    useEffect(()=>{
+      loginUserCheck();
+    })
   return(
    <>
-      <div className="text-center mt-5 mb-4  font-weight-bold">
+      {props.userData.length >0?
+       <>
+        <div className="text-center mt-5 mb-4  font-weight-bold">
         <h2>{props.userData[0].name}さんページ</h2>
       </div>
       <Row>
@@ -69,6 +80,10 @@ const  Show = (props)=>{
           </Row>
         </Col>    
       </Row>
+      </>
+        : 
+        loginUserCheck()
+      }
    </>
   )
 }
