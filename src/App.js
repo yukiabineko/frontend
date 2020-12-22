@@ -121,7 +121,7 @@ import { logoutAction } from './store/Store';
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           {props.userData.length >0?
-            <li class="nav-item active">
+            <li class="nav-item pt-3 pb-3 active">
              <span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
             </li>
             
@@ -163,7 +163,7 @@ import { logoutAction } from './store/Store';
       
     </nav>
      
-      </div><br/>
+      </div><br/><br/>
       <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
