@@ -110,3 +110,9 @@ article{
   padding: 6px 0;
 
 }
+@media screen and (max-width:767px) {
+  .nav-item a{
+    margin-right: 10%;
+   
+  }
+}
