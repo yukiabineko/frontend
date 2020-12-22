@@ -68,6 +68,10 @@ const buttonHeight={
     props.sendCustomerData(item);
     props.history.push('/customor_show');
   }
+/*******************************************買い物カゴアイテム削除*********************************************************************** */
+const deleteCartItem = ()=>{
+  alert('削除');
+}
 /********************************************買い物カゴ合計金額*************************************************************************************** */
  const itemTotalMoney = ()=>{
    let total = 0;
@@ -143,7 +147,10 @@ const buttonHeight={
                       <td className="align-middle">{data.name}</td>
                       <td className="text-center">
                         {data.num}<br/>
-                        <button className="btn btn-danger">削除</button>
+                        <button
+                         className="btn btn-danger"
+                         onClick={deleteCartItem}
+                         >削除</button>
                       </td>
                     </tr>
                   ))}

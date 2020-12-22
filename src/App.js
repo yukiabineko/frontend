@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
 import Index from './users/Index';
@@ -120,26 +121,26 @@ import { logoutAction } from './store/Store';
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           {props.userData.length >0?
-            <li class="nav-item active">
+            <li class="nav-item pt-3 pb-3 active">
              <span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
             </li>
             
             : 
             ''
           }
-          <li className="nav-item">
+          <li className="nav-item pt-3 pb-3">
             <Link to="/" className="text-light p-3">HOME</Link>
           </li>
-          <li className="nav-item active">
+          <li className="nav-item pt-3 pb-3">
             <Link to="/customor/index" className="text-light p-3">お買い物</Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item pt-3 pb-3">
             <Link to="/items" className="text-light p-3">商品一覧</Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item pt-3 pb-3">
             <Link to="/orders" className="text-light p-3">店頭商品一覧</Link>
           </li>
-          <li className="nav-item">
+          <li className="nav-item pt-3 pb-3">
             <Link to="/shoppings" className="text-light p-3">注文状況</Link>
           </li>
           
@@ -147,7 +148,7 @@ import { logoutAction } from './store/Store';
 
         <ul className="navbar-nav">
         {props.userData.length >0? 
-           <li className="nav-item">
+           <li className="nav-item pt-3 pb-3">
              <button 
               className="logout"
               onClick={userlogout}
@@ -155,14 +156,14 @@ import { logoutAction } from './store/Store';
             >ログアウト</button>
            </li>
           : 
-          <li className="nav-item"><Link to="/login" className="text-light p-3" data-testid="loginfalse">ログイン</Link></li>
+          <li className="nav-item pt-3 pb-3"><Link to="/login" className="text-light p-3" data-testid="loginfalse">ログイン</Link></li>
           }
         </ul>
       </div>
       
     </nav>
      
-      </div><br/>
+      </div><br/><br/>
       <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
