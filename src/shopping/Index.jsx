@@ -45,9 +45,7 @@ import '../App.css';
         props.history.push('/login');  
       }
     }
-   useEffect(()=>{
-     loginUserCheck();
-   })
+   
 /***************************************ステータス分岐********************************************************************** */
   const orderStatus = (status)=>{
     switch (status) {

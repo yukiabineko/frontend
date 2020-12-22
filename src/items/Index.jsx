@@ -63,9 +63,7 @@ const imageShow={
         props.history.push('/login');  
       }
     }
-   useEffect(()=>{
-     loginUserCheck();
-   })
+   
    const newPage = ()=>{
     props.history.push('/items_new')
    }
