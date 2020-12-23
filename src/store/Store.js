@@ -1,4 +1,5 @@
 import { createStore } from "redux";
+import { data } from "jquery";
 
 let init_data ={
   userData: [],
@@ -15,6 +16,8 @@ const storeReducer = (state = init_data, action)=>{
       return cartReducer(state, action);
     case 'CARTRESET':
       return cartResetReducer(state, action);
+    case 'CARTDELETE':
+      return cartDeleteReducer(state, action);
     default:
       return state
   }
@@ -55,6 +58,16 @@ const cartResetReducer = (state, action)=>{
     buyCarts: data
   }
 }
+const cartDeleteReducer = (state, action)=>{
+  let datas = state.buyCarts.slice();
+  datas.splice(action.num, 1);
+  return{
+    userData: state.userData,
+    buyCarts: datas
+  }
+ 
+ 
+}
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
   return{
@@ -76,6 +89,12 @@ export const cartsAdd = (item)=>{
 export const cartEmpty = ()=>{
   return{
     type: 'CARTRESET'
+  }
+}
+export const cartDeleteCart = (index)=>{
+  return{
+    type: 'CARTDELETE',
+    num: index
   }
 }
 export default createStore(storeReducer)
