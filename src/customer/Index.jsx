@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
+import { cartDeleteCart } from '../store/Store';
 
 const rightAreaTable={
   height: '200px',
@@ -69,8 +70,9 @@ const buttonHeight={
     props.history.push('/customor_show');
   }
 /*******************************************買い物カゴアイテム削除*********************************************************************** */
-const deleteCartItem = ()=>{
-  alert('削除');
+const deleteCartItem = (index)=>{
+  let action = cartDeleteCart(index);
+  props.dispatch(action);
 }
 /********************************************買い物カゴ合計金額*************************************************************************************** */
  const itemTotalMoney = ()=>{
@@ -142,14 +144,14 @@ const deleteCartItem = ()=>{
                   
                 </thead>
                 <tbody>
-                  {props.buyCarts.map((data)=>(
+                  {props.buyCarts.map((data,index)=>(
                     <tr>
                       <td className="align-middle">{data.name}</td>
                       <td className="text-center">
                         {data.num}<br/>
                         <button
                          className="btn btn-danger"
-                         onClick={deleteCartItem}
+                         onClick={()=>deleteCartItem(index)}
                          >削除</button>
                       </td>
                     </tr>
@@ -163,13 +165,18 @@ const deleteCartItem = ()=>{
           
             <p className="m-0">合計金額</p>
             <p className="font-weight-bold bg-dark p-2 text-white text-right">{itemTotalMoney()}</p>
-            <button 
-              className="btn btn-primary btn-block font-weight-bold" 
-              onClick={sendShoppingData}
-              style={buttonHeight}>
-              <FontAwesomeIcon icon={faCashRegister} />
-                &nbsp;買い物確定
-            </button>
+            {props.buyCarts.length >0? 
+              <button 
+                className="btn btn-primary btn-block font-weight-bold" 
+                onClick={sendShoppingData}
+                style={buttonHeight}>
+                <FontAwesomeIcon icon={faCashRegister} />
+                  &nbsp;買い物確定
+             </button>
+              : 
+              ''
+            }
+            
          </div>
       </div>
     </div>
