@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { cartDeleteCart } from '../store/Store';
 
+
 const rightAreaTable={
   height: '200px',
   overflow: 'scroll'
@@ -82,7 +83,7 @@ const deleteCartItem = (index)=>{
    })
    return total;
  }
- /********************************************サーバーに買い物情報送信*************************************************************************************** */
+ /********************************************に買い物確認情報送信*************************************************************************************** */
  const sendShoppingData =()=>{
    props.history.push('/customer_confirm');
  }
