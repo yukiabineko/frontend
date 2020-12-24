@@ -179,7 +179,7 @@ import { logoutAction } from './store/Store';
       <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
       <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />
-      <Route path="/customor/index"  
+      <Route path="/customor"  
         render={()=>
         <CustomorIndex 
           sendCustomerData={(item)=>customerItem(item)} 
