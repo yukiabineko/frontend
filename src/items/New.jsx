@@ -44,7 +44,7 @@ const  New = (props)=>{
       const params = new FormData();
       params.append('file', image.file);
       params.append('name', state.name);
-      axios.post('http://yukiabineko.sakura.ne.jp/send-react.php',
+      axios.post('https://yukiabineko.sakura.ne.jp/send-react.php',
       　　　　　　　params,
                   {
                     headers:{
@@ -54,7 +54,6 @@ const  New = (props)=>{
       ).then((res)=>{
           console.log(res.data);
       }).catch(()=>{
-        alert('ERROR');
       })
 
 

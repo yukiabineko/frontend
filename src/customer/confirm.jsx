@@ -6,6 +6,8 @@ import axios from 'axios'
 import { cartEmpty } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
+import { cartDeleteCart } from '../store/Store';
+import Empty from './NoData';
 
 const title={
   fontFamily: 'ヒラギノ明朝',
@@ -67,6 +69,14 @@ const sendServer = ()=>{
     props.dispatch(cartEmpty());  /*買い物カゴリセット*/
 
   }
+  /**********************************商品アイテム削除************************************************************************************************ */
+  const deleteItem = (index)=>{
+    let action = cartDeleteCart(index);
+    props.dispatch(action);
+    if(props.buyCarts.length == 0){
+      props.history.push('/shoppings');
+    }
+  }
 /********************************************************************************************************************************** */
   return(
    <>
@@ -78,7 +88,7 @@ const sendServer = ()=>{
        </div>
        <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-         <Form>
+          {props.buyCarts.length >0? <Form>
            <Table bordered className="mt-3">
              <thead>
                <th style={th}>
@@ -109,7 +119,7 @@ const sendServer = ()=>{
                <th style={th}></th>
              </thead>
              <tbody>
-               {props.buyCarts.map((data)=>(
+               {props.buyCarts.map((data,index)=>(
                  <tr>
                    <td className="text-dark text-center font-weight-bold">{data.name}</td>
                    <td className="text-dark text-center font-weight-bold">{data.price}</td>
@@ -119,6 +129,7 @@ const sendServer = ()=>{
                    <td className="text-dark text-center font-weight-bold">
                      <Button 
                        variant="danger"
+                       onClick={()=>deleteItem(index)}
                      >
                     削除
                      </Button>
@@ -137,7 +148,10 @@ const sendServer = ()=>{
              注文確定
              </Button>
            </div>
-         </Form>
+         </Form> 
+           : 
+          <Empty />
+         }
         </Col>
       </Row>
    </>

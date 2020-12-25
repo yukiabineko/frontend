@@ -33,7 +33,8 @@ import { logoutAction } from './store/Store';
     itemEditId:0,
     processId: 0,
     OrderEditId: 0,
-    customerItem: null
+    customerItem: null,
+    shoppingShow: null
   })
   const userlogout = ()=>{
     let action = logoutAction();
@@ -48,7 +49,8 @@ import { logoutAction } from './store/Store';
       itemEditId: state.itemEditId,
       processId: state.processId,
       OrderEditId: state.OrderEditId,
-      customerItem: state.customerItem
+      customerItem: state.customerItem,
+      shoppingShow: state.shoppingShow
     })
   }
   const getItemEditId = (item)=>{
@@ -59,7 +61,8 @@ import { logoutAction } from './store/Store';
       itemEditId: item,
       processId: state.processId,
       OrderEditId: state.OrderEdit,
-      customerItem: state.customerItem
+      customerItem: state.customerItem,
+      shoppingShow: state.shoppingShow
     })
   }
   const getProcessId = (item)=>{
@@ -70,7 +73,8 @@ import { logoutAction } from './store/Store';
       itemEditId: state.itemEditId,
       processId: item,
       OrderEditId: state.OrderEdit,
-      customerItem: state.customerItem
+      customerItem: state.customerItem,
+      shoppingShow: state.shoppingShow
     })
   }
   const getOrderEditId = (id)=>{
@@ -81,7 +85,8 @@ import { logoutAction } from './store/Store';
       itemEditId: state.itemEditId,
       processId: state.processId,
       OrderEditId: id,
-      customerItem: state.customerItem
+      customerItem: state.customerItem,
+      shoppingShow: state.shoppingShow
     })
   }
   /*お客様買うボタンより*/
@@ -92,7 +97,8 @@ import { logoutAction } from './store/Store';
       itemEditId: state.itemEditId,
       processId: state.processId,
       OrderEditId: state.OrderEditId,
-      customerItem: item
+      customerItem: item,
+      shoppingShow: state.shoppingShow
     })
   }
   /*ストック数およびお買い物リストの更新*/
@@ -103,9 +109,21 @@ import { logoutAction } from './store/Store';
       itemEditId: state.itemEditId,
       processId: state.processId,
       OrderEditId: state.OrderEditId,
-      customerItem: item
+      customerItem: item,
+      shoppingShow: state.shoppingShow
     })
-   
+  }
+  /*個別の注文状況の表示用アイテム*/
+  const shoppingData = (data)=>{
+    setState({
+      editId: state.editId,
+      deleteId: state.deleteId,
+      itemEditId: state.itemEditId,
+      processId: state.processId,
+      OrderEditId: state.OrderEditId,
+      customerItem: state.customerItem,
+      shoppingShow: data
+    })
   }
   
   return(
@@ -179,21 +197,31 @@ import { logoutAction } from './store/Store';
       <Route path="/orders" render={()=><OrderIndex orderEditIdget={(id)=>getOrderEditId(id)} />} />
       <Route path="/orders_new" component={OrderNew} />
       <Route path="/orders_edit" render={ () => <OrderEdit id={state.OrderEditId} />} />
-      <Route path="/customor/index"  
+      <Route path="/customor"  
         render={()=>
         <CustomorIndex 
           sendCustomerData={(item)=>customerItem(item)} 
           fixItemData={state.customerItem}
+          sendCustomerData={(data)=>shoppingData(data)}
         />} />
       <Route path="/customor_show" 
       render={()=>
         <CustomorShow 
           itemData={state.customerItem}
           changeItemData={(item)=>changeItem(item)}
+         
       />} />
      <Route path="/customer_confirm" component={Confirm} />
-     <Route path="/shoppings" component={ShoppingIndex} />
-     <Route path="/shoppings_show" component={ShoppingShow} />
+     <Route path="/shoppings" 
+      render={()=>
+        <ShoppingIndex 
+          sendShoppingData={(data)=>shoppingData(data)}
+        />} />
+     <Route path="/shoppings_show" 
+      render={()=>
+        <ShoppingShow 
+          show={state.shoppingShow}
+        />} />
     </BrowserRouter>
   )
 }
