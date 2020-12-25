@@ -55,13 +55,17 @@ const processChange = (e)=>{
     let propData = props.itemData;
     let stock = Number(props.itemData.stock);
     let minusNumber = Number(state.number);
-    stock -= minusNumber;
-    propData.stock = stock;
-    props.changeItemData(propData);
-    let action = cartsAdd({name: propData.name, num: state.number, price: propData.price, process:　state.process});
-    props.dispatch(action);
-    props.history.push('/customor/index')
-
+    if(minusNumber > 0){
+      stock -= minusNumber;
+      propData.stock = stock;
+      props.changeItemData(propData);
+      let action = cartsAdd({name: propData.name, num: state.number, price: propData.price, process:　state.process});
+      props.dispatch(action);
+      props.history.push('/customor/index');
+    }
+    else{
+      alert('数量を入力してください。');
+    }
   }
 
 /********************************************************************************************************************************** */

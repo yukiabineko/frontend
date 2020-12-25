@@ -68,7 +68,8 @@ import '../App.css';
     document.getElementById('customButton' + i).style.background = "none";
   }
   /*************************************ステータス変更/確認ページへ************************************************************************ */
-  const showShoppingStatus =()=>{
+  const showShoppingStatus =(data)=>{
+    props.sendShoppingData(data);
     props.history.push('/shoppings_show');
   }
 
@@ -99,7 +100,7 @@ import '../App.css';
                         onMouseOver={()=>hoverButton(i)}
                         onMouseOut={()=>outButton(i)}
                         className="customButton"
-                        onClick={showShoppingStatus}
+                        onClick={()=>showShoppingStatus(data)}
                         >{data.name}</button>
                       
                       <br/>

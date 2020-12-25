@@ -172,7 +172,7 @@ const deleteCartItem = (index)=>{
                 onClick={sendShoppingData}
                 style={buttonHeight}>
                 <FontAwesomeIcon icon={faCashRegister} />
-                  &nbsp;買い物確定
+                  &nbsp;買い物確認
              </button>
               : 
               ''
