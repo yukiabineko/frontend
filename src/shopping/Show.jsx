@@ -36,6 +36,20 @@ const  Show = (props)=>{
           break;
       }
     }
+    /* ステータス変更サーバー送信 */
+    
+    const sendStatusNumber = (num)=>{
+      alert(num);
+       /* rails側への送信*/
+      
+       const params = {
+        id: props.show.id,
+        name: props.show.user_name,
+      }
+      alert(JSON.stringify(params));
+      props.history.push('/shoppings');
+    }
+    
   return(
    <>
     <div className="text-center mt-5">
@@ -80,6 +94,7 @@ const  Show = (props)=>{
                  <Button 
                     variant="warning"
                     className="btn-block p-4 font-weight-bold text-light "
+                    onClick={()=>sendStatusNumber(1)}
                     style={font}
                   >
                   <FontAwesomeIcon icon={faUtensils } />&nbsp;
@@ -88,6 +103,7 @@ const  Show = (props)=>{
                  <Button 
                     variant="danger"
                     className="btn-block p-4 font-weight-bold text-white"
+                    onClick={()=>sendStatusNumber(2)}
                     style={font}
                   >
                     <FontAwesomeIcon icon={faTruck } />&nbsp;
@@ -102,6 +118,7 @@ const  Show = (props)=>{
                  <Button 
                     variant="primary"
                     className="btn-block p-4 font-weight-bold text-white "
+                    onClick={()=>sendStatusNumber(0)}
                     style={font}
                   >
                   <FontAwesomeIcon icon={ faClipboard  } />&nbsp;
@@ -110,6 +127,7 @@ const  Show = (props)=>{
                  <Button 
                     variant="danger"
                     className="btn-block p-4 font-weight-bold text-white"
+                    onClick={()=>sendStatusNumber(2)}
                     style={font}
                   >
                     <FontAwesomeIcon icon={ faTruck } />&nbsp;
@@ -131,6 +149,7 @@ const  Show = (props)=>{
                <Button 
                     variant="warning"
                     className="btn-block p-4 font-weight-bold text-light "
+                    onClick={()=>sendStatusNumber(2)}
                     style={font}
                   >
                   <FontAwesomeIcon icon={faUtensils } />&nbsp;
