@@ -18,6 +18,8 @@ const storeReducer = (state = init_data, action)=>{
       return cartResetReducer(state, action);
     case 'CARTDELETE':
       return cartDeleteReducer(state, action);
+    case 'USERHISTORY':
+      return userHistoryReducer(state, action);  
     default:
       return state
   }
@@ -65,8 +67,10 @@ const cartDeleteReducer = (state, action)=>{
     userData: state.userData,
     buyCarts: datas
   }
- 
- 
+}
+
+const userHistoryReducer = (state, action)=>{
+  
 }
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
@@ -95,6 +99,12 @@ export const cartDeleteCart = (index)=>{
   return{
     type: 'CARTDELETE',
     num: index
+  }
+}
+export const historyDataSend = (data)=>{
+  return{
+    type: 'USERHISTORY',
+    data: data
   }
 }
 export default createStore(storeReducer)
