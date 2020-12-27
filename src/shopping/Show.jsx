@@ -39,14 +39,22 @@ const  Show = (props)=>{
     /* ステータス変更サーバー送信 */
     
     const sendStatusNumber = (num)=>{
-      alert(num);
+
        /* rails側への送信*/
       
        const params = {
         id: props.show.id,
         name: props.show.user_name,
+        status: num
       }
-      alert(JSON.stringify(params));
+      axios.patch(`https://uematsu-backend.herokuapp.com/shoppings/${props.show.id}`, params)
+      .then(function (response) {
+        /*railsからメッセージ*/
+        alert(response.data.message); 
+      })
+      .catch(function(){
+        alert('error');
+      })
       props.history.push('/shoppings');
     }
     
@@ -141,6 +149,7 @@ const  Show = (props)=>{
                <Button 
                   variant="primary"
                   className="btn-block p-4 font-weight-bold text-white "
+                  onClick={()=>sendStatusNumber(0)}
                   style={font}
                 >
                 <FontAwesomeIcon icon={ faClipboard  } />&nbsp;
