@@ -70,7 +70,8 @@ const cartDeleteReducer = (state, action)=>{
 }
 
 const userHistoryReducer = (state, action)=>{
-  
+  alert(JSON.stringify(action.data));
+  return state;
 }
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
