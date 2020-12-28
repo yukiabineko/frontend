@@ -1,9 +1,9 @@
 import { createStore } from "redux";
-import { data } from "jquery";
 
 let init_data ={
   userData: [],
-  buyCarts: []
+  buyCarts: [],
+  historyData: null
 }
 
 const storeReducer = (state = init_data, action)=>{
@@ -32,7 +32,8 @@ const loginReducer = (state, action)=>{
  
   return{
     userData: newData,
-    buyCarts: state.buyCarts
+    buyCarts: state.buyCarts,
+    history: state.history
   }
 }
 const logoutReducer =(state, action)=>{
@@ -40,7 +41,8 @@ const logoutReducer =(state, action)=>{
     newData.splice(0);
     return{
       userData: newData,
-      buyCarts: state.buyCarts
+      buyCarts: state.buyCarts,
+      history: state.history
     }
   }
 const cartReducer = (state, action)=>{
@@ -49,7 +51,8 @@ const cartReducer = (state, action)=>{
   
   return{
     userData: state.userData,
-    buyCarts: data
+    buyCarts: data,
+    history: state.history
   }
 }
 const cartResetReducer = (state, action)=>{
@@ -57,7 +60,8 @@ const cartResetReducer = (state, action)=>{
   data.splice(0);
   return{
     userData: state.userData,
-    buyCarts: data
+    buyCarts: data,
+    history: state.history
   }
 }
 const cartDeleteReducer = (state, action)=>{
@@ -65,12 +69,19 @@ const cartDeleteReducer = (state, action)=>{
   datas.splice(action.num, 1);
   return{
     userData: state.userData,
-    buyCarts: datas
+    buyCarts: datas,
+    history: state.history
   }
 }
 
 const userHistoryReducer = (state, action)=>{
-  
+  let history = action.data;
+  alert(JSON.stringify(history));
+  return{
+    userData: state.userData,
+    buyCarts: state.buyCarts,
+    historyData: history
+  }
 }
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
