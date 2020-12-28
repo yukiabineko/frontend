@@ -3,6 +3,7 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { historyDataSend } from '../store/Store';
 
 /**************************************************************************************** */
 const  Show = (props)=>{
@@ -10,10 +11,11 @@ const  Show = (props)=>{
    async function orderCall(){
      
     await axios
-      .get('https://uematsu-backend.herokuapp.com/orders')
+      .get(`https://uematsu-backend.herokuapp.com/history/show/${props.userData[0].id}`)
       .then((res)=>{
-         localStorage.setItem('orders', JSON.stringify(res.data));
-         
+         const action = historyDataSend(res.data);
+         props.dispatch(action);
+
       })
       .catch((error)=>{
          console.log(error);
