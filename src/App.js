@@ -202,7 +202,6 @@ import { logoutAction } from './store/Store';
         <CustomorIndex 
           sendCustomerData={(item)=>customerItem(item)} 
           fixItemData={state.customerItem}
-          sendCustomerData={(data)=>shoppingData(data)}
         />} />
       <Route path="/customor_show" 
       render={()=>
