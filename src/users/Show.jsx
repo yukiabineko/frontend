@@ -3,6 +3,9 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { historyDataSend } from '../store/Store';
+import { ordercheck } from './setting';
+
 
 /**************************************************************************************** */
 const  Show = (props)=>{
@@ -10,16 +13,18 @@ const  Show = (props)=>{
    async function orderCall(){
      
     await axios
-      .get('https://uematsu-backend.herokuapp.com/orders')
+      .get(`https://uematsu-backend.herokuapp.com/history/show/${props.userData[0].id}`)
       .then((res)=>{
-         localStorage.setItem('orders', JSON.stringify(res.data));
-         
+         const action = historyDataSend(res.data);
+         props.dispatch(action);
+
       })
       .catch((error)=>{
          console.log(error);
       })
  }
-   useState(orderCall());
+useState(orderCall);
+
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -53,7 +58,7 @@ const  Show = (props)=>{
                  </tr>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用開始日</th>
-                   <td>{props.userData[0].created_at}</td>
+                   <td>{props.userData[0].create}</td>
                  </tr>
                 </tbody>
               </Table>
@@ -64,16 +69,19 @@ const  Show = (props)=>{
                 <tbody>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用回数</th>
-                   <td></td>
+                   <td>{props.userData[0].orders[0].length > 0? props.userData[0].orders[0].length : 0 }</td>
                  </tr>
-                 <tr>
-                   <th className="bg-primary text-white w-50">最終ご利用日</th>
-                   <td></td>
-                 </tr>
+               
                  <tr>
                    <th className="bg-primary text-white w-50">現在注文有無</th>
-                   <td></td>
+                   <td >{ordercheck(props.userData[0].orders[0]).count}</td>
                  </tr>
+
+                 <tr>
+                   <th className="bg-primary text-white w-50">注文日</th>
+                   <td >{ordercheck(props.userData[0].orders[0]).date}</td>
+                 </tr>
+               
                 </tbody>
               </Table>
             </Col>

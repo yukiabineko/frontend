@@ -150,7 +150,7 @@ import { logoutAction } from './store/Store';
             <Link to="/" className="text-light p-3">HOME</Link>
           </li>
           <li className="nav-item pt-3 pb-3">
-            <Link to="/customor/index" className="text-light p-3">お買い物</Link>
+            <Link to="/customor" className="text-light p-3">お買い物</Link>
           </li>
           <li className="nav-item pt-3 pb-3">
             <Link to="/items" className="text-light p-3">商品一覧</Link>
