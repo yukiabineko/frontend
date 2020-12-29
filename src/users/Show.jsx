@@ -21,7 +21,8 @@ const  Show = (props)=>{
          console.log(error);
       })
  }
-   useState(orderCall());
+useState(orderCall);
+
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -66,7 +67,7 @@ const  Show = (props)=>{
                 <tbody>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用回数</th>
-                   <td></td>
+                   <td>{props.history? props.history.orders[0].length : 0}</td>
                  </tr>
                  <tr>
                    <th className="bg-primary text-white w-50">最終ご利用日</th>
