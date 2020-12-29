@@ -1,4 +1,5 @@
 import { createStore } from "redux";
+import { data } from "jquery";
 
 let init_data ={
   userData: [],
@@ -33,7 +34,7 @@ const loginReducer = (state, action)=>{
   return{
     userData: newData,
     buyCarts: state.buyCarts,
-    history: state.history
+    historyData: state.historyData
   }
 }
 const logoutReducer =(state, action)=>{
@@ -41,8 +42,7 @@ const logoutReducer =(state, action)=>{
     newData.splice(0);
     return{
       userData: newData,
-      buyCarts: state.buyCarts,
-      history: state.history
+      buyCarts: state.buyCarts,historyData: state.historyData
     }
   }
 const cartReducer = (state, action)=>{
@@ -52,7 +52,7 @@ const cartReducer = (state, action)=>{
   return{
     userData: state.userData,
     buyCarts: data,
-    history: state.history
+    historyData: state.historyData
   }
 }
 const cartResetReducer = (state, action)=>{
@@ -61,7 +61,7 @@ const cartResetReducer = (state, action)=>{
   return{
     userData: state.userData,
     buyCarts: data,
-    history: state.history
+    historyData: state.historyData
   }
 }
 const cartDeleteReducer = (state, action)=>{
@@ -70,13 +70,13 @@ const cartDeleteReducer = (state, action)=>{
   return{
     userData: state.userData,
     buyCarts: datas,
-    history: state.history
+    historyData: state.historyData
   }
 }
 
 const userHistoryReducer = (state, action)=>{
   let history = action.data;
-  alert(JSON.stringify(history));
+  alert(JSON.stringify(history.orders[0].length));
   return{
     userData: state.userData,
     buyCarts: state.buyCarts,

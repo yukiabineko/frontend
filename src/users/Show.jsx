@@ -3,6 +3,7 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { historyDataSend } from '../store/Store';
 
 /**************************************************************************************** */
 const  Show = (props)=>{
@@ -10,16 +11,18 @@ const  Show = (props)=>{
    async function orderCall(){
      
     await axios
-      .get('https://uematsu-backend.herokuapp.com/orders')
+      .get(`https://uematsu-backend.herokuapp.com/history/show/${props.userData[0].id}`)
       .then((res)=>{
-         localStorage.setItem('orders', JSON.stringify(res.data));
-         
+         const action = historyDataSend(res.data);
+         props.dispatch(action);
+
       })
       .catch((error)=>{
          console.log(error);
       })
  }
-   useState(orderCall());
+useState(orderCall);
+
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -64,7 +67,7 @@ const  Show = (props)=>{
                 <tbody>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用回数</th>
-                   <td></td>
+                   <td>{props.history? props.history.orders[0].length : 0}</td>
                  </tr>
                  <tr>
                    <th className="bg-primary text-white w-50">最終ご利用日</th>
