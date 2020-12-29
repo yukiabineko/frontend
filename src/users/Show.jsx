@@ -4,6 +4,8 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { historyDataSend } from '../store/Store';
+import { ordercheck } from './setting';
+
 
 /**************************************************************************************** */
 const  Show = (props)=>{
@@ -56,7 +58,7 @@ useState(orderCall);
                  </tr>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用開始日</th>
-                   <td>{props.userData[0].created_at}</td>
+                   <td>{props.userData[0].create}</td>
                  </tr>
                 </tbody>
               </Table>
@@ -67,16 +69,19 @@ useState(orderCall);
                 <tbody>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用回数</th>
-                   <td>{props.history? props.history.orders[0].length : 0}</td>
+                   <td>{props.userData[0].orders[0].length > 0? props.userData[0].orders[0].length : 0 }</td>
                  </tr>
-                 <tr>
-                   <th className="bg-primary text-white w-50">最終ご利用日</th>
-                   <td></td>
-                 </tr>
+               
                  <tr>
                    <th className="bg-primary text-white w-50">現在注文有無</th>
-                   <td></td>
+                   <td >{ordercheck(props.userData[0].orders[0]).count}</td>
                  </tr>
+
+                 <tr>
+                   <th className="bg-primary text-white w-50">注文日</th>
+                   <td >{ordercheck(props.userData[0].orders[0]).date}</td>
+                 </tr>
+               
                 </tbody>
               </Table>
             </Col>
