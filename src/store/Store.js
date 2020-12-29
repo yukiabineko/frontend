@@ -76,7 +76,6 @@ const cartDeleteReducer = (state, action)=>{
 
 const userHistoryReducer = (state, action)=>{
   let history = action.data;
-  alert(JSON.stringify(history.orders[0].length));
   return{
     userData: state.userData,
     buyCarts: state.buyCarts,

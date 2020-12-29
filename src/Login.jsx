@@ -24,6 +24,7 @@ const  Login = (props)=>{
     }
     axios.post('https://uematsu-backend.herokuapp.com/sessions', data)
       .then(function (response) {
+        alert(JSON.stringify(response.data));
         let action = sendLoginData(response.data);
         props.dispatch(action);
         /*railsからメッセージ*/
