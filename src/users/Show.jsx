@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { historyDataSend } from '../store/Store';
 import { ordercheck } from './setting';
+import History from './History';
 
 
 /**************************************************************************************** */
@@ -39,8 +40,8 @@ useState(orderCall);
       {props.userData.length >0?
        <>
         <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2>{props.userData[0].name}さんページ</h2>
-      </div>
+          <h2 className="text-white font-weight-bold">{props.userData[0].name}さんページ</h2>
+        </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
           <Row>
@@ -92,6 +93,17 @@ useState(orderCall);
         : 
         loginUserCheck()
       }
+      {/* 履歴エリア */}
+
+      <div className="text-center mt-3 font-weight-bold">
+          <h2 className="text-light font-weight-bold">商品依頼履歴</h2>
+      </div>
+
+      <Row>
+        <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 mt-2 pb-4 bg-light shadow">
+          <History />
+        </Col>
+      </Row>
    </>
   )
 }
