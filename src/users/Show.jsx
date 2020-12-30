@@ -70,17 +70,17 @@ useState(orderCall);
                 <tbody>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用回数</th>
-                   <td>{props.userData[0].orders[0].length > 0? props.userData[0].orders[0].length : 0 }</td>
+                   <td className="text-center">{props.userData[0].orders[0]? props.userData[0].orders[0].length : 0 }</td>
                  </tr>
                
                  <tr>
                    <th className="bg-primary text-white w-50">現在注文有無</th>
-                   <td >{ordercheck(props.userData[0].orders[0]).count}</td>
+                   <td className="text-center">{ordercheck(props.userData[0].orders[0]).count? ordercheck(props.userData[0].orders[0]).count : '未使用'}</td>
                  </tr>
 
                  <tr>
                    <th className="bg-primary text-white w-50">注文日</th>
-                   <td >{ordercheck(props.userData[0].orders[0]).date}</td>
+                   <td className="text-center">{ordercheck(props.userData[0].orders[0]).date? ordercheck(props.userData[0].orders[0]).date : '未使用'}</td>
                  </tr>
                
                 </tbody>
@@ -101,7 +101,9 @@ useState(orderCall);
 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 mt-2 pb-4 bg-light shadow">
-          <History />
+          {/* ログアウト中は無効 */}
+          
+          {props.userData.length >0? <History /> : ''}
         </Col>
       </Row>
    </>
