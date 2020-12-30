@@ -8,7 +8,7 @@ const  History = (props)=>{
 
   return(
    <>
-    {props.userData.length > 0? 
+    {props.userData[0].orders[0]? 
       <>
        <Table bordered className="mt-3">
          <thead>
@@ -36,7 +36,7 @@ const  History = (props)=>{
        </Table>
       </>
       : 
-      <div className="p-5 bg-light">履歴がありません。</div>
+      <div className="p-5 bg-secondary mt-3 text-white font-weight-bold">履歴がありません。</div>
     }
    </>
   )
