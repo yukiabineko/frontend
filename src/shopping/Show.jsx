@@ -90,6 +90,7 @@ const  Show = (props)=>{
                 <td className="font-weight-bold">{Number(props.show.price) * Number(props.show.num)}</td>
                 <th className="bg-primary text-white">注文状況</th>
                 <td className="font-weight-bold">{statusLayout()}</td>
+               
               </tr>
             </tbody>
           </Table>
