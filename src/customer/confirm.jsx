@@ -6,7 +6,7 @@ import axios from 'axios'
 import { cartEmpty } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart } from '../store/Store';
+import { cartDeleteCart, sendLoginData  } from '../store/Store';
 import Empty from './NoData';
 
 const title={
@@ -60,12 +60,21 @@ const sendServer = ()=>{
    axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
       .then(function (response) {
         /*railsからメッセージ*/
+
         alert(response.data.message); 
+        axios.get(`https://uematsu-backend.herokuapp.com/users/${props.userData[0].id}`).then(function(response){
+           let action = sendLoginData (response.data);
+           props.dispatch(action);
+
+        }).catch(function(err){
+         console.log(err);
+        });
       })
       .catch(function(){
         alert('error');
       }) 
-    props.history.push('/users/show');  /*ユーザーページへ移動*/
+    
+    props.history.push('/customor');  /*ユーザーページへ移動*/
     props.dispatch(cartEmpty());  /*買い物カゴリセット*/
 
   }
