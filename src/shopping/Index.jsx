@@ -4,6 +4,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../App.css';
+import { viewDataBranch } from "./settiing";
 
  const customButton ={
    border: "none",
@@ -113,6 +114,7 @@ import '../App.css';
                     <td className="font-weight-bold text-center text-danger align-middle">
                       { Number(data.price) * Number(data.num) }
                     </td>
+                    <td>{viewDataBranch(data.shopping_date)}</td>
                   </tr>
                 ))}
               </tbody>
