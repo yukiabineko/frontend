@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -25,12 +25,35 @@ const th={
   textAlign: 'center'
 }
 
-
-
 /**************************************************************************************** */
 
 const  Confirm = (props)=>{
+ 
+ let localData = JSON.parse(localStorage.getItem('orders'));
 
+/*カートの商品の数量のみ配列化 */
+
+const cartNum = ()=>{
+  let array = [];
+  props.buyCarts.forEach((data) => {
+    array.push(data.num);
+  });
+  return array;
+}
+ 
+/***************************** ステート管理 ************************************************************** */
+const[state, setState] = useState(props.orderData); /* 全体の在庫*/
+const[num, setNumber] = useState(cartNum());  /* 現在の注文数ステータス */
+
+
+/***************************** セレクトの数量表示 ************************************************************** */
+const selectNumber =(number)=>{
+  let array = [];
+  for(let i=0; i<= Number(number); i++){
+    array.push(i);
+  }
+  return array;
+}
 /***********************サーバー送信***************************************************************** */
 const sendServer = ()=>{
     const params = new FormData();
@@ -86,6 +109,40 @@ const sendServer = ()=>{
       props.history.push('/shoppings');
     }
   }
+/******************************ログイン/未ログイン切り替え********************************************************** */
+    const loginUserCheck = ()=>{
+      if(props.userData.length===0){
+        props.history.push('/login');  
+      }
+    }
+    useEffect(()=>{
+    loginUserCheck();
+    })
+/******************************セレクト切り替え********************************************************** */
+const doSelect = (e)=>{
+  let currentNumber = Number(num[Number(e.target.name)]);
+  let changeNumber = Number(e.target.value);
+  let calcNumber = changeNumber - currentNumber;
+  let cartItemName = props.buyCarts[Number(e.target.name)].name;
+  let stateData = state.slice();
+  stateData.forEach((data,i)=>{
+    let dataNumber = Number(data.stock);
+    if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
+      if(calcNumber > 0){
+         stateData[i].stock = dataNumber - calcNumber;
+      }
+      else if(calcNumber <0){
+        stateData[i].stock = dataNumber + calcNumber;
+      }
+    }
+    setState(stateData);
+  });
+  let numArray = num.slice();
+  numArray[Number(e.target.name)] = changeNumber;
+  alert(numArray);
+  setNumber(numArray);
+}
+
 /********************************************************************************************************************************** */
   return(
    <>
@@ -97,7 +154,8 @@ const sendServer = ()=>{
        </div>
        <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-          {props.buyCarts.length >0? <Form>
+          {props.buyCarts.length >0? 
+          <Form>
            <Table bordered className="mt-3">
              <thead>
                <th style={th}>
@@ -132,7 +190,18 @@ const sendServer = ()=>{
                  <tr>
                    <td className="text-dark text-center font-weight-bold">{data.name}</td>
                    <td className="text-dark text-center font-weight-bold">{data.price}</td>
-                   <td className="text-dark text-center font-weight-bold">{data.num}</td>
+                   <td className="text-dark text-center font-weight-bold">
+                      <Form.Control as="select" size="sm" custom value={num[index]} onChange={(index)=>doSelect(index)} name={index} >
+                       {state.map((order)=>(
+                         order.name === data.name? 
+                           selectNumber(order.stock).map((value)=>(
+                             <option key={value}>{value}</option>
+                           ))
+                           : 
+                           ''
+                       ))}
+                      </Form.Control>
+                   </td>
                    <td className="text-dark text-center font-weight-bold">{data.process}</td>
                    <td className="text-dark text-center font-weight-bold">{Number(data.price) * Number(data.num)}</td>
                    <td className="text-dark text-center font-weight-bold">
