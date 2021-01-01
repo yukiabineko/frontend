@@ -36,7 +36,7 @@ const buttonHeight={
 }
 
  function Index(props){
-  let localData = JSON.parse(localStorage.getItem('orders'))
+  let localData = JSON.parse(localStorage.getItem('orders'));
 
   /*買い物カゴに入れた際の在庫の更新*/
 
@@ -133,7 +133,7 @@ const deleteCartItem = (index)=>{
          </article>
          <div className="customor-right">
            <h5 style={buycheck}>買い物確認</h5>
-            <p className="font-weight-bold text-center">{props.userData[0].name}さん</p>
+            <p className="font-weight-bold text-center">{props.userData.length>0? props.userData[0].name : ''}さん</p>
             <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>
             
             {props.buyCarts.length >0 ? 

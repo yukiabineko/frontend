@@ -23,7 +23,7 @@ import Confirm from './customer/confirm';
 import ShoppingIndex from './shopping/Index';
 import ShoppingShow from './shopping/Show';
 import { connect } from "react-redux";
-import { logoutAction } from './store/Store';
+import { logoutAction, cartEmpty } from './store/Store';
 
 
  function App(props){
@@ -39,6 +39,9 @@ import { logoutAction } from './store/Store';
   const userlogout = ()=>{
     let action = logoutAction();
     props.dispatch(action);
+
+    let cartAction = cartEmpty();
+    props.dispatch(cartAction);
     
   }
   const getEditId = (id)=>{

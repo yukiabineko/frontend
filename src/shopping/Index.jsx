@@ -93,29 +93,33 @@ import { viewDataBranch } from "./settiing";
               </thead>
               <tbody>
                 {shopingData.map((data,i)=>(
+                  /* 当日のみ表示 */
+
+                  viewDataBranch(data.shopping_date) === 1? 
                   <tr>
-                    <td className="font-weight-bold text-center align-center">
-                      <button 
-                        style={customButton} 
-                        id={`customButton${i}`}
-                        onMouseOver={()=>hoverButton(i)}
-                        onMouseOut={()=>outButton(i)}
-                        className="customButton"
-                        onClick={()=>showShoppingStatus(data)}
-                        >{data.name}</button>
-                      
-                      <br/>
-                      {orderStatus(data.status)}
-                    </td>
-                    <td className="font-weight-bold text-center align-middle">{`${data.user_name}様`}</td>
-                    <td className="font-weight-bold text-center text-danger align-middle">{data.price}</td>
-                    <td className="font-weight-bold text-center align-middle">{data.num}</td>
-                    <td className="font-weight-bold text-center align-middle">{data.process}</td>
-                    <td className="font-weight-bold text-center text-danger align-middle">
-                      { Number(data.price) * Number(data.num) }
-                    </td>
-                    <td>{viewDataBranch(data.shopping_date)}</td>
-                  </tr>
+                  <td className="font-weight-bold text-center align-center">
+                    <button 
+                      style={customButton} 
+                      id={`customButton${i}`}
+                      onMouseOver={()=>hoverButton(i)}
+                      onMouseOut={()=>outButton(i)}
+                      className="customButton"
+                      onClick={()=>showShoppingStatus(data)}
+                      >{data.name}</button>
+                    
+                    <br/>
+                    {orderStatus(data.status)}
+                  </td>
+                  <td className="font-weight-bold text-center align-middle">{`${data.user_name}様`}</td>
+                  <td className="font-weight-bold text-center text-danger align-middle">{data.price}</td>
+                  <td className="font-weight-bold text-center align-middle">{data.num}</td>
+                  <td className="font-weight-bold text-center align-middle">{data.process}</td>
+                  <td className="font-weight-bold text-center text-danger align-middle">
+                    { Number(data.price) * Number(data.num) }
+                  </td>
+                </tr>
+                   : 
+                   ''
                 ))}
               </tbody>
             </Table>
