@@ -42,7 +42,7 @@ const cartNum = ()=>{
 }
  
 /***************************** ステート管理 ************************************************************** */
-const[state, setState] = useState(localData); /* 全体の在庫*/
+const[state, setState] = useState(props.orderData); /* 全体の在庫*/
 const[num, setNumber] = useState(cartNum());  /* 現在の注文数ステータス */
 
 
@@ -120,8 +120,27 @@ const sendServer = ()=>{
     })
 /******************************セレクト切り替え********************************************************** */
 const doSelect = (e)=>{
-  alert(e.target.value);
-  alert(e.target.name);
+  let currentNumber = Number(num[Number(e.target.name)]);
+  let changeNumber = Number(e.target.value);
+  let calcNumber = changeNumber - currentNumber;
+  let cartItemName = props.buyCarts[Number(e.target.name)].name;
+  let stateData = state.slice();
+  stateData.forEach((data,i)=>{
+    let dataNumber = Number(data.stock);
+    if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
+      if(calcNumber > 0){
+         stateData[i].stock = dataNumber - calcNumber;
+      }
+      else if(calcNumber <0){
+        stateData[i].stock = dataNumber + calcNumber;
+      }
+    }
+    setState(stateData);
+  });
+  let numArray = num.slice();
+  numArray[Number(e.target.name)] = changeNumber;
+  alert(numArray);
+  setNumber(numArray);
 }
 
 /********************************************************************************************************************************** */
@@ -173,8 +192,13 @@ const doSelect = (e)=>{
                    <td className="text-dark text-center font-weight-bold">{data.price}</td>
                    <td className="text-dark text-center font-weight-bold">
                       <Form.Control as="select" size="sm" custom value={num[index]} onChange={(index)=>doSelect(index)} name={index} >
-                       {selectNumber(state[index].stock).map((number)=>(
-                         <option key={index} >{number}</option>
+                       {state.map((order)=>(
+                         order.name === data.name? 
+                           selectNumber(order.stock).map((value)=>(
+                             <option key={value}>{value}</option>
+                           ))
+                           : 
+                           ''
                        ))}
                       </Form.Control>
                    </td>

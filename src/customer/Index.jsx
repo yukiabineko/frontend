@@ -44,6 +44,7 @@ const buttonHeight={
     localData.forEach((data,i)=>{
       if(props.fixItemData.id == data.id){
         localData[i] = props.fixItemData;
+        /*localStorage.setItem('orders', JSON.stringify(localData));*/
       }
     })
 
@@ -85,6 +86,7 @@ const deleteCartItem = (index)=>{
  }
  /********************************************に買い物確認情報送信*************************************************************************************** */
  const sendShoppingData =()=>{
+   props.sendCartItemToConfirm(itemData);
    props.history.push('/customer_confirm');
  }
   return(
