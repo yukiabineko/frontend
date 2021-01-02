@@ -128,11 +128,13 @@ const doSelect = (e)=>{
   stateData.forEach((data,i)=>{
     let dataNumber = Number(data.stock);
     if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
+      /*増やしたか？　減らしたか? */
+      
       if(calcNumber > 0){
-         stateData[i].stock = dataNumber - calcNumber;
+         stateData[i].stock = dataNumber - calcNumber;  /*数量増やした場合全体在庫減る*/
       }
       else if(calcNumber <0){
-        stateData[i].stock = dataNumber + calcNumber;
+        stateData[i].stock = dataNumber + (currentNumber - changeNumber); /*数量増やした場合全体在庫増えるまたマイナスになるので計算反転*/
       }
     }
     setState(stateData);
@@ -191,10 +193,13 @@ const doSelect = (e)=>{
                    <td className="text-dark text-center font-weight-bold">{data.name}</td>
                    <td className="text-dark text-center font-weight-bold">{data.price}</td>
                    <td className="text-dark text-center font-weight-bold">
+                      <label>{"現在" + num[index]}</label>
                       <Form.Control as="select" size="sm" custom value={num[index]} onChange={(index)=>doSelect(index)} name={index} >
                        {state.map((order)=>(
                          order.name === data.name? 
-                           selectNumber(order.stock).map((value)=>(
+                         /*在庫にすでに選択されている数量足した数*/
+                         
+                           selectNumber(Number(order.stock) + Number(num[index])).map((value)=>(
                              <option key={value}>{value}</option>
                            ))
                            : 
@@ -203,7 +208,7 @@ const doSelect = (e)=>{
                       </Form.Control>
                    </td>
                    <td className="text-dark text-center font-weight-bold">{data.process}</td>
-                   <td className="text-dark text-center font-weight-bold">{Number(data.price) * Number(data.num)}</td>
+                   <td className="text-dark text-center font-weight-bold">{Number(data.price) * Number(num[index])}</td>
                    <td className="text-dark text-center font-weight-bold">
                      <Button 
                        variant="danger"
