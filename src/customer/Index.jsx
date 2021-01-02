@@ -108,6 +108,10 @@ const deleteCartItem = (index)=>{
                            価格&emsp;
                            <span className="text-warning font-weight-bold">{item.price}</span>円
                          </li>
+                         <li style={nameTitle}>
+                           在庫&emsp;
+                           <span className="text-warning font-weight-bold">{item.stock}</span>(尾/個)
+                         </li>
                          <li style={nameTitle} className="bg-white">
                            {Number(item.stock) > 0? 
                               <button 
@@ -152,10 +156,10 @@ const deleteCartItem = (index)=>{
                       <td className="align-middle">{data.name}</td>
                       <td className="text-center">
                         {data.num}<br/>
-                        <button
+                        {/*<button
                          className="btn btn-danger"
                          onClick={()=>deleteCartItem(index)}
-                         >削除</button>
+                        >削除</button>*/}
                       </td>
                     </tr>
                   ))}
