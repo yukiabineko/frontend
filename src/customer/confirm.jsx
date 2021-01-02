@@ -128,11 +128,13 @@ const doSelect = (e)=>{
   stateData.forEach((data,i)=>{
     let dataNumber = Number(data.stock);
     if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
+      /*増やしたか？　減らしたか? */
+      
       if(calcNumber > 0){
-         stateData[i].stock = dataNumber - calcNumber;
+         stateData[i].stock = dataNumber - calcNumber;  /*数量増やした場合全体在庫減る*/
       }
       else if(calcNumber <0){
-        stateData[i].stock = dataNumber + calcNumber;
+        stateData[i].stock = dataNumber + (currentNumber - changeNumber); /*数量増やした場合全体在庫増えるまたマイナスになるので計算反転*/
       }
     }
     setState(stateData);
