@@ -3,6 +3,7 @@ import { Row, Col, Table, Button,Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logoutAction } from '../store/Store';
 
 
 const itemLink ={
@@ -63,7 +64,9 @@ const imageShow={
         props.history.push('/login');  
       }
     }
-   
+
+  useState(loginUserCheck());
+  
    const newPage = ()=>{
     props.history.push('/items_new')
    }

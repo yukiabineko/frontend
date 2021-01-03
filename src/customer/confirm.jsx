@@ -3,7 +3,7 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios'
-import { cartEmpty } from '../store/Store';
+import { cartEmpty, cartsAdd,  cartUpdate } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { cartDeleteCart, sendLoginData  } from '../store/Store';
@@ -137,11 +137,30 @@ const doSelect = (e)=>{
         stateData[i].stock = dataNumber + (currentNumber - changeNumber); /*数量増やした場合全体在庫増えるまたマイナスになるので計算反転*/
       }
     }
-    setState(stateData);
   });
+  /*redux buycart変更*/
+  let buycart = props.buyCarts.slice();
+
+  let thiscartData = {
+    name: cartItemName,
+    num: changeNumber,
+    price: props.buyCarts[Number(e.target.name)].price,
+    process:props.buyCarts[Number(e.target.name)].process
+  }
+  /*リスト(買い物カゴ)の内変更かけたものを入れ替え*/
+
+  buycart[Number(e.target.name)] = thiscartData;
+  /*ストア送信(update)*/
+
+  let delAction =  cartUpdate(buycart);
+  props.dispatch(delAction);
+  
+
+  /*在庫ステート変更*/
+
+  setState(stateData);
   let numArray = num.slice();
   numArray[Number(e.target.name)] = changeNumber;
-  alert(numArray);
   setNumber(numArray);
 }
 
@@ -193,10 +212,13 @@ const doSelect = (e)=>{
                    <td className="text-dark text-center font-weight-bold">{data.name}</td>
                    <td className="text-dark text-center font-weight-bold">{data.price}</td>
                    <td className="text-dark text-center font-weight-bold">
+                      <label>{"現在" + num[index]}</label>
                       <Form.Control as="select" size="sm" custom value={num[index]} onChange={(index)=>doSelect(index)} name={index} >
                        {state.map((order)=>(
                          order.name === data.name? 
-                           selectNumber(order.stock).map((value)=>(
+                         /*在庫にすでに選択されている数量足した数*/
+                         
+                           selectNumber(Number(order.stock) + Number(num[index])).map((value)=>(
                              <option key={value}>{value}</option>
                            ))
                            : 
@@ -205,7 +227,7 @@ const doSelect = (e)=>{
                       </Form.Control>
                    </td>
                    <td className="text-dark text-center font-weight-bold">{data.process}</td>
-                   <td className="text-dark text-center font-weight-bold">{Number(data.price) * Number(data.num)}</td>
+                   <td className="text-dark text-center font-weight-bold">{Number(data.price) * Number(num[index])}</td>
                    <td className="text-dark text-center font-weight-bold">
                      <Button 
                        variant="danger"

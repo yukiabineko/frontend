@@ -24,17 +24,23 @@ const  Login = (props)=>{
     }
     axios.post('https://uematsu-backend.herokuapp.com/sessions', data)
       .then(function (response) {
-        let action = sendLoginData(response.data);
-        props.dispatch(action);
-        /*railsからメッセージ*/
-        alert('ログインしました'); 
-        setState({
-          name: '',
-          email: '',
-          password: '',
-          confirmation: ''
-        })
-        props.history.push('/users/show');
+
+        if(response.data.name){
+            let action = sendLoginData(response.data);
+            props.dispatch(action);
+            /*railsからメッセージ*/
+            alert('ログインしました'); 
+            setState({
+              name: '',
+              email: '',
+              password: '',
+              confirmation: ''
+            })
+            props.history.push('/users/show');
+          }
+          else{
+            alert('ログイン失敗');
+          }
       })
       .catch(function(err){
         alert(err);
