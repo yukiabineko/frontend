@@ -164,29 +164,38 @@ import { logoutAction, cartEmpty } from './store/Store';
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           {props.userData.length >0?
-            <li class="nav-item pt-3 pb-3 active">
-             <span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
+            props.userData[0].admin == true? 
+             /*従業員サイド */
+            <>
+              <li class="nav-item pt-3 pb-3 active">
+                <span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
+              </li>
+              <li className="nav-item pt-3 pb-3">
+                <Link to="/customor" className="text-light p-3">お買い物</Link>
+             </li>
+              <li className="nav-item pt-3 pb-3">
+                <Link to="/" className="text-light p-3">お客様一覧</Link>
+              </li>
+              <li className="nav-item pt-3 pb-3">
+               <Link to="/items" className="text-light p-3">商品一覧</Link>
+              </li>
+              <li className="nav-item pt-3 pb-3">
+               <Link to="/orders" className="text-light p-3">店頭商品一覧</Link>
+             </li>
+             <li className="nav-item pt-3 pb-3">
+               <Link to="/shoppings" className="text-light p-3">注文状況</Link>
+             </li>
+          
+            </>
+            /*お客様サイド */
+              : 
+              <li className="nav-item pt-3 pb-3">
+              <Link to="/customor" className="text-light p-3">お買い物</Link>
             </li>
             
             : 
-            ''
+            <></>
           }
-          <li className="nav-item pt-3 pb-3">
-            <Link to="/" className="text-light p-3">HOME</Link>
-          </li>
-          <li className="nav-item pt-3 pb-3">
-            <Link to="/customor" className="text-light p-3">お買い物</Link>
-          </li>
-          <li className="nav-item pt-3 pb-3">
-            <Link to="/items" className="text-light p-3">商品一覧</Link>
-          </li>
-          <li className="nav-item pt-3 pb-3">
-            <Link to="/orders" className="text-light p-3">店頭商品一覧</Link>
-          </li>
-          <li className="nav-item pt-3 pb-3">
-            <Link to="/shoppings" className="text-light p-3">注文状況</Link>
-          </li>
-          
         </ul>
 
         <ul className="navbar-nav">
