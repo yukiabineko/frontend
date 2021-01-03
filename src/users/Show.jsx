@@ -3,23 +3,30 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import { historyDataSend } from '../store/Store';
+import { ordercheck } from './setting';
+import History from './History';
+
 
 /**************************************************************************************** */
 const  Show = (props)=>{
+   
   /*************APIによるuser一覧**********************************/
    async function orderCall(){
      
     await axios
-      .get('https://uematsu-backend.herokuapp.com/orders')
+      .get(`https://uematsu-backend.herokuapp.com/history/show/${props.userData[0].id}`)
       .then((res)=>{
-         localStorage.setItem('orders', JSON.stringify(res.data));
-         
+         const action = historyDataSend(res.data);
+         props.dispatch(action);
+
       })
       .catch((error)=>{
          console.log(error);
       })
  }
-   useState(orderCall());
+
+
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -34,8 +41,8 @@ const  Show = (props)=>{
       {props.userData.length >0?
        <>
         <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2>{props.userData[0].name}さんページ</h2>
-      </div>
+          <h2 className="text-white font-weight-bold">{props.userData[0].name}さんページ</h2>
+        </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
           <Row>
@@ -53,7 +60,7 @@ const  Show = (props)=>{
                  </tr>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用開始日</th>
-                   <td>{props.userData[0].created_at}</td>
+                   <td>{props.userData[0].create}</td>
                  </tr>
                 </tbody>
               </Table>
@@ -64,16 +71,19 @@ const  Show = (props)=>{
                 <tbody>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用回数</th>
-                   <td></td>
+                   <td className="text-center">{props.userData[0].orders[0]? props.userData[0].orders[0].length : 0 }</td>
                  </tr>
-                 <tr>
-                   <th className="bg-primary text-white w-50">最終ご利用日</th>
-                   <td></td>
-                 </tr>
+               
                  <tr>
                    <th className="bg-primary text-white w-50">現在注文有無</th>
-                   <td></td>
+                   <td className="text-center">{ordercheck(props.userData[0].orders[0]).count? ordercheck(props.userData[0].orders[0]).count : '未使用'}</td>
                  </tr>
+
+                 <tr>
+                   <th className="bg-primary text-white w-50">注文日</th>
+                   <td className="text-center">{ordercheck(props.userData[0].orders[0]).date? ordercheck(props.userData[0].orders[0]).date : '未使用'}</td>
+                 </tr>
+               
                 </tbody>
               </Table>
             </Col>
@@ -84,6 +94,19 @@ const  Show = (props)=>{
         : 
         loginUserCheck()
       }
+      {/* 履歴エリア */}
+
+      <div className="text-center mt-3 font-weight-bold">
+          <h2 className="text-light font-weight-bold">商品依頼履歴</h2>
+      </div>
+
+      <Row>
+        <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 mt-2 pb-4 bg-light shadow">
+          {/* ログアウト中は無効 */}
+          
+          {props.userData.length >0? <History /> : ''}
+        </Col>
+      </Row>
    </>
   )
 }
