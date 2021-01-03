@@ -189,10 +189,14 @@ import { logoutAction, cartEmpty } from './store/Store';
             </>
             /*お客様サイド */
               : 
-              <li className="nav-item pt-3 pb-3">
-              <Link to="/customor" className="text-light p-3">お買い物</Link>
-            </li>
-            
+              <>
+                <li className="nav-item pt-3 pb-3">
+                  <Link to="/customor" className="text-light p-3">お買い物</Link>
+                </li>
+                <li className="nav-item pt-3 pb-3">
+                  <Link to="/users/show" className="text-light p-3">お客様ページ</Link>
+                </li>
+              </>
             : 
             <></>
           }
