@@ -19,6 +19,8 @@ const storeReducer = (state = init_data, action)=>{
       return cartResetReducer(state, action);
     case 'CARTDELETE':
       return cartDeleteReducer(state, action);
+    case 'CARTUPDATE':
+      return cartUpdateReducer(state, action);
     case 'USERHISTORY':
       return userHistoryReducer(state, action);  
     default:
@@ -58,6 +60,18 @@ const cartReducer = (state, action)=>{
 const cartResetReducer = (state, action)=>{
   let data = state.buyCarts.slice();
   data.splice(0);
+  return{
+    userData: state.userData,
+    buyCarts: data,
+    historyData: state.historyData
+  }
+}
+const cartUpdateReducer = (state, action)=>{
+  let data = state.buyCarts.slice();
+  data.splice(0);
+  action.items.forEach((item) => {
+    data.push(item);
+  });
   return{
     userData: state.userData,
     buyCarts: data,
@@ -109,6 +123,12 @@ export const cartDeleteCart = (index)=>{
   return{
     type: 'CARTDELETE',
     num: index
+  }
+}
+export const cartUpdate = (items)=>{
+  return{
+    type: 'CARTUPDATE',
+    items: items
   }
 }
 export const historyDataSend = (data)=>{
