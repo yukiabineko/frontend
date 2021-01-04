@@ -24,3 +24,15 @@ export const viewDataBranch = (date)=>{
   }
 
 }
+/********************************************************************************************* */
+/*オーダーで今日の日付のものがあるかチェック*/
+
+export const todayOdrersChecker = (shoppings)=>{
+  let target = 0;
+  shoppings.forEach((shopping)=> {
+     const data = viewDataBranch(shopping.shopping_date);
+     /*各オーダーで今日日付のものがあれば加算*/
+     if(data === 1) target ++;
+  });
+  return target;
+}

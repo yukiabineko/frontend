@@ -4,7 +4,7 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../App.css';
-import { viewDataBranch } from "./settiing";
+import { viewDataBranch, todayOdrersChecker } from "./settiing";
 
  const customButton ={
    border: "none",
@@ -46,7 +46,7 @@ import { viewDataBranch } from "./settiing";
         props.history.push('/login');  
       }
     }
-   
+    useState(loginUserCheck()); 
 /***************************************ステータス分岐********************************************************************** */
   const orderStatus = (status)=>{
     switch (status) {
@@ -81,7 +81,7 @@ import { viewDataBranch } from "./settiing";
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
-          {shopingData.length >0? 
+          {(shopingData.length >0 && todayOdrersChecker(shopingData).length > 0)? 
             <Table bordered striped>
               <thead>
                 <th className="bg-primary text-white text-center">商品名</th>
@@ -124,7 +124,7 @@ import { viewDataBranch } from "./settiing";
               </tbody>
             </Table>
             : 
-            ''
+            <div className="bg-secondary text-center text-white font-weight-bold p-3">データがありません。</div>
           }
           
         </Col>
