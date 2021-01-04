@@ -3,6 +3,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import '../users/users.css';
+import { connect } from 'react-redux';
 
 /**************************************************************************************** */
 const  OrderEdit = (props)=>{
@@ -23,11 +24,17 @@ const  OrderEdit = (props)=>{
 /*********************************state******************************************************* */
   
   const[state, setState] = useState({
-    name: orders[0].name,
-    price: orders[0].price,
-    stock: orders[0].stock
+    name: orders.length>0? orders[0].name : [],
+    price:orders.length>0? orders[0].price :[],
+    stock: orders.length>0? orders[0].stock : []
   })
-
+/******************************ログイン/未ログイン切り替え********************************************************** */
+const loginUserCheck = ()=>{
+  if(props.userData.length===0){
+    props.history.push('/login');  
+  }
+}
+useState(loginUserCheck());
   const homeComponent = ()=>{
     props.history.push('/orders')  
   }
@@ -54,7 +61,7 @@ const  OrderEdit = (props)=>{
   return(
     <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle">{orders[0].name}編集</h2>
+        <h2 data-testid="userNewtitle">{orders.length>0? orders[0].name : ''}編集</h2>
       </div> 
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
@@ -110,5 +117,5 @@ const  OrderEdit = (props)=>{
    </>
    )
 }
-export default withRouter(OrderEdit)
+export default withRouter(connect(state=>state)(OrderEdit));
 /***************************************************************************************************** */

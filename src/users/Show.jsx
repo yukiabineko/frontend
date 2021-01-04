@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { historyDataSend } from '../store/Store';
-import { ordercheck } from './setting';
+import { ordercheck, daySetting } from './setting';
 import History from './History';
 
 
@@ -60,7 +60,7 @@ const  Show = (props)=>{
                  </tr>
                  <tr>
                    <th className="bg-primary text-white w-50">ご利用開始日</th>
-                   <td>{props.userData[0].create}</td>
+                   <td>{daySetting(props.userData[0].create)}</td>
                  </tr>
                 </tbody>
               </Table>
