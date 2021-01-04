@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import '../App.css';
 import './users.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 /**************************************************************************************** */
 const  Edit = (props)=>{
@@ -24,11 +25,19 @@ const  Edit = (props)=>{
   })
 
   const[state, setState] = useState({
-    name: user[0].name,
-    email: user[0].email,
+    name: user.length>0? user[0].name : '',
+    email: user.length>0?  user[0].email : '',
     password: '',
     confirmation: ''
   })
+  /******************************ログイン/未ログイン切り替え********************************************************** */
+  const loginUserCheck = ()=>{
+    if(props.userData.length===0){
+      props.history.push('/login');  
+    }
+  }
+ useState(loginUserCheck());
+
 
   const homeComponent = ()=>{
     props.history.push('/')  
@@ -128,5 +137,5 @@ const  Edit = (props)=>{
    </>
   )
 }
-export default withRouter(Edit)
+export default withRouter(connect(state=>state)(Edit));
 /***************************************************************************************************** */
