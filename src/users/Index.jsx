@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import './users.css';
 import { connect } from 'react-redux';
+import {historyDataSend} from '../store/Store';
 
 
 const userLink ={
@@ -44,9 +45,7 @@ const userLink ={
         props.history.push('/login');  
       }
     }
-   useEffect(()=>{
-     loginUserCheck();
-   })
+   useState(loginUserCheck());
 
   /****************************編集**************************************** */
    const editPage = (id)=>{
@@ -70,7 +69,17 @@ const userLink ={
     }
    }
    const userShowaccess = (id)=>{
-     props.history.push('/users/show')
+    axios
+    .get(`https://uematsu-backend.herokuapp.com/history/show/${id}`)
+    .then((res)=>{
+       const action = historyDataSend(res.data);
+       props.dispatch(action);
+
+    })
+    .catch((error)=>{
+       console.log(error);
+    })
+     props.history.push('/users_empshow');
    }
  
   return(

@@ -6,6 +6,7 @@ import axios from 'axios';
 import Select from 'react-select';
 import 'react-select/dist/react-select.browser.cjs';
 import { formSelectItems } from './setItem';
+import { connect } from 'react-redux';
 
 const  New = (props)=>{
   const[state, setState] = useState({
@@ -14,6 +15,14 @@ const  New = (props)=>{
   });
   const [selectedOption, setSelectedOption] = useState(null);
   const options = formSelectItems();
+
+  /******************************ログイン/未ログイン切り替え********************************************************** */
+  const loginUserCheck = ()=>{
+    if(props.userData.length===0){
+      props.history.push('/login');  
+    }
+  }
+ useState(loginUserCheck());
 
   const backIndex = ()=>{
     props.history.push('/orders');
@@ -96,4 +105,4 @@ const  New = (props)=>{
    </>
   )
 }
-export default withRouter(New)
+export default withRouter(connect(state=>state)(New));

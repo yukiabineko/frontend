@@ -35,4 +35,12 @@ export const orderHistoryStatus = (status) =>{
       break;
   }
 }
+/*日付の表示設定*/
+export const daySetting = (date)=>{
+  let newDate = new Date(date);
+  let year = newDate.getFullYear();
+  let month = newDate.getMonth() + 1;
+  let day = newDate.getDate();
+  return year + '年' + month + '月' +day +'日';
+}
 

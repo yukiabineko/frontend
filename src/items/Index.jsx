@@ -60,7 +60,7 @@ const imageShow={
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
-      if(props.userData.length===0){
+      if(props.userData.length===0 && props.itemData === null){
         props.history.push('/login');  
       }
     }
