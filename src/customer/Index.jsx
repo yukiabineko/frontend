@@ -63,9 +63,7 @@ const buttonHeight={
         props.history.push('/login');  
       }
     }
-   useEffect(()=>{
-     loginUserCheck();
-   })
+   useState(loginUserCheck);
 /*******************************************買い物ボタン*********************************************************************** */
   const buyItem = (item)=>{
     props.sendCustomerData(item);

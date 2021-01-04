@@ -19,7 +19,7 @@ const  Show = (props)=>{
   const[state, setState] = useState({
     number: null,
     process: '',
-    total: props.itemData.price
+    total: props.itemData? props.itemData.price : 0
   })
   const stockOption = ()=>{
     let array = []
@@ -28,6 +28,13 @@ const  Show = (props)=>{
     }
     return array
   }
+  /******************************ログイン/未ログイン切り替え********************************************************** */
+const loginUserCheck = ()=>{
+  if(props.userData.length===0){
+    props.history.push('/login');  
+  }
+}
+useState(loginUserCheck());
  /********************************カテゴリーの配列化************************************************** */
  const categoryArray = ()=>{
    return  props.itemData.process.split(',')
@@ -71,6 +78,8 @@ const processChange = (e)=>{
 /********************************************************************************************************************************** */
   return(
    <>
+   {props.itemData? 
+     <>
       <div className="text-center mt-5 mb-4  font-weight-bold">
         <h2 className="font-weight-bold text-info">{props.itemData.name}注文</h2>
       </div>
@@ -114,6 +123,11 @@ const processChange = (e)=>{
              </form>
         </Col>    
       </Row>
+     </>
+     : 
+     ''
+     }
+      
    </>
   )
 }
