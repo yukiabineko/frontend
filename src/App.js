@@ -10,6 +10,7 @@ import Login from './Login';
 import userNew from './users/New'
 import Edit from './users/Edit'
 import UserShow from './users/Show';
+import EmpShow from './users/EmpShow';
 import ItemIndex from './items/Index';
 import ItemNew from './items/New';
 import ItemEdit from './items/Edit';
@@ -220,11 +221,17 @@ import { logoutAction, cartEmpty } from './store/Store';
     </nav>
      
       </div><br/><br/>
-      <Route exact path="/" render={()=><Index editIdget={(id)=>getEditId(id)} />} /> 
+      <Route exact path="/" render={()=>
+        <Index 
+          editIdget={(id)=>getEditId(id)} 
+        />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
+      <Route path="/users_empshow"  render={()=><EmpShow
+        
+        />} />
       <Route path="/items"  render={()=><ItemIndex 
         itemEditIdget={(item)=>getItemEditId(item)} 
         processIdget={(item)=>getProcessId(item)}
