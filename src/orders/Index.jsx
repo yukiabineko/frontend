@@ -32,7 +32,7 @@ import { connect } from 'react-redux';
         props.history.push('/login');  
       }
     }
-   
+   useState(loginUserCheck());
 
   /****************************編集**************************************** */
    const editPage = (id)=>{

@@ -3,6 +3,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import '../users/users.css';
+import { connect } from 'react-redux';
 
 /**************************************************************************************** */
 const  ItemEdit = (props)=>{
@@ -23,7 +24,14 @@ const  ItemEdit = (props)=>{
   const[image, setImage] = useState({
     file: null
   })
+/******************************ログイン/未ログイン切り替え********************************************************** */
+const loginUserCheck = ()=>{
+  if(props.userData.length===0){
+    props.history.push('/login');  
+  }
+}
 
+useState(loginUserCheck());
 
 
   const homeComponent = ()=>{
@@ -155,5 +163,5 @@ const  ItemEdit = (props)=>{
     </>
    )
 }
-export default withRouter(ItemEdit)
+export default withRouter(connect(state=>state)(ItemEdit));
 /***************************************************************************************************** */
