@@ -57,16 +57,19 @@ export const customerTodayOrders = (allData)=>{
   const day = today.getDate();
 
   /*全データから抽出*/
-  allData.forEach((data)=>{
-    /*注文データ*/
-    const createDate = new Date(data.shopping_date);
-    const c_year = createDate.getFullYear();
-    const c_month = createDate.getMonth() + 1;
-    const c_day = createDate.getDate();
-    if( year === c_year && month === c_month && day === c_day){
-      todayOrder.push(data);
-    }
-  })
+  if(allData){
+    allData.forEach((data)=>{
+      /*注文データ*/
+      const createDate = new Date(data.shopping_date);
+      const c_year = createDate.getFullYear();
+      const c_month = createDate.getMonth() + 1;
+      const c_day = createDate.getDate();
+      if( year === c_year && month === c_month && day === c_day){
+        todayOrder.push(data);
+      }
+    })
+  }
+ 
   return todayOrder;
 }
 
