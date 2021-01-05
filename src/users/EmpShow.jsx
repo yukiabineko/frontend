@@ -3,7 +3,7 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { customerTodayOrders } from './setting';
+import { daySetting, customerTodayOrders } from './setting';
 
 
 
@@ -20,12 +20,12 @@ const  EmpShow = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle" className="text-light font-weight-bold">{props.historyData.name}&nbsp;注文履歴</h2>
+        <h2 data-testid="userNewtitle" className="text-light font-weight-bold">{props.historyData? props.historyData.name : ''}&nbsp;注文履歴</h2>
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
          <p className="font-weight-bold text-center">【現在注文中の表品一覧】</p>
-         {props.historyData? 
+         {(props.historyData && customerTodayOrders(props.historyData.orders[0]).length >0)? 
            <>
             <Table bordered>
               <thead>
@@ -41,10 +41,22 @@ const  EmpShow = (props)=>{
                   <th className="text-white text-center bg-primary">合計</th>
                 </tr>
               </thead>
+              <tbody>
+                {customerTodayOrders(props.historyData.orders[0]).map((data)=>(
+                  <tr>
+                    <td className="text-center font-weight-bold">{daySetting(data.shopping_date)}</td>
+                    <td className="text-center font-weight-bold">{data.name}</td>
+                    <td className="text-center font-weight-bold">{data.price}</td>
+                    <td className="text-center font-weight-bold">{data.num}</td>
+                    <td className="text-center font-weight-bold">{Number(data.num) * Number(data.price)}</td>
+                    <td className="text-center font-weight-bold">{data.process}</td>
+                  </tr>
+                ))}
+              </tbody>
             </Table>
            </>
             : 
-            <div className="bg-secondary text-center font-weight-bold text-white">データがありません。</div>
+            <div className="bg-secondary text-center font-weight-bold text-white p-3">データがありません。</div>
           }
         </Col>    
       </Row>

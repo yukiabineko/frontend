@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../App.css';
 import { viewDataBranch, todayOdrersChecker } from "./settiing";
+import { daySetting } from '../users/setting';
 
  const customButton ={
    border: "none",
@@ -17,7 +18,7 @@ import { viewDataBranch, todayOdrersChecker } from "./settiing";
 
  function Index(props){
   let localData = JSON.parse(localStorage.getItem('shoppings'));
-
+  
 
   /************************ステート*************************************** */
   const[shopingData, setState] = useState(
@@ -81,15 +82,16 @@ import { viewDataBranch, todayOdrersChecker } from "./settiing";
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
-          {(shopingData.length >0 && todayOdrersChecker(shopingData).length > 0)? 
+          {(shopingData.length >0 && todayOdrersChecker(shopingData) > 0)? 
             <Table bordered striped>
               <thead>
+              <th className="bg-primary text-white text-center">受け渡し日</th>
                 <th className="bg-primary text-white text-center">商品名</th>
                 <th className="bg-primary text-white text-center">お客様名</th>
                 <th className="bg-primary text-white text-center">価格</th>
                 <th className="bg-primary text-white text-center">個数</th>
                 <th className="bg-primary text-white text-center">加工法</th>
-                <th className="bg-primary text-white text-center">合計金額</th>
+                <th className="bg-primary text-white text-center">合計金額{todayOdrersChecker(shopingData).length}</th>
               </thead>
               <tbody>
                 {shopingData.map((data,i)=>(
@@ -97,6 +99,7 @@ import { viewDataBranch, todayOdrersChecker } from "./settiing";
 
                   viewDataBranch(data.shopping_date) === 1? 
                   <tr>
+                  <td className="font-weight-bold text-center align-middle">{daySetting(data.shopping_date)}</td>
                   <td className="font-weight-bold text-center align-center">
                     <button 
                       style={customButton} 
