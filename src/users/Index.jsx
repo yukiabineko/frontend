@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import './users.css';
 import { connect } from 'react-redux';
 import {historyDataSend} from '../store/Store';
+import { customers } from './setting';
 
 
 const userLink ={
@@ -100,7 +101,7 @@ const userLink ={
                 </tr>
               </thead>
               <tbody>
-                {state.data.map((value)=>(
+                {customers(state.data).map((value)=>(
                   <tr key={value.name}>
                      <td className="text-center align-middle">
                        <button 
