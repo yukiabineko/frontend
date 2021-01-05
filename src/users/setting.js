@@ -45,28 +45,69 @@ export const daySetting = (date)=>{
   return year + '年' + month + '月' +day +'日';
 }
 /***************************************************************************************************** */
-/*当日日付のみのデータ抽出 */
-
-export const customerTodayOrders = (allData)=>{
-  let todayOrder = [];
-
+/*共通パラメーター*/
+const todayParams =()=>{
   /*本日*/
   const today = new Date();
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
   const day = today.getDate();
+  return{
+    year: year,
+    month: month,
+    day: day
+  }
+}
+/*当日日付のみのデータ抽出 */
+
+export const customerTodayOrders = (allData)=>{
+  let todayOrder = [];
 
   /*全データから抽出*/
-  allData.forEach((data)=>{
-    /*注文データ*/
-    const createDate = new Date(data.shopping_date);
-    const c_year = createDate.getFullYear();
-    const c_month = createDate.getMonth() + 1;
-    const c_day = createDate.getDate();
-    if( year === c_year && month === c_month && day === c_day){
-      todayOrder.push(data);
-    }
-  })
+  if(allData){
+    allData.forEach((data)=>{
+      /*注文データ*/
+      const createDate = new Date(data.shopping_date);
+      const c_year = createDate.getFullYear();
+      const c_month = createDate.getMonth() + 1;
+      const c_day = createDate.getDate();
+      if( todayParams().year === c_year && todayParams().month === c_month && todayParams().day === c_day){
+        todayOrder.push(data);
+      }
+    })
+  }
   return todayOrder;
+}
+
+  /*当日以外の日付のみのデータ抽出 */
+
+export const customerOrders = (allData)=>{
+  let Orders = [];
+
+  /*全データから抽出*/
+  if(allData){
+    allData.forEach((data)=>{
+      /*注文データ*/
+      const createDate = new Date(data.shopping_date);
+      const c_year = createDate.getFullYear();
+      const c_month = createDate.getMonth() + 1;
+      const c_day = createDate.getDate();
+      if(todayParams().year >= c_year && todayParams().month >= c_month && todayParams().day > c_day){
+        Orders.push(data);
+      }
+    })
+  }
+  return Orders;
+}
+/*お客様一覧でユーザーのうち従業員を省いた一覧*/
+
+export const customers =(users)=>{
+  let customerUsers = [];
+  users.forEach((user)=>{
+    if(!(user.admin === true)){
+      customerUsers.push(user);
+    }
+  });
+  return customerUsers;
 }
 

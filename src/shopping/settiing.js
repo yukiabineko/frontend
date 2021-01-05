@@ -30,7 +30,7 @@ export const viewDataBranch = (date)=>{
 export const todayOdrersChecker = (shoppings)=>{
   let target = 0;
   shoppings.forEach((shopping)=> {
-     const data = viewDataBranch(shopping.shopping_date);
+     let data = viewDataBranch(shopping.shopping_date);
      /*各オーダーで今日日付のものがあれば加算*/
      if(data === 1) target ++;
   });
