@@ -111,7 +111,10 @@ const deleteCartItem = (index)=>{
                            <span className="text-warning font-weight-bold">{item.stock}</span>(尾/個)
                          </li>
                          <li style={nameTitle} className="bg-white">
-                           {Number(item.stock) > 0? 
+                           {props.userData.length>0 && props.userData[0].admin? 
+                             '' 
+                             : 
+                             Number(item.stock) > 0? 
                               <button 
                                 className="btn btn-success btn-block"
                                 onClick={()=>buyItem(item)}
@@ -121,7 +124,6 @@ const deleteCartItem = (index)=>{
                              : 
                              <span className="text-danger font-weight-bold">売り切れ</span>
                            }
-                          
                          </li>
                        </ul>
                      
@@ -135,58 +137,64 @@ const deleteCartItem = (index)=>{
            </section>
 
          </article>
-         <div className="customor-right">
-           <h5 style={buycheck}>買い物確認</h5>
-            <p className="font-weight-bold text-center">{props.userData.length>0? props.userData[0].name : ''}さん</p>
-            <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>
-            
-            {props.buyCarts.length >0 ? 
-             <div style={ rightAreaTable}>
-              <Table bordered>
-                <thead className="bg-primary text-white">
-                  <th>商品名</th>
-                  <th>個数</th>
-                  
-                </thead>
-                <tbody>
-                  {props.buyCarts.map((data,index)=>(
-                    <tr>
-                      <td className="align-middle">{data.name}</td>
-                      <td className="text-center">
-                        {data.num}<br/>
-                        {/*<button
-                         className="btn btn-danger"
-                         onClick={()=>deleteCartItem(index)}
-                        >削除</button>*/}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-              </div>
-              : 
-              ''
-            }
-          
-            <p className="m-0">合計金額</p>
-            <p className="font-weight-bold bg-dark p-2 text-white text-right">{itemTotalMoney()}</p>
-            {props.buyCarts.length >0? 
-              <button 
-                className="btn btn-primary btn-block font-weight-bold" 
-                onClick={sendShoppingData}
-                style={buttonHeight}>
-                <FontAwesomeIcon icon={faCashRegister} />
-                  &nbsp;買い物確認
-             </button>
-              : 
-              ''
-            }
-            
-         </div>
+
+         {props.userData.length>0 && props.userData[0].admin? 
+            <div className="customor-right">
+              <h5 style={buycheck}>管理者表示</h5>
+              <div className="p-3 bg-lignt font-weight-bold">管理者のため表示されません</div>
+            </div>
+            : 
+            <div className="customor-right">
+            <h5 style={buycheck}>買い物確認</h5>
+             <p className="font-weight-bold text-center">{props.userData.length>0? props.userData[0].name : ''}さん</p>
+             <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>
+             
+             {props.buyCarts.length >0 ? 
+              <div style={ rightAreaTable}>
+               <Table bordered>
+                 <thead className="bg-primary text-white">
+                   <th>商品名</th>
+                   <th>個数</th>
+                   
+                 </thead>
+                 <tbody>
+                   {props.buyCarts.map((data,index)=>(
+                     <tr>
+                       <td className="align-middle">{data.name}</td>
+                       <td className="text-center">
+                         {data.num}<br/>
+                         {/*<button
+                          className="btn btn-danger"
+                          onClick={()=>deleteCartItem(index)}
+                         >削除</button>*/}
+                       </td>
+                     </tr>
+                   ))}
+                 </tbody>
+               </Table>
+               </div>
+               : 
+               ''
+             }
+           
+             <p className="m-0">合計金額</p>
+             <p className="font-weight-bold bg-dark p-2 text-white text-right">{itemTotalMoney()}</p>
+             {props.buyCarts.length >0? 
+               <button 
+                 className="btn btn-primary btn-block font-weight-bold" 
+                 onClick={sendShoppingData}
+                 style={buttonHeight}>
+                 <FontAwesomeIcon icon={faCashRegister} />
+                   &nbsp;買い物確認
+              </button>
+               : 
+               ''
+             }
+          </div>
+          }
+         
       </div>
     </div>
-    
-     
   )
 }
 export default withRouter(connect((state)=>state)(Index))
