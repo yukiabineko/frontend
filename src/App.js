@@ -23,8 +23,10 @@ import CustomorShow from './customer/Show'
 import Confirm from './customer/confirm';
 import ShoppingIndex from './shopping/Index';
 import ShoppingShow from './shopping/Show';
+import Reservation from './shopping/Reservation';
 import { connect } from "react-redux";
 import { logoutAction, cartEmpty } from './store/Store';
+import {  todayOrderExisting } from './shopping/settiing';
 
 
  function App(props){
@@ -184,8 +186,15 @@ import { logoutAction, cartEmpty } from './store/Store';
                <Link to="/orders" className="text-light p-3">店頭商品一覧</Link>
              </li>
              <li className="nav-item pt-3 pb-3">
-               <Link to="/shoppings" className="text-light p-3">注文状況</Link>
+               <Link to="/shoppings" className="text-light p-3">本日注文状況</Link>
              </li>
+             { todayOrderExisting(JSON.parse(localStorage.getItem('shoppings'))).length >0? 
+               <li className="nav-item pt-3 pb-3">
+                 <Link to="/reservation" className="text-light p-3">明日の予約状況</Link>
+               </li> 
+              : 
+              ''
+              }
           
             </>
             /*お客様サイド */
@@ -272,6 +281,12 @@ import { logoutAction, cartEmpty } from './store/Store';
         <ShoppingShow 
           show={state.shoppingShow}
         />} />
+       <Route path="/reservation" 
+        render={()=>
+          <Reservation
+            
+          />} />
+     
     </BrowserRouter>
   )
 }
