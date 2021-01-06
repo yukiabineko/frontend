@@ -11,6 +11,7 @@ import userNew from './users/New'
 import Edit from './users/Edit'
 import UserShow from './users/Show';
 import EmpShow from './users/EmpShow';
+import UserOrder from './users/Order';
 import ItemIndex from './items/Index';
 import ItemNew from './items/New';
 import ItemEdit from './items/Edit';
@@ -188,6 +189,8 @@ import {  todayOrderExisting } from './shopping/settiing';
              <li className="nav-item pt-3 pb-3">
                <Link to="/shoppings" className="text-light p-3">本日注文状況</Link>
              </li>
+             {/*明日のオーダーがあれば表示*/ }
+
              { todayOrderExisting(JSON.parse(localStorage.getItem('shoppings'))).length >0? 
                <li className="nav-item pt-3 pb-3">
                  <Link to="/reservation" className="text-light p-3">明日の予約状況</Link>
@@ -205,6 +208,9 @@ import {  todayOrderExisting } from './shopping/settiing';
                 </li>
                 <li className="nav-item pt-3 pb-3">
                   <Link to="/users/show" className="text-light p-3">お客様ページ</Link>
+                </li>
+                <li className="nav-item pt-3 pb-3">
+                  <Link to="/users_order" className="text-light p-3">注文確認</Link>
                 </li>
               </>
             : 
@@ -241,6 +247,7 @@ import {  todayOrderExisting } from './shopping/settiing';
       <Route path="/users_empshow"  render={()=><EmpShow
         
         />} />
+      <Route path="/users_order" component={UserOrder} />
       <Route path="/items"  render={()=><ItemIndex 
         itemEditIdget={(item)=>getItemEditId(item)} 
         processIdget={(item)=>getProcessId(item)}
