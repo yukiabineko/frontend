@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
@@ -18,9 +18,7 @@ const  Show = (props)=>{
         props.history.push('/login');  
       }
     }
-    useEffect(()=>{
-      loginUserCheck();
-    })
+   useState(loginUserCheck);
 
     /*ステータスによる条件訳*/
 
