@@ -1,13 +1,20 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import '../users/users.css';
 import { connect } from 'react-redux';
+import { customerTodayOrders } from './setting';
 
-/**************************************************************************************** */
+
+const image={
+  width: '100px',
+  height: '100px'
+}
+
+/*****************************お客様用注文一覧ページ*********************************************************** */
 const  Order = (props)=>{
-
+ 
 /******************************ログイン/未ログイン切り替え********************************************************** */
 const loginUserCheck = ()=>{
   if(props.userData.length===0){
@@ -15,16 +22,37 @@ const loginUserCheck = ()=>{
   }
 }
 useState(loginUserCheck());
-  const homeComponent = ()=>{
-    props.history.push('/orders')  
-  }
-  
   
   return(
     <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle">注文商品</h2>
+        <h2 className="font-weight-bold text-light">現在注文商品{customerTodayOrders(props.userData[0].orders[0]).length}</h2>
       </div> 
+      <Row>
+        <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
+          <ul class="list-group">
+          {customerTodayOrders(props.userData[0].orders[0]).map((data)=>(
+            <li className="list-group-item mt-5">
+              <Row>
+                <Col md="12">
+                  <ul className="list-inline">
+                    <li className="list-inline-item h4 ml-5">
+                       <Image src={`http://yukiabineko.sakura.ne.jp/react/${data.name}.jpg`} alt="表示できません" style={image} roundedCircle />
+                    </li>
+                    <li className="list-inline-item h5 mr-5">商品名:{data.name}</li>
+                    <li className="list-inline-item h5 mr-3">価格:<span className="text-danger">{data.price}</span>円</li>
+                    <li className="list-inline-item h5 mr-3">注文数:{data.num}</li>
+                    <li className="list-inline-item h5 mr-3">合計:<span className="text-danger">{data.price *data.num}</span>円</li>
+                    <li className="list-inline-item h5 mr-3">依頼加工:{data.process}</li>
+                  </ul>
+                
+                </Col>
+              </Row>
+            </li>
+          ))}
+          </ul>
+        </Col>
+      </Row>
     </>
    )
 }

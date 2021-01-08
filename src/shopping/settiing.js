@@ -36,7 +36,7 @@ export const todayOdrersChecker = (shoppings)=>{
   });
   return target;
 }
-/*ヘッダー表示用明日の日付アイテムあるか確認 */
+/*(ヘッダー表示用,商品リスト用)明日の日付アイテムあるか確認 */
 
 export const todayOrderExisting =(shoppings)=>{
    let todayObjects = [];
