@@ -55,6 +55,12 @@ import { connect } from 'react-redux';
     
     }
    }
+   /****************************商品全リセット*********************************************** */
+   function ResetOrder(){
+    if(window.confirm('削除してよろしいですか？')){
+      
+    }
+   }
   
  
   return(
@@ -68,7 +74,20 @@ import { connect } from 'react-redux';
           <Button 
             variant="primary"
             onClick={()=>props.history.push('orders_new')}
+            className="mr-2"
           >店頭商品追加</Button>
+           {/*状況によりリセットボタン*/}
+
+          {state.data.length >0? 
+            <Button 
+              variant="danger"
+              onClick={ResetOrder}
+             >リセット</Button>
+             : 
+             ''
+            }
+          {/*テーブル*/}
+
           {state.data.length > 0 ?
 
             <Table striped bordered hover>

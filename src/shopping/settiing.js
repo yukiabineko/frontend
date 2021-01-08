@@ -46,14 +46,16 @@ export const todayOrderExisting =(shoppings)=>{
    date.setDate(date.getDate() + 1); 
    let day = date.getDate();  /*tomorrow */
 
-   shoppings.forEach((shopping)=>{
-      let t_date = new Date(shopping.shopping_date);
-      let t_year = t_date.getFullYear();
-      let t_month = t_date.getMonth() + 1;
-      let t_day = t_date.getDate();
-      if( year == t_year && month == t_month && day == t_day){
-         todayObjects.push(shopping);
-      }
-   });
+   if(shoppings){
+      shoppings.forEach((shopping)=>{
+         let t_date = new Date(shopping.shopping_date);
+         let t_year = t_date.getFullYear();
+         let t_month = t_date.getMonth() + 1;
+         let t_day = t_date.getDate();
+         if( year == t_year && month == t_month && day == t_day){
+            todayObjects.push(shopping);
+         }
+      });
+   }
    return todayObjects;
 }
