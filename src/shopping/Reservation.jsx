@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Row, Col, Table } from 'react-bootstrap';
 import '../App.css';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { todayOrderExisting } from './settiing';
 
 const  Reservation = (props)=>{
  
@@ -17,11 +18,43 @@ const  Reservation = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle">明日の予約一覧表</h2>
+        <h2 className="text-light font-weight-bold">明日の予約一覧表</h2>
       </div> 
       <Row>
-        <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-      
+        <Col md={{ span: 10, offset: 1 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
+         {todayOrderExisting(JSON.parse(localStorage.getItem('shoppings'))).map((data,i)=>(
+           <>
+           <div className="font-weight-bold h3">【{data.user_name}さん】</div>
+           <div className="font-weight-bold">
+             注文ステータス
+             <span className="bg-danger text-white">{data.status}</span>
+           </div>
+           <Table bordered className="mt-3">
+             <tbody>
+               <tr>
+                 <th className="bg-primary text-white font-weight-bold">商品名</th>
+                 <td colSpan="5" className="font-weight-bold">{data.name}</td>
+               </tr>
+               <tr>
+                 <th className="bg-primary text-white font-weight-bold">依頼調理法</th>
+                 <td colSpan="5" className="font-weight-bold">{data.process}</td>
+               </tr>
+               <tr>
+                 <th className="bg-primary text-white font-weight-bold">商品単価</th>
+                 <td className="font-weight-bold">{data.price}</td>
+                 <th className="bg-primary text-white font-weight-bold">注文数量</th>
+                 <td className="font-weight-bold">{data.num}</td>
+                 <th className="bg-primary text-white font-weight-bold">合計金額</th>
+                 <td className="font-weight-bold">{data.price * data.num}</td>
+               </tr>
+               <tr>
+
+               </tr>
+             </tbody>
+           </Table>
+           </>
+         ))}
+           
           
         </Col>
       </Row>
