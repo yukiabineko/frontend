@@ -1,5 +1,9 @@
 注文加工アプリ
-テスト1
+<<<<<<< HEAD
+テスト
+=======
+テストです
+>>>>>>> 4a5b2d4c2bfa4579fbc1b3b47af38b2b97bfe776
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -36,3 +36,24 @@ export const todayOdrersChecker = (shoppings)=>{
   });
   return target;
 }
+/*(ヘッダー表示用,商品リスト用)明日の日付アイテムあるか確認 */
+
+export const todayOrderExisting =(shoppings)=>{
+   let todayObjects = [];
+   let date = new Date();
+   let year = date.getFullYear();
+   let month = date.getMonth() + 1;
+   date.setDate(date.getDate() + 1); 
+   let day = date.getDate();  /*tomorrow */
+
+   shoppings.forEach((shopping)=>{
+      let t_date = new Date(shopping.shopping_date);
+      let t_year = t_date.getFullYear();
+      let t_month = t_date.getMonth() + 1;
+      let t_day = t_date.getDate();
+      if( year == t_year && month == t_month && day == t_day){
+         todayObjects.push(shopping);
+      }
+   });
+   return todayObjects;
+}
