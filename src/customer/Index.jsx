@@ -96,7 +96,7 @@ const deleteCartItem = (index)=>{
     　　　<h1 className="customor-main-title">本日入荷商品紹介</h1>
          <article>
            <section class="gallery">
-             <h2 className="customer-article-title">商品紹介</h2>
+             {itemData.length>0? <h2 className="customer-article-title">商品紹介</h2> : <div className="bg-secondary text-center text-white p-5 font-weight-bold">ただいま入荷商品がありません。</div>}
              {itemData.length > 0 ? 
                <ul>
                  {itemData.map((item)=>(
