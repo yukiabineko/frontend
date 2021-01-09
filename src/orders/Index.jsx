@@ -131,7 +131,7 @@ import { connect } from 'react-redux';
               </tbody>
             </Table>
             :
-            <div>データなし</div>
+            <div className="bg-secondary p-5 text-center text-white font-weight-bold mt-1">データなし</div>
             }
         </Col>
       </Row>
