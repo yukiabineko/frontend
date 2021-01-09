@@ -57,12 +57,18 @@ import { connect } from 'react-redux';
    }
    /****************************商品全リセット*********************************************** */
    function ResetOrder(){
-    if(window.confirm('削除してよろしいですか？')){
-      
+    if(window.confirm('リセットしてよろしいですか？')){
+      axios
+       .get('https://uematsu-backend.herokuapp.com/orders/deleteAll')
+       .then((response)=>{
+        localStorage.removeItem('orders');
+         alert(response.data.message); 
+       })
+       .catch((error)=>{
+          console.log(error);
+       })
     }
    }
-  
- 
   return(
     <div className="image">
       <div className="text-center mt-5 mb-4">

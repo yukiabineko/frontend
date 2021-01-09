@@ -1,3 +1,6 @@
+import { faDivide } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+
 /*当日日付のみ表示するための分岐処理*/
 
 export const viewDataBranch = (date)=>{
