@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router';
-import axios from 'axios';
 import '../users/users.css';
 import { connect } from 'react-redux';
-import { customerTodayOrders } from './setting';
+import { customerTodayOrders, totalMoneyCalc } from './setting';
 
-
+const ulArea ={
+  marginTop: '-4%'
+}
 const image={
   width: '100px',
   height: '100px'
@@ -26,12 +27,16 @@ useState(loginUserCheck());
   return(
     <>
       <div className="text-center mt-5 mb-4">
-        <h2 className="font-weight-bold text-light">現在注文商品{customerTodayOrders(props.userData[0].orders[0]).length}</h2>
+        <h2 className="font-weight-bold text-light">現在注文商品</h2>
       </div> 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-          <ul class="list-group">
-          {customerTodayOrders(props.userData[0].orders[0]).map((data)=>(
+        <h3 className="mt-2">【注文合計金額: 
+          <span className="text-danger font-weight-bold">
+            {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
+          </span>円】</h3>
+          <ul class="list-group" style={ulArea}>
+          {props.userData.length>0? customerTodayOrders(props.userData[0].orders[0]).map((data)=>(
             <li className="list-group-item mt-5">
               <Row>
                 <Col md="12">
@@ -49,7 +54,7 @@ useState(loginUserCheck());
                 </Col>
               </Row>
             </li>
-          ))}
+          )) : ''}
           </ul>
         </Col>
       </Row>

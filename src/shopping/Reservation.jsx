@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { todayOrderExisting } from './settiing';
 
+ /******************************従業員側明日の予約確認ページ********************************************************** */
+
 const  Reservation = (props)=>{
  
 
@@ -25,10 +27,6 @@ const  Reservation = (props)=>{
          {todayOrderExisting(JSON.parse(localStorage.getItem('shoppings'))).map((data,i)=>(
            <>
            <div className="font-weight-bold h3">【{data.user_name}さん】</div>
-           <div className="font-weight-bold">
-             注文ステータス
-             <span className="bg-danger text-white">{data.status}</span>
-           </div>
            <Table bordered className="mt-3">
              <tbody>
                <tr>
