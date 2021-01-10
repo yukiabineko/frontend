@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.min.js';
+import 'bootstrap/dist/js/bootstrap.min.js'
+import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
 import Index from './users/Index';
@@ -45,10 +46,25 @@ import {  todayOrderExisting } from './shopping/settiing';
     let action = logoutAction();
     props.dispatch(action);
 
-    let cartAction = cartEmpty();
+    let cartAction = cartEmpty(); /*買い物かごリセット*/
     props.dispatch(cartAction);
+    /*買い物かご操作のリセット(ストレージ)*/
+
+    axios
+    .get('https://uematsu-backend.herokuapp.com/orders')
+    .then((res)=>{
+       localStorage.setItem('orders', JSON.stringify(res.data));
+       
+    })
+    .catch((error)=>{
+       console.log(error);
+    })
+    setState({
+     data: JSON.parse(localStorage.getItem('orders'))
+   })
     
   }
+
   const getEditId = (id)=>{
 
     setState({
