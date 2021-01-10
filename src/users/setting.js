@@ -110,4 +110,13 @@ export const customers =(users)=>{
   });
   return customerUsers;
 }
+/*お客様注文確認ページにて合計金額計算 */
+
+export const totalMoneyCalc =(orders)=>{
+  let total = 0;
+  orders.map((order)=>{
+    total += order.price * order.num;
+  })
+  return total;
+}
 
