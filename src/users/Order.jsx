@@ -3,9 +3,11 @@ import { Row, Col, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import '../users/users.css';
 import { connect } from 'react-redux';
-import { customerTodayOrders } from './setting';
+import { customerTodayOrders, totalMoneyCalc } from './setting';
 
-
+const ulArea ={
+  marginTop: '-4%'
+}
 const image={
   width: '100px',
   height: '100px'
@@ -29,7 +31,11 @@ useState(loginUserCheck());
       </div> 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-          <ul class="list-group">
+        <h3 className="mt-2">【注文合計金額: 
+          <span className="text-danger font-weight-bold">
+            {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
+          </span>円】</h3>
+          <ul class="list-group" style={ulArea}>
           {props.userData.length>0? customerTodayOrders(props.userData[0].orders[0]).map((data)=>(
             <li className="list-group-item mt-5">
               <Row>
