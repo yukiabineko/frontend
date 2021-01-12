@@ -3,11 +3,12 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios'
-import { cartEmpty, cartsAdd,  cartUpdate } from '../store/Store';
+import { cartEmpty, cartUpdate } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { cartDeleteCart, sendLoginData  } from '../store/Store';
 import Empty from './NoData';
+import { localstorageChange } from './setting';
 
 const title={
   fontFamily: 'ヒラギノ明朝',
@@ -29,8 +30,6 @@ const th={
 
 const  Confirm = (props)=>{
  
- let localData = JSON.parse(localStorage.getItem('orders'));
-
 /*カートの商品の数量のみ配列化 */
 
 const cartNum = ()=>{
@@ -105,7 +104,7 @@ const sendServer = ()=>{
   const deleteItem = (index)=>{
     let action = cartDeleteCart(index);
     props.dispatch(action);
-    if(props.buyCarts.length == 0){
+    if(props.buyCarts.length === 0){
       props.history.push('/shoppings');
     }
   }
@@ -125,6 +124,7 @@ const doSelect = (e)=>{
   let calcNumber = changeNumber - currentNumber;
   let cartItemName = props.buyCarts[Number(e.target.name)].name;
   let stateData = state.slice();
+  alert(JSON.stringify(stateData));
   stateData.forEach((data,i)=>{
     let dataNumber = Number(data.stock);
     if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
@@ -132,9 +132,11 @@ const doSelect = (e)=>{
       
       if(calcNumber > 0){
          stateData[i].stock = dataNumber - calcNumber;  /*数量増やした場合全体在庫減る*/
+         localstorageChange(cartItemName, stateData[i].stock); /*大元のストレージも変更*/
       }
       else if(calcNumber <0){
         stateData[i].stock = dataNumber + (currentNumber - changeNumber); /*数量増やした場合全体在庫増えるまたマイナスになるので計算反転*/
+        localstorageChange(cartItemName, stateData[i].stock);
       }
     }
   });
