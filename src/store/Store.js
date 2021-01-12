@@ -1,5 +1,4 @@
 import { createStore } from "redux";
-import { data } from "jquery";
 
 let init_data ={
   userData: [],
@@ -49,7 +48,22 @@ const logoutReducer =(state, action)=>{
   }
 const cartReducer = (state, action)=>{
   let data = state.buyCarts.slice();
-  data.push(action.data);
+  let sameCount = 0; /*同じ商品カウント(同じ商品を入力しているか確認 */
+
+  if(data.length >0){
+    data.forEach((item)=>{
+      if((action.data.name === item.name) && (action.data.process === item.process)){
+        alert('すでに注文しています。\n　修正は買い物確認ボタンにて変更できます。');
+        sameCount ++;
+      }
+    })
+    if(sameCount === 0){ data.push(action.data);}
+  }
+  else{
+    data.push(action.data);
+  }
+
+  
   
   return{
     userData: state.userData,
