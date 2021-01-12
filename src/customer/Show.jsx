@@ -3,6 +3,7 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { cartsAdd } from '../store/Store';
+import { sameItemCheck,  selectItemCheck } from './setting';
 
 const table ={
   width: '100%',
@@ -60,18 +61,31 @@ const processChange = (e)=>{
   const doSubmit = (e)=>{
     e.preventDefault();
     let propData = props.itemData;
+    
+    let check = sameItemCheck(props.buyCarts, propData.name, state.process);
     let stock = Number(props.itemData.stock);
     let minusNumber = Number(state.number);
-    if(minusNumber > 0){
-      stock -= minusNumber;
-      propData.stock = stock;
-      props.changeItemData(propData);
-      let action = cartsAdd({name: propData.name, num: state.number, price: propData.price, process:　state.process});
-      props.dispatch(action);
-      props.history.push('/customor/index');
+    if(minusNumber > 0 &&  selectItemCheck(state.process)){
+      if(!check){
+        stock -= minusNumber;
+        propData.stock = stock;
+        props.changeItemData(propData);
+        let action = cartsAdd({name: propData.name, num: state.number, price: propData.price, process:　state.process});
+        props.dispatch(action);
+        props.history.push('/customor/index');
+      }
+      else{
+        alert('すでに注文しています。');
+      }
+    }
+    else if(minusNumber ===0){
+      alert('数量を入力してください。');
+    }
+    else if(! selectItemCheck(state.process)){
+      alert('加工法を選択してください。');
     }
     else{
-      alert('数量を入力してください。');
+      alert('数量もしくは加工法が未入力です。');
     }
   }
 

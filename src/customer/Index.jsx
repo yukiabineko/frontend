@@ -162,7 +162,10 @@ const deleteCartItem = (index)=>{
                  <tbody>
                    {props.buyCarts.map((data,index)=>(
                      <tr>
-                       <td className="align-middle">{data.name}</td>
+                       <td className="align-middle text-center">
+                         {data.name}<br/>
+                         ({data.process})
+                      </td>
                        <td className="text-center">
                          {data.num}<br/>
                          {/*<button
