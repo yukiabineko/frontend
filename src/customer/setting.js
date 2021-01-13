@@ -49,4 +49,5 @@ export const pushDeleteButtonTolocalData = (name,orderNumber,datas)=>{
       data.stock = localnum;
     }
   });
+  
 }

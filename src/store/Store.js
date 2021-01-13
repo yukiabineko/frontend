@@ -2,6 +2,7 @@ import { createStore } from "redux";
 
 let init_data ={
   userData: [],
+  orderItem: null,
   buyCarts: [],
   historyData: null
 }
@@ -12,6 +13,8 @@ const storeReducer = (state = init_data, action)=>{
       return loginReducer(state, action);
     case 'LOGOUT':
       return logoutReducer(state, action);
+    case 'ORDER':
+      return ordersReducer(state, action);
     case 'CARTADD':
       return cartReducer(state, action);
     case 'CARTRESET':
@@ -34,6 +37,7 @@ const loginReducer = (state, action)=>{
  
   return{
     userData: newData,
+    orderItem: state.orderItem,
     buyCarts: state.buyCarts,
     historyData: state.historyData
   }
@@ -46,11 +50,22 @@ const logoutReducer =(state, action)=>{
       buyCarts: state.buyCarts,historyData: state.historyData
     }
   }
+const ordersReducer = (state, action)=>{
+  let data = state.orderItem;
+  data = action.data;
+  return{
+    userData: state.userData,
+    orderItem: data,
+    buyCarts: state.buyCarts,
+    historyData: state.historyData
+  }
+}
 const cartReducer = (state, action)=>{
   let data = state.buyCarts.slice();
   data.push(action.data);
   return{
     userData: state.userData,
+    orderItem: state.orderItem,
     buyCarts: data,
     historyData: state.historyData
   }
@@ -60,6 +75,7 @@ const cartResetReducer = (state, action)=>{
   data.splice(0);
   return{
     userData: state.userData,
+    orderItem: state.orderItem,
     buyCarts: data,
     historyData: state.historyData
   }
@@ -72,6 +88,7 @@ const cartUpdateReducer = (state, action)=>{
   });
   return{
     userData: state.userData,
+    orderItem: state.orderItem,
     buyCarts: data,
     historyData: state.historyData
   }
@@ -81,6 +98,7 @@ const cartDeleteReducer = (state, action)=>{
   datas.splice(action.num, 1);
   return{
     userData: state.userData,
+    orderItem: state.orderItem,
     buyCarts: datas,
     historyData: state.historyData
   }
@@ -90,6 +108,7 @@ const userHistoryReducer = (state, action)=>{
   let history = action.data;
   return{
     userData: state.userData,
+    orderItem: state.orderItem,
     buyCarts: state.buyCarts,
     historyData: history
   }
@@ -110,6 +129,12 @@ export const cartsAdd = (item)=>{
   return{
     type: 'CARTADD',
     data: item
+  }
+}
+export const ordersSend = (data)=>{
+  return{
+    type: 'ORDER',
+    data: data
   }
 }
 export const cartEmpty = ()=>{
