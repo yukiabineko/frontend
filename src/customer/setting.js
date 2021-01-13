@@ -1,6 +1,8 @@
 
 /*買い物かごで同一商品が含まれているのかをチェック あればaddされない*/
 
+import { data } from "jquery";
+
 export const sameItemCheck = (datas, name, process)=>{
   let sameItemCount = 0;
   datas.map((data)=>{
@@ -29,14 +31,14 @@ export const selectItemCheck = (name)=>{
 
 /*セレクト時ローカルストレージ在庫更新*/
 
-export const localstorageChange = (name,stock)=>{
-  let datas = JSON.parse(localStorage.getItem('orders'));
+export const localstorageChange = (name,stock, datas)=>{
+  
   datas.map((data)=>{
     if(data.name === name){
       data.stock = stock;
     }
   });
-  localStorage.setItem('orders', JSON.stringify(datas));
+ return datas;
 }
 
 /*注文確認ボタンにて削除ボタン押し下時に大元propsの在庫反映*/

@@ -39,17 +39,7 @@ const buttonHeight={
  function Index(props){
   let localData = null;
 
-  axios
-  .get('https://uematsu-backend.herokuapp.com/orders')
-  .then((res)=>{
-     localData = res.data;
-     let action = ordersSend(res.data);
-     props.dispatch(action);
-     
-  })
-  .catch((error)=>{
-     console.log(error);
-  })
+ 
 
   /*買い物カゴに入れた際の在庫の更新*/
 
