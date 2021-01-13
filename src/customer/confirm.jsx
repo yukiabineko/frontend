@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { cartDeleteCart, sendLoginData  } from '../store/Store';
 import Empty from './NoData';
-import { localstorageChange } from './setting';
+import { localstorageChange, pushDeleteButtonTolocalData } from './setting';
 
 const title={
   fontFamily: 'ヒラギノ明朝',
@@ -101,9 +101,10 @@ const sendServer = ()=>{
 
   }
   /**********************************商品アイテム削除************************************************************************************************ */
-  const deleteItem = (index)=>{
+  const deleteItem = (index,name, num, datas)=>{
     let action = cartDeleteCart(index);
     props.dispatch(action);
+    pushDeleteButtonTolocalData(name, num, datas);
     if(props.buyCarts.length === 0){
       props.history.push('/shoppings');
     }
@@ -124,7 +125,7 @@ const doSelect = (e)=>{
   let calcNumber = changeNumber - currentNumber;
   let cartItemName = props.buyCarts[Number(e.target.name)].name;
   let stateData = state.slice();
-  alert(JSON.stringify(stateData));
+  
   stateData.forEach((data,i)=>{
     let dataNumber = Number(data.stock);
     if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
@@ -233,7 +234,7 @@ const doSelect = (e)=>{
                    <td className="text-dark text-center font-weight-bold">
                      <Button 
                        variant="danger"
-                       onClick={()=>deleteItem(index)}
+                       onClick={()=>deleteItem(index, data.name, num[index],props.orderData)}
                      >
                     削除
                      </Button>
