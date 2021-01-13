@@ -6,7 +6,7 @@ import axios from 'axios'
 import { cartEmpty, cartUpdate } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart, sendLoginData  } from '../store/Store';
+import { cartDeleteCart, sendLoginData, ordersSend  } from '../store/Store';
 import Empty from './NoData';
 import { localstorageChange, pushDeleteButtonTolocalData } from './setting';
 
@@ -126,18 +126,26 @@ const doSelect = (e)=>{
   let cartItemName = props.buyCarts[Number(e.target.name)].name;
   let stateData = state.slice();
   
+
   stateData.forEach((data,i)=>{
     let dataNumber = Number(data.stock);
+    let propOrders = localstorageChange(cartItemName, stateData[i].stock, props.orderItem);
     if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
       /*増やしたか？　減らしたか? */
       
       if(calcNumber > 0){
          stateData[i].stock = dataNumber - calcNumber;  /*数量増やした場合全体在庫減る*/
-         localstorageChange(cartItemName, stateData[i].stock); /*大元のストレージも変更*/
+          /*大元のストレージも変更*/
+          let changePropDatas = propOrders;
+          let action = ordersSend(changePropDatas);
+          props.dispatch(action);
+         
       }
       else if(calcNumber <0){
         stateData[i].stock = dataNumber + (currentNumber - changeNumber); /*数量増やした場合全体在庫増えるまたマイナスになるので計算反転*/
-        localstorageChange(cartItemName, stateData[i].stock);
+        let changePropDatas = propOrders;
+        let action = ordersSend(changePropDatas);
+        props.dispatch(action);
       }
     }
   });

@@ -3,13 +3,24 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { historyDataSend } from '../store/Store';
+import { historyDataSend, ordersSend } from '../store/Store';
 import { ordercheck, daySetting } from './setting';
 import History from './History';
 
 
 /**************************************************************************************** */
 const  Show = (props)=>{
+
+  axios
+  .get('https://uematsu-backend.herokuapp.com/orders')
+  .then((res)=>{
+     let action = ordersSend(res.data);
+     props.dispatch(action);
+     
+  })
+  .catch((error)=>{
+     console.log(error);
+  })
    
   /*************APIによるuser一覧**********************************/
    async function orderCall(){

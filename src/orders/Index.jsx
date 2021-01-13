@@ -3,6 +3,7 @@ import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ordersSend } from '../store/Store';
 
 
  function Index(props){
@@ -16,6 +17,8 @@ import { connect } from 'react-redux';
        .get('https://uematsu-backend.herokuapp.com/orders')
        .then((res)=>{
           localStorage.setItem('orders', JSON.stringify(res.data));
+          let action = ordersSend(res.data);
+          props.dispatch(action);
           
        })
        .catch((error)=>{

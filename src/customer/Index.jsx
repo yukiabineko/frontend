@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { Image, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import '../App.css'
+import axios from 'axios';
 import { connect } from 'react-redux';
 import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart } from '../store/Store';
+import { cartDeleteCart, ordersSend } from '../store/Store';
 
 
 const rightAreaTable={
@@ -36,25 +37,26 @@ const buttonHeight={
 }
 
  function Index(props){
-  let localData = JSON.parse(localStorage.getItem('orders'));
+  let localData = null;
+
+ 
 
   /*買い物カゴに入れた際の在庫の更新*/
 
   if(props.fixItemData){
-    localData.forEach((data,i)=>{
+    props.orderItem.forEach((data,i)=>{
       if(props.fixItemData.id == data.id){
-        localData[i] = props.fixItemData;
+        props.orderItem[i] = props.fixItemData;
         /*localStorage.setItem('orders', JSON.stringify(localData));*/
       }
     })
 
   }
-  let modalData = [];
- 
+  
 
   /************************ステート*************************************** */
   const[itemData, setState] = useState(
-    localData ? localData : []
+    props.orderItem? props.orderItem : []
   )
  
 /******************************ログイン/未ログイン切り替え********************************************************** */
