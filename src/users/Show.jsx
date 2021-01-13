@@ -10,7 +10,7 @@ import History from './History';
 
 /**************************************************************************************** */
 const  Show = (props)=>{
-
+ const sendShoppindData = ()=>{
   axios
   .get('https://uematsu-backend.herokuapp.com/orders')
   .then((res)=>{
@@ -21,6 +21,8 @@ const  Show = (props)=>{
   .catch((error)=>{
      console.log(error);
   })
+ }
+ useState(sendShoppindData);
    
   /*************APIによるuser一覧**********************************/
    async function orderCall(){
