@@ -6,7 +6,7 @@ import axios from 'axios'
 import { cartEmpty, cartUpdate } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart, sendLoginData  } from '../store/Store';
+import { cartDeleteCart, sendLoginData, ordersSend  } from '../store/Store';
 import Empty from './NoData';
 import { localstorageChange, pushDeleteButtonTolocalData } from './setting';
 
@@ -53,9 +53,11 @@ const selectNumber =(number)=>{
   }
   return array;
 }
-/***********************サーバー送信***************************************************************** */
+/***********************サーバー送信注文確定***************************************************************** */
 const sendServer = ()=>{
-    const params = new FormData();
+    let result = window.confirm('注文を確定してよろしいですか？');
+    if(result){
+      const params = new FormData();
     params.append('email', props.userData[0].email);
     params.append('name', props.userData[0].name);
 
@@ -99,6 +101,8 @@ const sendServer = ()=>{
     props.history.push('/customor');  /*ユーザーページへ移動*/
     props.dispatch(cartEmpty());  /*買い物カゴリセット*/
 
+    }
+    
   }
   /**********************************商品アイテム削除************************************************************************************************ */
   const deleteItem = (index,name, num, datas)=>{
@@ -126,18 +130,31 @@ const doSelect = (e)=>{
   let cartItemName = props.buyCarts[Number(e.target.name)].name;
   let stateData = state.slice();
   
+
   stateData.forEach((data,i)=>{
     let dataNumber = Number(data.stock);
-    if(data.name == cartItemName){   /*セレクトの商品と全商品検証*/
+    
+    if(data.name === cartItemName){   /*セレクトの商品と全商品検証*/
       /*増やしたか？　減らしたか? */
       
       if(calcNumber > 0){
          stateData[i].stock = dataNumber - calcNumber;  /*数量増やした場合全体在庫減る*/
-         localstorageChange(cartItemName, stateData[i].stock); /*大元のストレージも変更*/
+          /*大元のストレージも変更*/
+          let propOrders = localstorageChange(cartItemName, stateData[i].stock, props.orderItem);
+          let changePropDatas = propOrders;
+        
+          let action = ordersSend(changePropDatas);
+          props.dispatch(action);
+         
       }
       else if(calcNumber <0){
         stateData[i].stock = dataNumber + (currentNumber - changeNumber); /*数量増やした場合全体在庫増えるまたマイナスになるので計算反転*/
-        localstorageChange(cartItemName, stateData[i].stock);
+         /*大元のストレージも変更*/
+        let propOrders = localstorageChange(cartItemName, stateData[i].stock, props.orderItem);
+        let changePropDatas = propOrders;
+      
+        let action = ordersSend(changePropDatas);
+        props.dispatch(action);
       }
     }
   });
@@ -249,7 +266,7 @@ const doSelect = (e)=>{
                className="btn-lg"
                onClick={sendServer}
              >
-             <span><FontAwesomeIcon icon={faCashRegister} /></span>
+             <span><FontAwesomeIcon icon={faCashRegister} /></span>
              注文確定
              </Button>
            </div>
