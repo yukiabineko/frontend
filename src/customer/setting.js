@@ -26,3 +26,27 @@ export const selectItemCheck = (name)=>{
        return true;
    }
 }
+
+/*セレクト時ローカルストレージ在庫更新*/
+
+export const localstorageChange = (name,stock)=>{
+  let datas = JSON.parse(localStorage.getItem('orders'));
+  datas.map((data)=>{
+    if(data.name === name){
+      data.stock = stock;
+    }
+  });
+  localStorage.setItem('orders', JSON.stringify(datas));
+}
+
+/*注文確認ボタンにて削除ボタン押し下時に大元propsの在庫反映*/
+
+export const pushDeleteButtonTolocalData = (name,orderNumber,datas)=>{
+  datas.map((data)=>{
+    if(data.name === name){
+      let localnum = Number(data.stock);
+      localnum += Number(orderNumber);
+      data.stock = localnum;
+    }
+  });
+}
