@@ -3,8 +3,7 @@ import { Row, Col, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import '../users/users.css';
 import { connect } from 'react-redux';
-import { customerTodayOrders, totalMoneyCalc } from './setting';
-import Reservation from './Reservation';
+import {customerTomorrowOrders , totalMoneyCalc } from './setting';
 
 const ulArea ={
   marginTop: '-4%'
@@ -15,30 +14,18 @@ const image={
 }
 
 /*****************************お客様用注文一覧ページ*********************************************************** */
-const  Order = (props)=>{
- 
-/******************************ログイン/未ログイン切り替え********************************************************** */
-const loginUserCheck = ()=>{
-  if(props.userData.length===0){
-    props.history.push('/login');  
-  }
-}
-useState(loginUserCheck());
-  
+const  Reservation = (props)=>{
   return(
-    <>
-      <div className="text-center mt-5 mb-4">
-        <h2 className="font-weight-bold text-light">現在注文商品</h2>
-      </div> 
+    <>  
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-          <div className="text-center">【本日受取商品】</div>
+          <div className="text-center">【明日予約商品】</div>
           <h3 className="mt-2">【注文合計金額: 
             <span className="text-danger font-weight-bold">
-              {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
+              {totalMoneyCalc(customerTomorrowOrders(props.userData[0].orders[0]))}
             </span>円】</h3>
           <ul class="list-group" style={ulArea}>
-          {props.userData.length>0? customerTodayOrders(props.userData[0].orders[0]).map((data)=>(
+          {props.userData.length>0? customerTomorrowOrders(props.userData[0].orders[0]).map((data)=>(
             <li className="list-group-item mt-5">
               <Row>
                 <Col md="12">
@@ -60,10 +47,8 @@ useState(loginUserCheck());
           </ul>
         </Col>
       </Row>
-      <br/>
-      <Reservation />
     </>
    )
 }
-export default withRouter(connect(state=>state)(Order));
+export default withRouter(connect(state=>state)(Reservation));
 /***************************************************************************************************** */
