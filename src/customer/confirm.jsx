@@ -3,7 +3,7 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios'
-import { cartEmpty, cartUpdate } from '../store/Store';
+import { cartEmpty, cartUpdate, ordersStockChange } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { cartDeleteCart, sendLoginData, ordersSend  } from '../store/Store';
@@ -105,13 +105,12 @@ const sendServer = ()=>{
     
   }
   /**********************************商品アイテム削除************************************************************************************************ */
-  const deleteItem = (index,name, num, datas)=>{
+  const deleteItem = (index, name, num)=>{
     let action = cartDeleteCart(index);
     props.dispatch(action);
-    pushDeleteButtonTolocalData(name, num, datas);
-    if(props.buyCarts.length === 0){
-      props.history.push('/shoppings');
-    }
+    
+    let action2 = ordersStockChange(name, num);
+    props.dispatch(action2);
   }
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
@@ -251,7 +250,7 @@ const doSelect = (e)=>{
                    <td className="text-dark text-center font-weight-bold">
                      <Button 
                        variant="danger"
-                       onClick={()=>deleteItem(index, data.name, num[index],props.orderData)}
+                       onClick={()=>deleteItem(index, data.name, num[index])}
                      >
                     削除
                      </Button>
