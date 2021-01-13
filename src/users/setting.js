@@ -58,6 +58,7 @@ const todayParams =()=>{
     day: day
   }
 }
+
 /*当日日付のみのデータ抽出 */
 
 export const customerTodayOrders = (allData)=>{
@@ -78,6 +79,36 @@ export const customerTodayOrders = (allData)=>{
   }
   return todayOrder;
 }
+
+/*明日日付のみのデータ抽出 */
+
+export const customerTomorrowOrders = (allData)=>{
+  let tomorrowOrder = [];
+  const today = new Date();
+  today.setDate(today.getDate() + 1);
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+
+  /*全データから抽出*/
+  if(allData){
+    allData.forEach((data)=>{
+      /*注文データ*/
+      const createDate = new Date(data.shopping_date);
+      const c_year = createDate.getFullYear();
+      const c_month = createDate.getMonth() + 1;
+      const c_day = createDate.getDate();
+      if( year === c_year && month === c_month && day === c_day){
+        tomorrowOrder.push(data);
+      }
+    })
+  }
+  return tomorrowOrder;
+}
+
+
+
+
 
   /*当日以外の日付のみのデータ抽出 */
 
