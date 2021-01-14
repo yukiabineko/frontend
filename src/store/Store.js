@@ -65,7 +65,6 @@ const ordersReducer = (state, action)=>{
 }
 /*買い物確認削除ボタン*/
 const ordersStockChangeReducer = (state, action) =>{
-  alert(action.num);
   let datas = state.orderItem.slice();
   datas.map((data)=>{
     if(data.name === action.name){
@@ -117,6 +116,7 @@ const cartUpdateReducer = (state, action)=>{
 const cartDeleteReducer = (state, action)=>{
   let datas = state.buyCarts.slice();
   datas.splice(action.num, 1);
+  
   return{
     userData: state.userData,
     orderItem: state.orderItem,
