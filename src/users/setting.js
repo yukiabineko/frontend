@@ -151,3 +151,15 @@ export const totalMoneyCalc =(orders)=>{
   return total;
 }
 
+export const statusView = (status)=>{
+  switch (status) {
+    case 0:
+      return <div className="bg-info">申請中</div>;
+    case 1:
+      return <div className="bg-warning">加工済みです</div>;
+    case 2:
+      return <div className="bg-danger">受け渡し済み</div>;
+    default:
+      break;
+  }
+}
