@@ -184,7 +184,7 @@ import {  todayOrderExisting } from './shopping/settiing';
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           {props.userData.length >0?
-            props.userData[0].admin == true? 
+            props.userData[0].admin === true? 
              /*従業員サイド */
             <>
               <li class="nav-item pt-3 pb-3 active">
