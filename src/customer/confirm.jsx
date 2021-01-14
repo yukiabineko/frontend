@@ -35,7 +35,7 @@ const  Confirm = (props)=>{
 const cartNum = ()=>{
   let array = [];
   props.buyCarts.forEach((data) => {
-    array.push(data.num);
+    array.push(Number(data.num));
   });
   return array;
 }
@@ -105,12 +105,21 @@ const sendServer = ()=>{
     
   }
   /**********************************商品アイテム削除************************************************************************************************ */
-  const deleteItem = (index, name, num)=>{
+  const deleteItem = (index, name, n)=>{
     let action = cartDeleteCart(index);
     props.dispatch(action);
     
-    let action2 = ordersStockChange(name, num);
+    let action2 = ordersStockChange(name, n);
     props.dispatch(action2);
+
+    let number = num.slice();
+    number.splice(index, 1);
+    
+    alert(number);
+    setNumber(number);
+    
+    
+
   }
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
