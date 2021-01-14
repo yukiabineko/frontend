@@ -33,12 +33,16 @@ useState(loginUserCheck());
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
           <div className="text-center">【本日受取商品】</div>
-          <h3 className="mt-2">【注文合計金額: 
-            <span className="text-danger font-weight-bold">
-              {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
-            </span>円】</h3>
+          {((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))?
+           <h3 className="mt-2">【注文合計金額: 
+           <span className="text-danger font-weight-bold">
+             {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
+           </span>円】</h3>
+           : 
+           ''}
+          
           <ul class="list-group" style={ulArea}>
-          {props.userData.length>0? customerTodayOrders(props.userData[0].orders[0]).map((data)=>(
+          {((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))? customerTodayOrders(props.userData[0].orders[0]).map((data)=>(
             <li className="list-group-item mt-5">
               <Row>
                 <Col md="12">
@@ -56,7 +60,7 @@ useState(loginUserCheck());
                 </Col>
               </Row>
             </li>
-          )) : ''}
+          )) :   <div className="p-5 text-white text-center mt-5 bg-secondary font-weight-bold">データがありません</div>}
           </ul>
         </Col>
       </Row>
