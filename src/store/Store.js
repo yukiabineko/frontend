@@ -15,6 +15,8 @@ const storeReducer = (state = init_data, action)=>{
       return logoutReducer(state, action);
     case 'ORDER':
       return ordersReducer(state, action);
+    case 'ORDERSTOCK':
+      return ordersStockChangeReducer(state, action);
     case 'CARTADD':
       return cartReducer(state, action);
     case 'CARTRESET':
@@ -61,6 +63,23 @@ const ordersReducer = (state, action)=>{
     historyData: state.historyData
   }
 }
+/*買い物確認削除ボタン*/
+const ordersStockChangeReducer = (state, action) =>{
+  let datas = state.orderItem.slice();
+  datas.map((data)=>{
+    if(data.name === action.name){
+      let stock = Number(data.stock);
+      stock += Number(action.num); /*在庫元に戻す*/
+      data.stock = stock;
+    }
+  });
+  return{
+    userData: state.userData,
+    orderItem: datas,
+    buyCarts: state.buyCarts,
+    historyData: state.historyData
+  }
+}
 const cartReducer = (state, action)=>{
   let data = state.buyCarts.slice();
   data.push(action.data);
@@ -97,6 +116,7 @@ const cartUpdateReducer = (state, action)=>{
 const cartDeleteReducer = (state, action)=>{
   let datas = state.buyCarts.slice();
   datas.splice(action.num, 1);
+  
   return{
     userData: state.userData,
     orderItem: state.orderItem,
@@ -136,6 +156,13 @@ export const ordersSend = (data)=>{
   return{
     type: 'ORDER',
     data: data
+  }
+}
+export const ordersStockChange = (name, num)=>{
+  return{
+    type: 'ORDERSTOCK',
+    name: name,
+    num: num
   }
 }
 export const cartEmpty = ()=>{
