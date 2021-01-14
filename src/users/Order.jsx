@@ -3,7 +3,7 @@ import { Row, Col, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import '../users/users.css';
 import { connect } from 'react-redux';
-import { customerTodayOrders, totalMoneyCalc } from './setting';
+import { customerTodayOrders, totalMoneyCalc, statusView } from './setting';
 import Reservation from './Reservation';
 
 const ulArea ={
@@ -55,6 +55,7 @@ useState(loginUserCheck());
                     <li className="list-inline-item h5 mr-3">注文数:{data.num}</li>
                     <li className="list-inline-item h5 mr-3">合計:<span className="text-danger">{data.price *data.num}</span>円</li>
                     <li className="list-inline-item h5 mr-3">依頼加工:{data.process}</li>
+                    <li className="list-inline-item text-white pt-2 pb-2 mr-3">{ statusView(data.status) }</li>
                   </ul>
                 
                 </Col>
