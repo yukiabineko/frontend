@@ -6,9 +6,9 @@ import axios from 'axios'
 import { cartEmpty, cartUpdate, ordersStockChange } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart, sendLoginData, ordersSend  } from '../store/Store';
+import { cartDeleteCart, sendLoginData, ordersSend} from '../store/Store';
 import Empty from './NoData';
-import { localstorageChange, pushDeleteButtonTolocalData } from './setting';
+import { localstorageChange } from './setting';
 
 const title={
   fontFamily: 'ヒラギノ明朝',
@@ -81,7 +81,7 @@ const sendServer = ()=>{
    obj['data'] = sendData
 
    /* rails送信　*/
-   axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
+   axios.post('http://localhost:3001/shoppings', obj)
       .then(function (response) {
         /*railsからメッセージ*/
 
@@ -112,10 +112,12 @@ const sendServer = ()=>{
     let action2 = ordersStockChange(name, n);
     props.dispatch(action2);
 
+
+    /*選択数ステートも更新*/
     let number = num.slice();
     number.splice(index, 1);
     
-    alert(number);
+
     setNumber(number);
     
     
@@ -191,6 +193,14 @@ const doSelect = (e)=>{
   numArray[Number(e.target.name)] = changeNumber;
   setNumber(numArray);
 }
+/************************時間変更************************************************* */
+  const timesChange =(e)=>{
+    let index = Number(e.target.name);
+    let carts = props.buyCarts.slice();
+    carts[index].time = e.target.value;
+    let action = cartUpdate(carts);
+    props.dispatch(action);
+  }
 
 /********************************************************************************************************************************** */
   return(
@@ -231,14 +241,20 @@ const doSelect = (e)=>{
                   </span>
                   加工法
                </th>
+               <th style={th}>
+                 <span className="text-primary mr-2 h5">
+                    <FontAwesomeIcon icon={faUtensils} />
+                  </span>
+                  受け取り時間
+               </th>
                <th style={th}>合計</th>
                <th style={th}></th>
              </thead>
              <tbody>
                {props.buyCarts.map((data,index)=>(
                  <tr>
-                   <td className="text-dark text-center font-weight-bold">{data.name}</td>
-                   <td className="text-dark text-center font-weight-bold">{data.price}</td>
+                   <td className="text-dark text-center font-weight-bold align-middle">{data.name}</td>
+                   <td className="text-dark text-center font-weight-bold align-middle">{data.price}</td>
                    <td className="text-dark text-center font-weight-bold">
                       <label>{"現在" + num[index]}</label>
                       <Form.Control as="select" size="sm" custom value={num[index]} onChange={(index)=>doSelect(index)} name={index} >
@@ -254,8 +270,17 @@ const doSelect = (e)=>{
                        ))}
                       </Form.Control>
                    </td>
-                   <td className="text-dark text-center font-weight-bold">{data.process}</td>
-                   <td className="text-dark text-center font-weight-bold">{Number(data.price) * Number(num[index])}</td>
+                   <td className="text-dark text-center font-weight-bold align-middle">{data.process}</td>
+                   <td className="text-dark text-center font-weight-bold align-middle">
+                    <input 
+                          name={index}
+                          type="time" 
+                          value={data.time}  
+                          className="form-control"
+                          onChange={timesChange}
+                      />
+                   </td>
+                   <td className="text-dark text-center font-weight-bold align-middle">{Number(data.price) * Number(num[index])}</td>
                    <td className="text-dark text-center font-weight-bold">
                      <Button 
                        variant="danger"

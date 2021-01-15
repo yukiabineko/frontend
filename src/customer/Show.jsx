@@ -20,6 +20,7 @@ const  Show = (props)=>{
   const[state, setState] = useState({
     number: null,
     process: '',
+    time: null,
     total: props.itemData? props.itemData.price : 0
   })
   const stockOption = ()=>{
@@ -44,7 +45,8 @@ useState(loginUserCheck());
  const numberChange = (e)=>{
    setState({
      number: e.target.value,
-     process: state.process,
+     process: state.process, 
+     time: state.time,
      total:  Number(props.itemData.price) * Number(e.target.value)
    })
 }
@@ -53,6 +55,16 @@ const processChange = (e)=>{
   setState({
     number: state.number,
     process: e.target.value,
+    time: state.time,
+    total:  state.total
+  })
+}
+/********************************受け取り時間************************************************** */
+const timeChange = (e)=>{
+  setState({
+    number: state.number,
+    process: state.process,
+    time: e.target.value,
     total:  state.total
   })
 }
@@ -70,7 +82,7 @@ const processChange = (e)=>{
         stock -= minusNumber;
         propData.stock = stock;
         props.changeItemData(propData);
-        let action = cartsAdd({name: propData.name, num: state.number, price: propData.price, process:　state.process});
+        let action = cartsAdd({name: propData.name, num: state.number, price: propData.price, process:　state.process, time: state.time});
         props.dispatch(action);
         props.history.push('/customor/index');
       }
@@ -106,6 +118,7 @@ const processChange = (e)=>{
                  <th className="bg-dark text-center text-white">価格</th>
                  <th className="bg-dark text-center text-white">買い上げ数</th>
                  <th className="bg-dark text-center text-white">加工法</th>
+                 <th className="bg-dark text-center text-white">受け取り時間</th>
                  <th className="bg-dark text-center text-white">合計金額</th>
                </thead>
                <tbody>
@@ -126,6 +139,14 @@ const processChange = (e)=>{
                          <option>{process}</option>
                        ))}
                      </select>
+                   </td>
+                   <td>
+                     <input 
+                        type="time" 
+                        value={state.time}  
+                        className="form-control"
+                        onChange={timeChange}
+                     />
                    </td>
                    <td className="font-weight-bold text-center align-middle text-danger">{state.total}</td>
                  </tr>
