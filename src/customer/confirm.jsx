@@ -81,7 +81,7 @@ const sendServer = ()=>{
    obj['data'] = sendData
 
    /* rails送信　*/
-   axios.post('http://localhost:3001/shoppings', obj)
+   axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
       .then(function (response) {
         /*railsからメッセージ*/
 
