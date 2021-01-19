@@ -3,11 +3,13 @@ import { withRouter } from 'react-router';
 import { Table } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { orderHistoryStatus } from "./setting";
+import MyPagination from './MyPagination';
 
 const  History = (props)=>{
 
   return(
-   <>
+   <div>
+     <MyPagination />
     {props.userData[0].orders[0]? 
       <>
        <Table bordered className="mt-3">
@@ -38,7 +40,7 @@ const  History = (props)=>{
       : 
       <div className="p-5 bg-secondary mt-3 text-white font-weight-bold">履歴がありません。</div>
     }
-   </>
+   </div>
   )
 }
 export default withRouter(connect((state)=>state)(History))
