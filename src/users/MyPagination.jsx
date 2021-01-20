@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router';
-import { Table, Pagination } from 'react-bootstrap';
+import { Pagination } from 'react-bootstrap';
 import { connect } from 'react-redux';
-
+import axios from 'axios';
+import { searchSend } from '../store/Store';
 
 const  MyPagination = (props)=>{
   let items = [];
@@ -14,14 +15,27 @@ const  MyPagination = (props)=>{
   });
   for(let i=state.first; i<=state.last; i++){
     items.push(
-      <Pagination.Item key={i} active={i == state.first}>{i}</Pagination.Item>
+      <Pagination.Item key={i} active={i == state.first} onClick={()=>seachDatarequest(i)}>{i}</Pagination.Item>
     )
   }
-    
+  const seachDatarequest = (i)=>{
+    let data = {
+      user_id: props.userData[0].id,
+      num: i
+    }
+    axios.post('https://uematsu-backend.herokuapp.com/history/search', data)
+    .then(function (response) {
+      let action = searchSend(response.data);
+      props.dispatch(action);
+    })
+    .catch(function(){
+      alert('error');
+    })
+  }  
   
   return(
    <>
-    <Pagination>{items}</Pagination>
+    <Pagination >{items}</Pagination>
    </>
   )
 }

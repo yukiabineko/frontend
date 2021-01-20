@@ -4,7 +4,7 @@ import './App.css'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import { connect} from 'react-redux';
-import { sendLoginData } from './store/Store';
+import { sendLoginData, searchSend } from './store/Store';
 
 const  Login = (props)=>{
 
@@ -36,6 +36,19 @@ const  Login = (props)=>{
               password: '',
               confirmation: ''
             })
+            let data2 = {
+              user_id: response.data.id,
+              num: 1
+            }
+            
+            axios.post('https://uematsu-backend.herokuapp.com/history/search', data2)
+            .then(function (response) {
+              let action = searchSend(response.data);
+              props.dispatch(action);
+            })
+            .catch(function(){
+              alert('error');
+            })
             response.data.admin == true? props.history.push('/') :  props.history.push('/users/show');
           }
           else{
@@ -45,6 +58,7 @@ const  Login = (props)=>{
       .catch(function(err){
         alert(err);
       })
+      
   }
   const inputText = (e)=>{
     const target = e.target;

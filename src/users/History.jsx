@@ -10,7 +10,7 @@ const  History = (props)=>{
   return(
    <div>
      <MyPagination />
-    {props.userData[0].orders[0]? 
+    {props.pageData? 
       <>
        <Table bordered className="mt-3">
          <thead>
@@ -24,7 +24,7 @@ const  History = (props)=>{
            </tr>
          </thead>
          <tbody>
-           {props.userData[0].orders[0].map((data)=>(
+           {props.pageData.map((data)=>(
              <tr>
                <td className="font-weight-bold text-center">{data.shopping_date}</td>
                <td className="font-weight-bold text-center">{data.name}</td>
