@@ -15,7 +15,7 @@ const  MyPagination = (props)=>{
   });
   for(let i=state.first; i<=state.last; i++){
     items.push(
-      <Pagination.Item key={i} active={i == state.first} onClick={()=>seachDatarequest(i)}>{i}</Pagination.Item>
+      <Pagination.Item key={i} active={i == state.active} onClick={()=>seachDatarequest(i)}>{i}</Pagination.Item>
     )
   }
   const seachDatarequest = (i)=>{
@@ -30,6 +30,11 @@ const  MyPagination = (props)=>{
     })
     .catch(function(){
       alert('error');
+    })
+    setState({
+      first: state.first,
+      last: state.last,
+      active: i
     })
   }  
   
