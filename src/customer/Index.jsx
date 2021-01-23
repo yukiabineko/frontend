@@ -5,6 +5,7 @@ import MediaQuery from "react-responsive";
 import { connect } from 'react-redux';
 import { cartDeleteCart, ordersSend } from '../store/Store';
 import PcIndex from './PCIndex';
+import PhoneIndex from './PhoneIndex';
 
  function Index(props){
 
@@ -45,7 +46,11 @@ import PcIndex from './PCIndex';
     </MediaQuery>
     
     <MediaQuery maxDeviceWidth={767}>
-     <p>www</p>
+      <PhoneIndex 
+          sendCustomerData={props.sendCustomerData}  
+          sendCartItemToConfirm={props.sendCartItemToConfirm}
+          fixItemData={props.fixItemData}
+      />
     </MediaQuery>
     </div>
   )

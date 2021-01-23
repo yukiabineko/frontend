@@ -30,7 +30,6 @@ import { connect } from "react-redux";
 import { logoutAction, cartEmpty } from './store/Store';
 import {  todayOrderExisting } from './shopping/settiing';
 
-
  function App(props){
   const[state, setState] = useState({
     editId: 0,
