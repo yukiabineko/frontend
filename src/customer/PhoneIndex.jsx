@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Image, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-import '../App.css'
 import { connect } from 'react-redux';
 import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { cartDeleteCart } from '../store/Store';
+import { HeaderImagePhone,ArticlePhone, UlPhone, LlPhone } from './phoneStyle';
 
+const style={
+  width:'980px'
+}
 
 const rightAreaTable={
   height: '200px',
@@ -20,7 +23,8 @@ const nameTitle={
   color:'white',
   border:'1px solid #f0f0f0',
   maxWidth: '100%',
-  margin: '0'
+  margin: '0',
+  width: '100%'
 }
 const buycheck={
   padding: '5px 0',
@@ -35,7 +39,7 @@ const buttonHeight={
   height:'100px'
 }
 
- function PcIndex(props){
+ function PhoneIndex(props){
   let localData = null;
 
   /*買い物カゴに入れた際の在庫の更新*/
@@ -89,18 +93,18 @@ const deleteCartItem = (index)=>{
  }
   return(
     <div>
-      <img src={image} alt="画像" className="costomer-imag"/>
-       <div className="customor-main">
-    　　　<h1 className="customor-main-title">本日入荷商品紹介</h1>
-         <article>
-           <section class="gallery">
+      <img src={image} alt="画像" style={HeaderImagePhone} />
+       <div style={HeaderImagePhone} className="text-center">
+    　　　<h4>本日入荷商品紹介</h4>
+         <article style={ArticlePhone}>
+           <section>
              {itemData.length>0? <h2 className="customer-article-title">商品紹介</h2> : <div className="bg-secondary text-center text-white p-5 font-weight-bold">ただいま入荷商品がありません。</div>}
              {itemData.length > 0 ? 
-               <ul>
+               <ul style={UlPhone}>
                  {itemData.map((item)=>(
-                   <li>
-                       <Image src={`http://yukiabineko.sakura.ne.jp/react/${item.name}.jpg`} alt="表示できません" roundedCircle /><br/>
-                       <ul>
+                   <li style={LlPhone}>
+                       <Image style={HeaderImagePhone} src={`http://yukiabineko.sakura.ne.jp/react/${item.name}.jpg`} alt="表示できません" roundedCircle /><br/>
+                       <ul style={UlPhone}>
                          <li style={nameTitle}>{`商品名${item.name}`}</li>
                          <li style={nameTitle}>
                            価格&emsp;
@@ -139,12 +143,12 @@ const deleteCartItem = (index)=>{
          </article>
 
          {props.userData.length>0 && props.userData[0].admin? 
-            <div className="customor-right">
+            <div>
               <h5 style={buycheck}>管理者表示</h5>
               <div className="p-3 bg-lignt font-weight-bold">管理者のため表示されません</div>
             </div>
             : 
-            <div className="customor-right">
+            <div>
             <h5 style={buycheck}>買い物確認</h5>
              <p className="font-weight-bold text-center">{props.userData.length>0? props.userData[0].name : ''}さん</p>
              <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>
@@ -201,4 +205,4 @@ const deleteCartItem = (index)=>{
     </div>
   )
 }
-export default withRouter(connect((state)=>state)(PcIndex))
+export default withRouter(connect((state)=>state)(PhoneIndex))
