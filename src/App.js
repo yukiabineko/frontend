@@ -23,6 +23,7 @@ import OrderEdit from './orders/Edit';
 import CustomorIndex from './customer/Index'
 import CustomorShow from './customer/Show'
 import Confirm from './customer/confirm';
+import PhoneConfirm from './customer/PhoneConfirm';
 import ShoppingIndex from './shopping/Index';
 import ShoppingShow from './shopping/Show';
 import Reservation from './shopping/Reservation';
@@ -292,7 +293,13 @@ import {  todayOrderExisting } from './shopping/settiing';
         <Confirm
           orderData={state.cartItem}
       />} />
-      
+
+     <Route path="/phone_customer_confirm"
+        render={()=>
+          <PhoneConfirm
+              orderData={state.cartItem}
+          />} />
+        
      <Route path="/shoppings" 
       render={()=>
         <ShoppingIndex 

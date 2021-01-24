@@ -6,7 +6,7 @@ import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { cartDeleteCart } from '../store/Store';
-import { HeaderImagePhone,ArticlePhone, UlPhone, LlPhone } from './phoneStyle';
+import { HeaderImagePhone,ArticlePhone, UlPhone, LlPhone, phoneBuyCartMain } from './phoneStyle';
 
 const style={
   width:'980px'
@@ -89,7 +89,7 @@ const deleteCartItem = (index)=>{
  /********************************************に買い物確認情報送信*************************************************************************************** */
  const sendShoppingData =()=>{
    props.sendCartItemToConfirm(itemData);
-   props.history.push('/customer_confirm');
+   props.history.push('/phone_customer_confirm');
  }
   return(
     <div>
@@ -143,12 +143,12 @@ const deleteCartItem = (index)=>{
          </article>
 
          {props.userData.length>0 && props.userData[0].admin? 
-            <div>
+            <div style={phoneBuyCartMain}>
               <h5 style={buycheck}>管理者表示</h5>
               <div className="p-3 bg-lignt font-weight-bold">管理者のため表示されません</div>
             </div>
             : 
-            <div>
+            <div style={phoneBuyCartMain}>
             <h5 style={buycheck}>買い物確認</h5>
              <p className="font-weight-bold text-center">{props.userData.length>0? props.userData[0].name : ''}さん</p>
              <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>

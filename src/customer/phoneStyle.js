@@ -1,3 +1,4 @@
+/*******************index*********************************************** */
 /*ヘッダー画像*/
 export const HeaderImagePhone ={
    width: '100%'
@@ -8,7 +9,8 @@ export const HeaderImagePhone ={
 export const ArticlePhone={
   width:'100%',
   maxWidth: '100%',
-  background: '#fff'
+  background: '#fff',
+  marginBottom: "10%"
 }
 
 /*画像ul*/
@@ -27,3 +29,11 @@ export const LlPhone={
   maxWidth: '100%',
   margin: '5% -15%'
 }
+/*買い物カゴエリア全体 */
+export const phoneBuyCartMain = {
+  background: "#f0f0f0",
+  marginTop: "5%",
+  margimBottom: "2%",
+  padding: "5% 0"
+}
+/*******************confirm*********************************************** */
