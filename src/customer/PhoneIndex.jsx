@@ -71,7 +71,7 @@ const buttonHeight={
 /*******************************************買い物ボタン*********************************************************************** */
   const buyItem = (item)=>{
     props.sendCustomerData(item);
-    props.history.push('/customor_show');
+    props.history.push('/phone_customor_show');
   }
 /*******************************************買い物カゴアイテム削除*********************************************************************** */
 const deleteCartItem = (index)=>{

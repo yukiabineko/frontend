@@ -22,6 +22,7 @@ import OrderNew from './orders/New';
 import OrderEdit from './orders/Edit';
 import CustomorIndex from './customer/Index'
 import CustomorShow from './customer/Show'
+import CustomorPhoneShow  from './customer/PhoneShow'
 import Confirm from './customer/confirm';
 import PhoneConfirm from './customer/PhoneConfirm';
 import ShoppingIndex from './shopping/Index';
@@ -282,11 +283,16 @@ import {  todayOrderExisting } from './shopping/settiing';
           fixItemData={state.customerItem}
         />} />
       <Route path="/customor_show" 
-      render={()=>
-        <CustomorShow 
-          itemData={state.customerItem}
-          changeItemData={(item)=>changeItem(item)}
-         
+        render={()=>
+          <CustomorShow 
+            itemData={state.customerItem}
+            changeItemData={(item)=>changeItem(item)}
+      />} />
+      <Route path="/phone_customor_show" 
+        render={()=>
+          <CustomorPhoneShow 
+            itemData={state.customerItem}
+            changeItemData={(item)=>changeItem(item)}
       />} />
      <Route path="/customer_confirm"
       render={()=>
