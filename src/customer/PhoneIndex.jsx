@@ -27,7 +27,7 @@ const nameTitle={
   width: '100%'
 }
 const buycheck={
-  padding: '5px 0',
+  padding: '5px 0 25px 0',
   background: 'brown',
   color:'white',
   fontSize:'16px',

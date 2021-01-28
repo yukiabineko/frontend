@@ -35,5 +35,6 @@ export const phoneBuyCartMain = {
   marginTop: "5%",
   margimBottom: "2%",
   padding: "5% 0"
+
 }
 /*******************confirm*********************************************** */
