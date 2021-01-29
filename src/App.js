@@ -12,6 +12,7 @@ import userNew from './users/New'
 import Edit from './users/Edit'
 import UserShow from './users/Show';
 import EmpShow from './users/EmpShow';
+import PhoneEmpShow from './users/PhoneEmpShow';
 import UserOrder from './users/Order';
 import ItemIndex from './items/Index';
 import ItemNew from './items/New';
@@ -261,9 +262,9 @@ import {  todayOrderExisting } from './shopping/settiing';
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
-      <Route path="/users_empshow"  render={()=><EmpShow
-        
-        />} />
+      <Route path="/users_empshow"  render={()=><EmpShow />} />
+      <Route path="/users_phone_empshow"  render={()=><PhoneEmpShow />} />
+
       <Route path="/users_order" component={UserOrder} />
       <Route path="/items"  render={()=><ItemIndex 
         itemEditIdget={(item)=>getItemEditId(item)} 
