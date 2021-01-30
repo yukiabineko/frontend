@@ -7,6 +7,7 @@ import MediaQuery from "react-responsive";
 
 
  function Index(props){
+
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
