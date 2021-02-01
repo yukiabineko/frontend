@@ -11,7 +11,7 @@ import MediaQuery from "react-responsive";
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
-      if(props.userData.length===0 && props.itemData === null){
+      if(props.userData.length===0){
         props.history.push('/login');  
       }
     }

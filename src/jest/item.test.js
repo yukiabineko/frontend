@@ -9,6 +9,11 @@ import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import store from '../store/Store';
 import MediaQuery from "react-responsive";
+import Enzyme, { shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import PCIndex from '../customer/PCIndex';
+
+Enzyme.configure({adapter: new Adapter()});
 
 let container = null;
 beforeEach(() => {
@@ -48,5 +53,8 @@ describe('商品ー一覧', () => {
     expect(container.textContent).toBe('');
   });
 });
-
+test('test component', ()=>{
+  let itemcomp = shallow(<PcIndex.WrappedComponent />);
+  expect(itemcomp.find('[data-testid="itemstitle"]').text()).toEqual('商品一覧');
+})
 
