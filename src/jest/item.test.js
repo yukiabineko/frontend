@@ -34,14 +34,7 @@ jest.mock('axios');
 describe('商品ー一覧', () => {
     
   test('商品一覧アクセス成功', async () => {
-    const fishs = [
-      { name: 'アジ' },
-      { name: 'いわし' },
-    ];
-
-    axios.get.mockImplementationOnce(() =>
-      Promise.resolve({ data: fishs })
-    );
+    
     act(()=>{
       
       render(<Provider store={store}>
