@@ -56,15 +56,6 @@ const imageShow={
    }
    useState(itemsCall());
   
-/******************************ログイン/未ログイン切り替え********************************************************** */
-    const loginUserCheck = ()=>{
-      if(props.userData.length===0 && props.itemData === null){
-        props.history.push('/login');  
-      }
-    }
-
-  useState(loginUserCheck());
-  
    const newPage = ()=>{
     props.history.push('/items_new')
    }
