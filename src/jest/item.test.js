@@ -11,7 +11,7 @@ import store from '../store/Store';
 import MediaQuery from "react-responsive";
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import PCIndex from '../customer/PCIndex';
+
 
 Enzyme.configure({adapter: new Adapter()});
 
