@@ -40,13 +40,6 @@ const userLink ={
       })
   }
     useState(userCall());
-/******************************ログイン/未ログイン切り替え********************************************************** */
-    const loginUserCheck = ()=>{
-      if(props.userData.length===0){
-        props.history.push('/login');  
-      }
-    }
-   useState(loginUserCheck());
 
   /****************************編集**************************************** */
    const editPage = (id)=>{
