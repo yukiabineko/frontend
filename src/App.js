@@ -29,6 +29,7 @@ import PhoneConfirm from './customer/PhoneConfirm';
 import ShoppingIndex from './shopping/Index';
 import ShoppingShow from './shopping/Show';
 import Reservation from './shopping/Reservation';
+import SalesIndex from './sale/Index';
 import { connect } from "react-redux";
 import { logoutAction, cartEmpty } from './store/Store';
 import {  todayOrderExisting } from './shopping/settiing';
@@ -207,6 +208,9 @@ import {  todayOrderExisting } from './shopping/settiing';
              <li className="nav-item pt-3 pb-3">
                <Link to="/shoppings" className="text-light p-3">本日注文状況</Link>
              </li>
+             <li className="nav-item pt-3 pb-3">
+               <Link to="/sales" className="text-light p-3">売上速報</Link>
+             </li>
              {/*明日のオーダーがあれば表示*/ }
 
              { todayOrderExisting(JSON.parse(localStorage.getItem('shoppings'))).length >0? 
@@ -322,6 +326,7 @@ import {  todayOrderExisting } from './shopping/settiing';
           <Reservation
             
           />} />
+      <Route path="/sales" component={SalesIndex} />
      
     </BrowserRouter>
   )
