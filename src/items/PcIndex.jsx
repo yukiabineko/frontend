@@ -41,7 +41,7 @@ const imageShow={
   const handleClose = () => setShow({status: false, data: show.data});
   
   /*************APIによるitem一覧**********************************/
-  async function itemsCall(){
+  /*async function itemsCall(){
     await axios
       .get('https://uematsu-backend.herokuapp.com/items')
       .then((res)=>{
@@ -54,7 +54,7 @@ const imageShow={
       })
      
    }
-   useState(itemsCall());
+   useState(itemsCall()); */
   
    const newPage = ()=>{
     props.history.push('/items_new')

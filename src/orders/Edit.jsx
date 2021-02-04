@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import axios from 'axios';
 import '../users/users.css';
 import { connect } from 'react-redux';
+import {  ordersSend } from '../store/Store';
 
 /**************************************************************************************** */
 const  OrderEdit = (props)=>{
@@ -49,13 +50,28 @@ useState(loginUserCheck());
     let sendData ={name:state.name, price: state.price, stock: state.stock};
     axios.patch(`https://uematsu-backend.herokuapp.com/orders/${props.id}`, sendData)
       .then(function (response) {
+           /*編集後更新*/
+           axios
+           .get('https://uematsu-backend.herokuapp.com/orders')
+           .then((res)=>{
+               localStorage.setItem('orders', JSON.stringify(res.data));
+               let action = ordersSend(res.data);
+               props.dispatch(action);
+               setState({
+                 data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
+               })
+               
+           })
+           .catch((error)=>{
+               console.log(error);
+           })
         /*railsからメッセージ*/
         alert(response.data.message); 
       })
       .catch(function(){
         alert('error');
       })
-      props.history.push('/orders');
+      /*props.history.push('/orders');*/
   }
   
   return(

@@ -28,7 +28,7 @@ const buttonWidth={
     data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
   })
   /*************APIによるuser一覧**********************************/
-   async function userCall(){
+   /*async function userCall(){
      
      await axios
        .get('https://uematsu-backend.herokuapp.com/users')
@@ -43,7 +43,7 @@ const buttonWidth={
         data: JSON.parse(localStorage.getItem('users'))
       })
   }
-    useState(userCall());
+    useState(userCall());*/
 
   /****************************編集**************************************** */
    const editPage = (id)=>{

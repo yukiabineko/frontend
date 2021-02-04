@@ -23,11 +23,11 @@ import { timeSetting } from '../setting';
 
   /************************ステート*************************************** */
   const[shopingData, setState] = useState(
-    localData ? localData : []
+    localData ?localData : []
   )
   
   /*************APIによるshopping一覧**********************************/
-  async function shoppingsCall(){
+  /*async function shoppingsCall(){
     await axios
       .get('https://uematsu-backend.herokuapp.com/shoppings')
       .then((res)=>{
@@ -40,7 +40,7 @@ import { timeSetting } from '../setting';
       })
      
    }
-   useState(shoppingsCall());
+   useState(shoppingsCall()); */
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{

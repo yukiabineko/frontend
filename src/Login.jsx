@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Button,Modal } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import './App.css'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import { connect} from 'react-redux';
-import { sendLoginData, searchSend } from './store/Store';
+import { sendLoginData, searchSend, ordersSend } from './store/Store';
 
 const  Login = (props)=>{
 
@@ -49,7 +49,51 @@ const  Login = (props)=>{
             .catch(function(){
               alert('error');
             })
-            response.data.admin == true? props.history.push('/') :  props.history.push('/users/show');
+             axios
+            .get('https://uematsu-backend.herokuapp.com/users')
+            .then((res)=>{
+                localStorage.setItem('users', JSON.stringify(res.data));
+                
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+           axios
+            .get('https://uematsu-backend.herokuapp.com/items')
+            .then((res)=>{
+              localStorage.removeItem('items');
+              setState(res.data);
+              localStorage.setItem('items', JSON.stringify(res.data));
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+          
+          axios
+          .get('https://uematsu-backend.herokuapp.com/orders')
+          .then((res)=>{
+              localStorage.setItem('orders', JSON.stringify(res.data));
+              let action = ordersSend(res.data);
+              props.dispatch(action);
+              
+          })
+          .catch((error)=>{
+              console.log(error);
+          })
+          axios
+            .get('https://uematsu-backend.herokuapp.com/shoppings')
+            .then((res)=>{
+              localStorage.removeItem('shoppings');
+              setState(res.data);
+              localStorage.setItem('shoppings', JSON.stringify(res.data));
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+       setState({
+        
+      })
+        response.data.admin === true? props.history.push('/') :  props.history.push('/users/show');
           }
           else{
             alert('ログイン失敗');
