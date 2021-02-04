@@ -23,7 +23,7 @@ import { timeSetting } from '../setting';
 
   /************************ステート*************************************** */
   const[shopingData, setState] = useState(
-    localData ? localData : []
+    localData ?localData : []
   )
   
   /*************APIによるshopping一覧**********************************/
