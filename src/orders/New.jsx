@@ -7,6 +7,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.browser.cjs';
 import { formSelectItems } from './setItem';
 import { connect } from 'react-redux';
+import {  ordersSend } from '../store/Store';
 
 const  New = (props)=>{
   const[state, setState] = useState({
@@ -38,13 +39,25 @@ const  New = (props)=>{
     let sendData ={name: selectedOption.value, price: state.price, stock: state.stock};
     axios.post('https://uematsu-backend.herokuapp.com/orders', sendData)
       .then(function (response) {
+        /*追加後更新*/
+        axios
+        .get('https://uematsu-backend.herokuapp.com/orders')
+        .then((res)=>{
+            localStorage.setItem('orders', JSON.stringify(res.data));
+            let action = ordersSend(res.data);
+            props.dispatch(action);
+            
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
         /*railsからメッセージ*/
         alert(response.data.message); 
       })
       .catch(function(){
         alert('error');
       })
-      props.history.push('/orders');
+      /*props.history.push('/orders');*/
   }
   return(
    <>

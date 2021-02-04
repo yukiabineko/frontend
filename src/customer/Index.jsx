@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import '../App.css'
 import MediaQuery from "react-responsive";
 import { connect } from 'react-redux';
-import { cartDeleteCart, ordersSend } from '../store/Store';
 import PcIndex from './PCIndex';
 import PhoneIndex from './PhoneIndex';
 
@@ -13,7 +12,7 @@ import PhoneIndex from './PhoneIndex';
 
   if(props.fixItemData){
     props.orderItem.forEach((data,i)=>{
-      if(props.fixItemData.id == data.id){
+      if(props.fixItemData.id === data.id){
         props.orderItem[i] = props.fixItemData;
         /*localStorage.setItem('orders', JSON.stringify(localData));*/
       }
@@ -21,11 +20,6 @@ import PhoneIndex from './PhoneIndex';
 
   }
   
-  /************************ステート*************************************** */
-  const[itemData, setState] = useState(
-    props.orderItem? props.orderItem : []
-  )
- 
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){

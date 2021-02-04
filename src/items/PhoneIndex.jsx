@@ -44,7 +44,7 @@ const buttonWidth={
   const handleClose = () => setShow({status: false, data: show.data});
   
   /*************APIによるitem一覧**********************************/
-  async function itemsCall(){
+  /*async function itemsCall(){
     await axios
       .get('https://uematsu-backend.herokuapp.com/items')
       .then((res)=>{
@@ -57,7 +57,7 @@ const buttonWidth={
       })
      
    }
-   useState(itemsCall());
+   useState(itemsCall());*/
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{

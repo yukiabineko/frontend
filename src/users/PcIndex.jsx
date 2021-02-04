@@ -18,13 +18,13 @@ const userLink ={
   
 }
 
-
+ let data = JSON.parse(localStorage.getItem('users'));
  function PcIndex(props){
   const[state,setState] = useState({
-    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
+    data:  data? data : []
   })
   /*************APIによるuser一覧**********************************/
-   async function userCall(){
+   /*async function userCall(){
      
      await axios
        .get('https://uematsu-backend.herokuapp.com/users')
@@ -39,7 +39,7 @@ const userLink ={
         data: JSON.parse(localStorage.getItem('users'))
       })
   }
-    useState(userCall());
+    useState(userCall());*/
 
   /****************************編集**************************************** */
    const editPage = (id)=>{

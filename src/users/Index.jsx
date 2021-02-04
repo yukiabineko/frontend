@@ -1,18 +1,13 @@
 import {  useState } from 'react';
-import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import './users.css';
 import { connect } from 'react-redux';
-import {historyDataSend} from '../store/Store';
 import PcIndex from './PcIndex';
 import PhoneIndex from './PhoneIndex';
 import MediaQuery from "react-responsive";
 
 
  function Index(props){
-  const[state,setState] = useState({
-    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
-  })
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
@@ -29,34 +24,7 @@ import MediaQuery from "react-responsive";
    } 
 
 
-   /****************************削除*********************************************** */
-   function deleteUser(i){
-    if(window.confirm('削除してよろしいですか？')){
-      axios
-       .delete(`https://uematsu-backend.herokuapp.com/users/${i}`)
-       .then((response)=>{
-         alert(response.data.message); 
-       })
-       .catch((error)=>{
-          console.log(error);
-       })
-    
-    }
-   }
-   const userShowaccess = (id)=>{
-    axios
-    .get(`https://uematsu-backend.herokuapp.com/history/show/${id}`)
-    .then((res)=>{
-       const action = historyDataSend(res.data);
-       props.dispatch(action);
-
-    })
-    .catch((error)=>{
-       console.log(error);
-    })
-     props.history.push('/users_empshow');
-   }
- 
+   
   return(
     <div>
        <MediaQuery minDeviceWidth={767}>

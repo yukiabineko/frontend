@@ -11,7 +11,7 @@ import { ordersSend } from '../store/Store';
     data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
   })
   /*************APIによるuser一覧**********************************/
-   async function orderCall(){
+   /*async function orderCall(){
      
      await axios
        .get('https://uematsu-backend.herokuapp.com/orders')
@@ -25,10 +25,11 @@ import { ordersSend } from '../store/Store';
           console.log(error);
        })
        setState({
-        data: JSON.parse(localStorage.getItem('orders'))
+        data: JSON.parse(localStorage.getItem('orders')) 
       })
+      
   }
-    useState(orderCall());
+    useState(orderCall());*/
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -39,7 +40,7 @@ import { ordersSend } from '../store/Store';
 
   /****************************編集**************************************** */
    const editPage = (id)=>{
-     props.orderEditIdget(id);
+     props.editPage(id);
      props.history.push("/orders_edit");
    } 
 
@@ -50,7 +51,23 @@ import { ordersSend } from '../store/Store';
       axios
        .delete(`https://uematsu-backend.herokuapp.com/orders/${i}`)
        .then((response)=>{
+        /*削除後更新*/
+        axios
+        .get('https://uematsu-backend.herokuapp.com/orders')
+        .then((res)=>{
+            localStorage.setItem('orders', JSON.stringify(res.data));
+            let action = ordersSend(res.data);
+            props.dispatch(action);
+            setState({
+              data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
+            })
+            
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
          alert(response.data.message); 
+         
        })
        .catch((error)=>{
           console.log(error);
@@ -65,6 +82,21 @@ import { ordersSend } from '../store/Store';
        .get('https://uematsu-backend.herokuapp.com/orders/deleteAll')
        .then((response)=>{
         localStorage.removeItem('orders');
+        /*削除後更新*/
+        axios
+        .get('https://uematsu-backend.herokuapp.com/orders')
+        .then((res)=>{
+            localStorage.setItem('orders', JSON.stringify(res.data));
+            let action = ordersSend(res.data);
+            props.dispatch(action);
+            setState({
+              data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
+            })
+            
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
          alert(response.data.message); 
        })
        .catch((error)=>{
