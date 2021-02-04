@@ -17,7 +17,7 @@ const buttonWidth ={
     data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
   })
   /*************APIによるuser一覧**********************************/
-   async function orderCall(){
+   /*async function orderCall(){
      
      await axios
        .get('https://uematsu-backend.herokuapp.com/orders')
@@ -34,7 +34,7 @@ const buttonWidth ={
         data: JSON.parse(localStorage.getItem('orders'))
       })
   }
-    useState(orderCall());
+    useState(orderCall());*/
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -56,6 +56,21 @@ const buttonWidth ={
       axios
        .delete(`https://uematsu-backend.herokuapp.com/orders/${i}`)
        .then((response)=>{
+          /*削除後更新*/
+        axios
+        .get('https://uematsu-backend.herokuapp.com/orders')
+        .then((res)=>{
+            localStorage.setItem('orders', JSON.stringify(res.data));
+            let action = ordersSend(res.data);
+            props.dispatch(action);
+            setState({
+              data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
+            })
+            
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
          alert(response.data.message); 
        })
        .catch((error)=>{
@@ -71,6 +86,21 @@ const buttonWidth ={
        .get('https://uematsu-backend.herokuapp.com/orders/deleteAll')
        .then((response)=>{
         localStorage.removeItem('orders');
+           /*削除後更新*/
+           axios
+           .get('https://uematsu-backend.herokuapp.com/orders')
+           .then((res)=>{
+               localStorage.setItem('orders', JSON.stringify(res.data));
+               let action = ordersSend(res.data);
+               props.dispatch(action);
+               setState({
+                 data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
+               })
+               
+           })
+           .catch((error)=>{
+               console.log(error);
+           })
          alert(response.data.message); 
        })
        .catch((error)=>{
