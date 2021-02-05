@@ -4,7 +4,7 @@ import './App.css'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import { connect} from 'react-redux';
-import { sendLoginData, searchSend, ordersSend } from './store/Store';
+import { sendLoginData, searchSend, ordersSend, chartSend } from './store/Store';
 
 const  Login = (props)=>{
 
@@ -90,6 +90,15 @@ const  Login = (props)=>{
             .catch((error)=>{
               console.log(error);
             })
+          axios
+          .get('https://uematsu-backend.herokuapp.com/sales')
+          .then((res)=>{
+              let action = chartSend(res.data);
+              props.dispatch(action);
+          })
+          .catch((error)=>{
+            console.log(error);
+          })
        setState({
         
       })

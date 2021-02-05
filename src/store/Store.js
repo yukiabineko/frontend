@@ -5,7 +5,8 @@ let init_data ={
   orderItem: null,
   buyCarts: [],
   historyData: null,
-  pageData: null
+  pageData: null,
+  chartData: null
 }
 
 const storeReducer = (state = init_data, action)=>{
@@ -30,6 +31,8 @@ const storeReducer = (state = init_data, action)=>{
       return userHistoryReducer(state, action);  
     case 'SEARCHDATA':
       return searchReducer(state, action);  
+    case 'CHART':
+      return chartReducer(state, action);  
     default:
       return state
   }
@@ -45,7 +48,8 @@ const loginReducer = (state, action)=>{
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
     historyData: state.historyData,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 const logoutReducer =(state, action)=>{
@@ -65,7 +69,8 @@ const ordersReducer = (state, action)=>{
     orderItem: data,
     buyCarts: state.buyCarts,
     historyData: state.historyData,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 /*買い物確認削除ボタン*/
@@ -83,7 +88,8 @@ const ordersStockChangeReducer = (state, action) =>{
     orderItem: datas,
     buyCarts: state.buyCarts,
     historyData: state.historyData,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 const cartReducer = (state, action)=>{
@@ -94,7 +100,8 @@ const cartReducer = (state, action)=>{
     orderItem: state.orderItem,
     buyCarts: data,
     historyData: state.historyData,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 const cartResetReducer = (state, action)=>{
@@ -105,7 +112,8 @@ const cartResetReducer = (state, action)=>{
     orderItem: state.orderItem,
     buyCarts: data,
     historyData: state.historyData,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 const cartUpdateReducer = (state, action)=>{
@@ -119,7 +127,8 @@ const cartUpdateReducer = (state, action)=>{
     orderItem: state.orderItem,
     buyCarts: data,
     historyData: state.historyData,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 const cartDeleteReducer = (state, action)=>{
@@ -131,7 +140,8 @@ const cartDeleteReducer = (state, action)=>{
     orderItem: state.orderItem,
     buyCarts: datas,
     historyData: state.historyData,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 
@@ -142,7 +152,8 @@ const userHistoryReducer = (state, action)=>{
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
     historyData: history,
-    pageData: state.pageData
+    pageData: state.pageData,
+    chartData: state.chartData
   }
 }
 /*ページネーション検索*/
@@ -154,7 +165,21 @@ const searchReducer = (state, action)=>{
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
     historyData: state.historyData,
-    pageData: data
+    pageData: data,
+    chartData: state.chartData
+  }
+}
+/*グラフ用*/
+const  chartReducer = (state, action)=>{
+  let data = action.data;
+  
+  return{
+    userData: state.userData,
+    orderItem: state.orderItem,
+    buyCarts: state.buyCarts,
+    historyData: state.historyData,
+    pageData: state.pageData,
+    chartData: data
   }
 }
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
@@ -214,6 +239,13 @@ export const historyDataSend = (data)=>{
 export const searchSend = (data)=>{
   return{
     type: 'SEARCHDATA',
+    data: data
+  }
+}
+/*グラフ用*/
+export const chartSend = (data)=>{
+  return{
+    type: 'CHART',
     data: data
   }
 }
