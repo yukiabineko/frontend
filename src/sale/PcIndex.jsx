@@ -4,32 +4,9 @@ import { connect } from 'react-redux';
 import { Table } from 'react-bootstrap';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 
-const datas = [
-    {
-      date: '2/01', week: '日' , num: 4,  売上: 2400,
-    },
-    {
-      date: '2/02', week: '月' , num: 4,  売上: 1200,
-    },
-    {
-      date: '2/03', week: '火' , num: 4,  売上: 1800,
-    },
-    {
-      date: '2/04', week: '水' , num: 4,  売上: 8000,
-    },
-    {
-      date: '2/05', week: '木' , num: 4,  売上: 2400,
-    },
-    {
-      date: '2/06', week: '金' , num: 4,  売上: 2400,
-    },
-    {
-      date: '2/07', week: '土' , num: 4,  sale: 2400,
-    },
-  ];
-
-
  function PcIndex(props){
+  
+  const datas = props.chartData;
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
@@ -51,7 +28,7 @@ const datas = [
             　　　<XAxis dataKey="date" /><YAxis />
             　　　<Tooltip />
                 <Legend />
-                <Bar dataKey="売上" fill="orange" />
+                <Bar dataKey="total" fill="orange" />
             </BarChart>
         </ResponsiveContainer>
 
@@ -75,10 +52,10 @@ const datas = [
               <tbody>
                   {datas.map((data)=>(
                       <tr>
-                        <td className="font-weight-bold text-center">{data.date}</td>
+                        <td className="font-weight-bold text-center">{data.day}</td>
                         <td className="font-weight-bold text-center">{data.week}</td>
                         <td className="font-weight-bold text-center">{data.num}</td>
-                        <td className="font-weight-bold text-center">{data.sale}</td>
+                        <td className="font-weight-bold text-center">{data.total}</td>
                         <td className="font-weight-bold text-center"></td>
                       </tr>
                   ))}
