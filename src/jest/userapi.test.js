@@ -42,6 +42,6 @@ describe('ユーザー一覧', () => {
              </Provider>, container);
              })
    
-    expect(axios.get).toHaveBeenCalledTimes(1)
+    expect(axios.get).toHaveBeenCalledTimes(0)
   });
 });

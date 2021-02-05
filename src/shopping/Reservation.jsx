@@ -4,6 +4,7 @@ import '../App.css';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { todayOrderExisting } from './settiing';
+import { timeSetting } from '../setting';
 
  /******************************従業員側明日の予約確認ページ********************************************************** */
 
@@ -36,6 +37,10 @@ const  Reservation = (props)=>{
                <tr>
                  <th className="bg-primary text-white font-weight-bold">依頼調理法</th>
                  <td colSpan="5" className="font-weight-bold">{data.process}</td>
+               </tr>
+               <tr>
+                 <th className="bg-primary text-white font-weight-bold">受け取り時間</th>
+                 <td colSpan="5" className="font-weight-bold">{timeSetting(data.receiving_time)}</td>
                </tr>
                <tr>
                  <th className="bg-primary text-white font-weight-bold">商品単価</th>
