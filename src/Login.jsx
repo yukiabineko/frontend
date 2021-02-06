@@ -91,14 +91,14 @@ const  Login = (props)=>{
               console.log(error);
             })
           axios
-          .get('https://uematsu-backend.herokuapp.com/sales')
-          .then((res)=>{
-              let action = chartSend(res.data);
-              props.dispatch(action);
-          })
-          .catch((error)=>{
-            console.log(error);
-          })
+            .get('https://uematsu-backend.herokuapp.com/sales')
+            .then((res)=>{
+                let action = chartSend(res.data);
+                props.dispatch(action);
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
        setState({
         
       })
