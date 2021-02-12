@@ -40,7 +40,15 @@ const  Login = (props)=>{
               user_id: response.data.id,
               num: 1
             }
-            
+            axios
+                .get('https://uematsu-backend.herokuapp.com/users')
+                .then((res)=>{
+                    localStorage.setItem('users', JSON.stringify(res.data));
+                    
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })       
             axios.post('https://uematsu-backend.herokuapp.com/history/search', data2)
             .then(function (response) {
               let action = searchSend(response.data);
