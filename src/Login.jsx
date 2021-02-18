@@ -83,7 +83,10 @@ const  Login = (props)=>{
               localStorage.setItem('orders', JSON.stringify(res.data));
               let action = ordersSend(res.data);
               props.dispatch(action);
-              
+              if(localStorage.getItem('orders') && localStorage.getItem('users')){
+                response.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+              }
+             
           })
           .catch((error)=>{
               console.log(error);
@@ -110,7 +113,7 @@ const  Login = (props)=>{
        setState({
         
       })
-        response.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+        
           }
           else{
             alert('ログイン失敗');
