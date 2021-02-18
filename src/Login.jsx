@@ -110,7 +110,7 @@ const  Login = (props)=>{
        setState({
         
       })
-        response.data.admin === true? props.history.push('/') :  props.history.push('/users/show');
+        response.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
           }
           else{
             alert('ログイン失敗');
