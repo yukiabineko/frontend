@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faTruck, faClipboard } from "@fortawesome/free-solid-svg-icons";
-
+import { chartSend } from '../store/Store';
 
 const font ={
   fontSize: '24px'
@@ -58,6 +58,15 @@ const  Show = (props)=>{
             .catch((error)=>{
               console.log(error);
             })
+        axios
+        .get('https://uematsu-backend.herokuapp.com/sales')
+        .then((res)=>{
+            let action = chartSend(res.data);
+            props.dispatch(action);
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
         /*railsからメッセージ*/
         alert(response.data.message); 
         

@@ -57,6 +57,7 @@ useState(loginUserCheck());
                localStorage.setItem('orders', JSON.stringify(res.data));
                let action = ordersSend(res.data);
                props.dispatch(action);
+               props.history.push('/orders');
                setState({
                  data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
                })
@@ -71,7 +72,7 @@ useState(loginUserCheck());
       .catch(function(){
         alert('error');
       })
-      /*props.history.push('/orders');*/
+  
   }
   
   return(
