@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Row, Col, Table, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
@@ -58,8 +58,13 @@ import { ordersSend } from '../store/Store';
             localStorage.setItem('orders', JSON.stringify(res.data));
             let action = ordersSend(res.data);
             props.dispatch(action);
+            let orders = state.data.slice();
+            orders.splice(0);
+            res.data.forEach((order) => {
+              orders.push(order)
+            });
             setState({
-              data: localStorage.getItem('orders') ? JSON.parse(localStorage.getItem('orders')) : []
+              data: orders
             })
             
         })

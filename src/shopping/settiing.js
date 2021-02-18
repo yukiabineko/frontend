@@ -1,5 +1,3 @@
-import { faDivide } from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
 
 /*当日日付のみ表示するための分岐処理*/
 
@@ -55,7 +53,7 @@ export const todayOrderExisting =(shoppings)=>{
          let t_year = t_date.getFullYear();
          let t_month = t_date.getMonth() + 1;
          let t_day = t_date.getDate();
-         if( year == t_year && month == t_month && day == t_day){
+         if( year === t_year && month === t_month && day === t_day){
             todayObjects.push(shopping);
          }
       });
@@ -65,8 +63,10 @@ export const todayOrderExisting =(shoppings)=>{
 /*売上速報ページ売上合計計算*/
 export  const totalSales = (datas)=>{
   let total = 0
-  datas.map((data)=>{
-     total += Number(data.合計);
-  })
+  if(datas){
+   datas.map((data)=>{
+      total += Number(data.合計);
+   })
+  }
   return total;
 }
