@@ -23,7 +23,7 @@ const buttonWidth={
 }
 
 
- function PcIndex(props){
+ function PhoneIndex(props){
   const[state,setState] = useState({
     data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
   })
@@ -141,4 +141,4 @@ const buttonWidth={
     </div>
   )
 }
-export default withRouter(connect((state)=>state)(PcIndex))
+export default withRouter(connect((state)=>state)(PhoneIndex))
