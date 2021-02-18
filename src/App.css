@@ -58,6 +58,8 @@ input::placeholder {
   width: 1200px;
   margin: 0 auto;
   padding: 10px;
+  overflow: hidden;
+ 
 }
 .customor-main-title{
   padding: 10px;
@@ -79,6 +81,9 @@ article{
   float: right;
   padding: 10px;
   margin-top: 20px;
+}
+.hidden-div{
+  float: clear;
 }
 .gallery ul{
   list-style: none;

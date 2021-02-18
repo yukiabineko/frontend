@@ -62,3 +62,11 @@ export const todayOrderExisting =(shoppings)=>{
    }
    return todayObjects;
 }
+/*売上速報ページ売上合計計算*/
+export  const totalSales = (datas)=>{
+  let total = 0
+  datas.map((data)=>{
+     total += Number(data.合計);
+  })
+  return total;
+}
