@@ -88,7 +88,7 @@ const deleteCartItem = (index)=>{
    props.history.push('/customer_confirm');
  }
   return(
-    <div>
+    <div >
       <img src={image} alt="画像" className="costomer-imag"/>
        <div className="customor-main">
     　　　<h1 className="customor-main-title">本日入荷商品紹介</h1>
@@ -195,9 +195,9 @@ const deleteCartItem = (index)=>{
              }
           </div>
           }
-         
+       
       </div>
-
+      <div className="hidden-div"></div> 
     </div>
   )
 }
