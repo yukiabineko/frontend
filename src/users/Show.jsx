@@ -6,7 +6,6 @@ import axios from 'axios';
 import { historyDataSend, ordersSend } from '../store/Store';
 import { ordercheck, daySetting } from './setting';
 import History from './History';
-import MyPagination from './MyPagination';
 
 
 /**************************************************************************************** */

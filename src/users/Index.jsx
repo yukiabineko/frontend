@@ -23,8 +23,6 @@ import MediaQuery from "react-responsive";
      props.history.push("/users/edit");
    } 
 
-
-   
   return(
     <div>
        <MediaQuery minDeviceWidth={767}>
