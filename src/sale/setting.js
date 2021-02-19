@@ -1,11 +1,14 @@
 /*売上速報ページ売上合計計算*/
 export  const totalSales = (datas)=>{
   let total = 0
-  datas.map((data)=>{
-    let num = data.合計? Number(data.合計) : 0;
-    total += num;
-  })
+  if(datas){
+    datas.map((data)=>{
+      let num = data.合計? Number(data.合計) : 0;
+      total += num;
+    })
+  }
   return total;
+ 
 }
 /*totalSales元に比率計算*/
 export  const salesRate = (data, datas)=>{

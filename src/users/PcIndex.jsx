@@ -17,11 +17,9 @@ const userLink ={
   textDecoration: 'underline',
   
 }
-
- let data = JSON.parse(localStorage.getItem('users'));
  function PcIndex(props){
   const[state,setState] = useState({
-    data:  data? data : []
+    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
   })
   /*************APIによるuser一覧**********************************/
    /*async function userCall(){
