@@ -3,6 +3,7 @@ import { Row, Col, Table, Button,Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import MyPagination from './MyPagination';
 
 const itemLink ={
   border: 'none',
@@ -22,13 +23,19 @@ const imageShow={
   height: '150px'
 }
 
+const paginationStyle = {
+  marginBottom: "-2%",
+  border: "none"
+}
 
  function PcIndex(props){
-  let localData = JSON.parse(localStorage.getItem('items'))
-  let modalData = [];
-
 
   /************************ステート*************************************** */
+  const[page, setPage] = useState(0);
+
+  let localData = JSON.parse(localStorage.getItem('items')).slice(page * 2, page * 2 + 2 )
+  let modalData = [];
+
   const[itemData, setState] = useState(
     localData ? localData : []
   )
@@ -93,6 +100,14 @@ const imageShow={
       data: modalData
     })
   }
+  /********************************ページネーション処理**************************************** */
+  const paginationNo = (num)=>{
+    alert(num);
+    setState(
+      JSON.parse(localStorage.getItem('items')).slice(num * 2, num * 2 + 2 )
+    )
+    setPage(num);
+  }
   return(
     <div className>
       <div className="text-center mt-5 mb-4">
@@ -100,11 +115,25 @@ const imageShow={
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
-          <Button 
-            variant="primary"
-            onClick={newPage}
-          >新規商品登録</Button>
+          <Table style={paginationStyle}>
+            <tr>
+              <td> 
+                <Button 
+                    variant="primary"
+                    onClick={newPage}
+                >新規商品登録</Button>
+              </td>
+              {itemData.length >0?
+               <td className="w-75">
+                 <MyPagination No={page} paginationSend ={(num)=>paginationNo(num)} />
+               </td>
+                : 
+                <td></td>
+                }
+            </tr>
+          </Table>
          
+        
           {itemData.length > 0 ?
             <Table striped bordered hover>
               <thead>

@@ -6,6 +6,7 @@ import './users.css';
 import { connect } from 'react-redux';
 import {historyDataSend} from '../store/Store';
 import { customers } from './setting';
+import UserPagination from './UserPagination';
 
 
 const userLink ={
@@ -18,8 +19,10 @@ const userLink ={
   
 }
  function PcIndex(props){
+  const[page, setPage] = useState(0);
+  let localData = JSON.parse(localStorage.getItem('users')).slice(page * 2, page * 2 + 4 )
   const[state,setState] = useState({
-    data: localStorage.getItem('users') ? JSON.parse(localStorage.getItem('users')) : []
+    data: localData? localData : []
   })
   /*************APIによるuser一覧**********************************/
    /*async function userCall(){
@@ -79,10 +82,12 @@ const userLink ={
       <div className="text-center mt-5 mb-4">
         <h2 data-testid="usertitle">会員一覧</h2>
       </div>
+      
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
+        <UserPagination />
           {state.data.length > 0 ?
-
+           
             <Table striped bordered hover>
               <thead>
                 <tr>
