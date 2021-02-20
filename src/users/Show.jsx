@@ -47,9 +47,7 @@ const  Show = (props)=>{
         props.history.push('/login');  
       }
     }
-    useEffect(()=>{
-      loginUserCheck();
-    })
+    useState(loginUserCheck)
   return(
    <>
       {props.userData.length >0?

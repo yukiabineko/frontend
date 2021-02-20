@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Row, Col, Form, Button,Modal } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import './App.css'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import { connect} from 'react-redux';
-import { sendLoginData } from './store/Store';
+import { sendLoginData, searchSend, ordersSend, chartSend } from './store/Store';
 
 const  Login = (props)=>{
 
@@ -36,7 +36,84 @@ const  Login = (props)=>{
               password: '',
               confirmation: ''
             })
-            response.data.admin == true? props.history.push('/') :  props.history.push('/users/show');
+            let data2 = {
+              user_id: response.data.id,
+              num: 1
+            }
+            axios
+                .get('https://uematsu-backend.herokuapp.com/users')
+                .then((res)=>{
+                    localStorage.setItem('users', JSON.stringify(res.data));
+                    
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })       
+            axios.post('https://uematsu-backend.herokuapp.com/history/search', data2)
+            .then(function (response) {
+              let action = searchSend(response.data);
+              props.dispatch(action);
+            })
+            .catch(function(){
+              alert('error');
+            })
+             axios
+            .get('https://uematsu-backend.herokuapp.com/users')
+            .then((res)=>{
+                localStorage.setItem('users', JSON.stringify(res.data));
+                
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+           axios
+            .get('https://uematsu-backend.herokuapp.com/items')
+            .then((res)=>{
+              localStorage.removeItem('items');
+              setState(res.data);
+              localStorage.setItem('items', JSON.stringify(res.data));
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+          
+          axios
+          .get('https://uematsu-backend.herokuapp.com/orders')
+          .then((res)=>{
+              localStorage.setItem('orders', JSON.stringify(res.data));
+              let action = ordersSend(res.data);
+              props.dispatch(action);
+              if(localStorage.getItem('orders') && localStorage.getItem('users')){
+                response.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+              }
+             
+          })
+          .catch((error)=>{
+              console.log(error);
+          })
+          axios
+            .get('https://uematsu-backend.herokuapp.com/shoppings')
+            .then((res)=>{
+              localStorage.removeItem('shoppings');
+              setState(res.data);
+              localStorage.setItem('shoppings', JSON.stringify(res.data));
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+          axios
+            .get('https://uematsu-backend.herokuapp.com/sales')
+            .then((res)=>{
+                let action = chartSend(res.data);
+                props.dispatch(action);
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+       setState({
+        
+      })
+        
           }
           else{
             alert('ログイン失敗');
@@ -45,6 +122,7 @@ const  Login = (props)=>{
       .catch(function(err){
         alert(err);
       })
+      
   }
   const inputText = (e)=>{
     const target = e.target;

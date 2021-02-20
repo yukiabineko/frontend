@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import '../users/users.css';
 import { connect } from 'react-redux';
 import {customerTomorrowOrders , totalMoneyCalc } from './setting';
+import { timeSetting } from '../setting';
 
 const ulArea ={
   marginTop: '-4%'
@@ -43,6 +44,7 @@ const  Reservation = (props)=>{
                     <li className="list-inline-item h5 mr-3">注文数:{data.num}</li>
                     <li className="list-inline-item h5 mr-3">合計:<span className="text-danger">{data.price *data.num}</span>円</li>
                     <li className="list-inline-item h5 mr-3">依頼加工:{data.process}</li>
+                    <li className="list-inline-item h5 mr-3">受け取り時間:{timeSetting(data.receiving_time)}</li>
                   </ul>
                 
                 </Col>

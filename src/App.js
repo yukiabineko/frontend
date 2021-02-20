@@ -12,6 +12,7 @@ import userNew from './users/New'
 import Edit from './users/Edit'
 import UserShow from './users/Show';
 import EmpShow from './users/EmpShow';
+import PhoneEmpShow from './users/PhoneEmpShow';
 import UserOrder from './users/Order';
 import ItemIndex from './items/Index';
 import ItemNew from './items/New';
@@ -22,14 +23,16 @@ import OrderNew from './orders/New';
 import OrderEdit from './orders/Edit';
 import CustomorIndex from './customer/Index'
 import CustomorShow from './customer/Show'
+import CustomorPhoneShow  from './customer/PhoneShow'
 import Confirm from './customer/confirm';
+import PhoneConfirm from './customer/PhoneConfirm';
 import ShoppingIndex from './shopping/Index';
 import ShoppingShow from './shopping/Show';
 import Reservation from './shopping/Reservation';
+import SalesIndex from './sale/Index';
 import { connect } from "react-redux";
 import { logoutAction, cartEmpty } from './store/Store';
 import {  todayOrderExisting } from './shopping/settiing';
-
 
  function App(props){
   const[state, setState] = useState({
@@ -184,7 +187,7 @@ import {  todayOrderExisting } from './shopping/settiing';
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           {props.userData.length >0?
-            props.userData[0].admin == true? 
+            props.userData[0].admin === true? 
              /*従業員サイド */
             <>
               <li class="nav-item pt-3 pb-3 active">
@@ -204,6 +207,9 @@ import {  todayOrderExisting } from './shopping/settiing';
              </li>
              <li className="nav-item pt-3 pb-3">
                <Link to="/shoppings" className="text-light p-3">本日注文状況</Link>
+             </li>
+             <li className="nav-item pt-3 pb-3">
+               <Link to="/sales" className="text-light p-3">売上速報</Link>
              </li>
              {/*明日のオーダーがあれば表示*/ }
 
@@ -260,9 +266,9 @@ import {  todayOrderExisting } from './shopping/settiing';
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
-      <Route path="/users_empshow"  render={()=><EmpShow
-        
-        />} />
+      <Route path="/users_empshow"  render={()=><EmpShow />} />
+      <Route path="/users_phone_empshow"  render={()=><PhoneEmpShow />} />
+
       <Route path="/users_order" component={UserOrder} />
       <Route path="/items"  render={()=><ItemIndex 
         itemEditIdget={(item)=>getItemEditId(item)} 
@@ -282,18 +288,29 @@ import {  todayOrderExisting } from './shopping/settiing';
           fixItemData={state.customerItem}
         />} />
       <Route path="/customor_show" 
-      render={()=>
-        <CustomorShow 
-          itemData={state.customerItem}
-          changeItemData={(item)=>changeItem(item)}
-         
+        render={()=>
+          <CustomorShow 
+            itemData={state.customerItem}
+            changeItemData={(item)=>changeItem(item)}
+      />} />
+      <Route path="/phone_customor_show" 
+        render={()=>
+          <CustomorPhoneShow 
+            itemData={state.customerItem}
+            changeItemData={(item)=>changeItem(item)}
       />} />
      <Route path="/customer_confirm"
       render={()=>
         <Confirm
           orderData={state.cartItem}
       />} />
-      
+
+     <Route path="/phone_customer_confirm"
+        render={()=>
+          <PhoneConfirm
+              orderData={state.cartItem}
+          />} />
+        
      <Route path="/shoppings" 
       render={()=>
         <ShoppingIndex 
@@ -309,6 +326,7 @@ import {  todayOrderExisting } from './shopping/settiing';
           <Reservation
             
           />} />
+      <Route path="/sales" component={SalesIndex} />
      
     </BrowserRouter>
   )

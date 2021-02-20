@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faTruck, faClipboard } from "@fortawesome/free-solid-svg-icons";
-
+import { chartSend } from '../store/Store';
 
 const font ={
   fontSize: '24px'
@@ -47,13 +47,34 @@ const  Show = (props)=>{
       }
       axios.patch(`https://uematsu-backend.herokuapp.com/shoppings/${props.show.id}`, params)
       .then(function (response) {
+        /*処理後更新*/
+         axios
+            .get('https://uematsu-backend.herokuapp.com/shoppings')
+            .then((res)=>{
+              localStorage.removeItem('shoppings');
+              localStorage.setItem('shoppings', JSON.stringify(res.data));
+              props.history.push('/shoppings');
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+        axios
+        .get('https://uematsu-backend.herokuapp.com/sales')
+        .then((res)=>{
+            let action = chartSend(res.data);
+            props.dispatch(action);
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
         /*railsからメッセージ*/
         alert(response.data.message); 
+        
       })
       .catch(function(){
         alert('error');
       })
-      props.history.push('/shoppings');
+     
     }
     
   return(
