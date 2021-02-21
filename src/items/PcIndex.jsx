@@ -102,7 +102,6 @@ const paginationStyle = {
   }
   /********************************ページネーション処理**************************************** */
   const paginationNo = (num)=>{
-    alert(num);
     setState(
       JSON.parse(localStorage.getItem('items')).slice(num * 2, num * 2 + 2 )
     )
