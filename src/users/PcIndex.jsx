@@ -76,6 +76,23 @@ const userLink ={
     })
      props.history.push('/users_empshow');
    }
+   /********************************ページネーション(通常ボタン)処理**************************************** */
+  const paginationNo = (num)=>{
+    switch (num) {
+      case 0:
+        setState({
+          data: JSON.parse(localStorage.getItem('users')).slice(num * 2, num * 2 +4)
+        })
+       
+        break;
+      default:
+        setState({
+          data: JSON.parse(localStorage.getItem('users')).slice(num * 2 + 2, (num * 2 + 2) + 2 )
+        })
+        break;
+    }
+    setPage(num);
+  }
  
   return(
     <div className="image">
@@ -85,7 +102,10 @@ const userLink ={
       
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
-        <UserPagination />
+        <UserPagination 
+          No={page} 
+          paginationSend={(num)=>paginationNo(num)} 
+          />
           {state.data.length > 0 ?
            
             <Table striped bordered hover>
