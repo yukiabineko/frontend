@@ -45,6 +45,8 @@ const[state, setState] = useState(props.orderData); /* 全体の在庫*/
 const[num, setNumber] = useState(cartNum());  /* 現在の注文数ステータス */
 
 
+
+
 /***************************** セレクトの数量表示 ************************************************************** */
 const selectNumber =(number)=>{
   let array = [];
@@ -217,6 +219,7 @@ const doSelect = (e)=>{
        </div>
        <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
+         
           {props.buyCarts.length >0? 
           <Form>
            <Table bordered className="mt-3">
