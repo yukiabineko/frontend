@@ -4,6 +4,8 @@ import '../App.css';
 import './users.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
+import { sendLoginData } from '../store/Store';
+import { connect } from 'react-redux';
 
 const  New = (props)=>{
 
@@ -40,6 +42,7 @@ const  New = (props)=>{
       setShow({display: 'none'});
       axios.post('https://uematsu-backend.herokuapp.com/users', data)
       .then(function (response) {
+        
         /*railsからメッセージ*/
         alert(response.data.message); 
         setState({
@@ -57,6 +60,22 @@ const  New = (props)=>{
     else{
       setShow({display: 'block'});
     }
+
+
+    /*自動ログイン状態*/
+    let data = {
+      name: state.name,
+    }
+    axios
+    .post('https://uematsu-backend.herokuapp.com/users/user_show', data)
+    .then((res)=>{
+      let action = sendLoginData(res.data);
+      props.dispatch(action);
+      res.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+    })
+    .catch((error)=>{
+        console.log(error);
+    })       
   }
   return(
    <>
@@ -117,4 +136,4 @@ const  New = (props)=>{
    </>
   )
 }
-export default withRouter(New)
+export default withRouter(connect((state)=>state)(New))
