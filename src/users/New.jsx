@@ -42,9 +42,13 @@ const  New = (props)=>{
       setShow({display: 'none'});
       axios.post('https://uematsu-backend.herokuapp.com/users', data)
       .then(function (response) {
-        
+        let action = sendLoginData(response.data.userData);
+        props.dispatch(action);
+        response.data.userData.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+
         /*railsからメッセージ*/
-        alert(response.data.message); 
+        alert("お知らせ】" +response.data.message); 
+        
         setState({
           name: '',
           email: '',
@@ -69,9 +73,7 @@ const  New = (props)=>{
     axios
     .post('https://uematsu-backend.herokuapp.com/users/user_show', data)
     .then((res)=>{
-      let action = sendLoginData(res.data);
-      props.dispatch(action);
-      res.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+      
     })
     .catch((error)=>{
         console.log(error);
