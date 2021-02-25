@@ -78,6 +78,17 @@ const paginationStyle = {
        .delete(`https://uematsu-backend.herokuapp.com/items/${i}`)
        .then((response)=>{
          alert(response.data.message); 
+         axios
+            .get('https://uematsu-backend.herokuapp.com/items')
+            .then((res)=>{
+              localStorage.removeItem('items');
+              localStorage.setItem('items', JSON.stringify(res.data));
+              setState(res.data.slice(page * 2, page * 2 + 2 ))
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+          
        })
        .catch((error)=>{
           console.log(error);

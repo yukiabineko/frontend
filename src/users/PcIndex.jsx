@@ -20,7 +20,8 @@ const userLink ={
 }
  function PcIndex(props){
   const[page, setPage] = useState(0);
-  let localData = JSON.parse(localStorage.getItem('users')).slice(page * 2, page * 2 + 4 )
+  let localBaseData = JSON.parse(localStorage.getItem('users'))
+  let localData = localBaseData == null? "" : localBaseData.slice(page * 2, page * 2 + 4 )
   const[state,setState] = useState({
     data: localData? localData : []
   })
