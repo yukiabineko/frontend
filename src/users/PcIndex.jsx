@@ -5,9 +5,9 @@ import { withRouter } from 'react-router-dom';
 import './users.css';
 import { connect } from 'react-redux';
 import {historyDataSend} from '../store/Store';
-import { customers } from './setting';
+import { customers　} from './setting';
 import UserPagination from './UserPagination';
-
+import { circularLoading }  from '@yami-beta/react-circular-loading';
 
 const userLink ={
   border: 'none',
@@ -18,6 +18,14 @@ const userLink ={
   textDecoration: 'underline',
   
 }
+//プログレスステータス
+const CircularLoading = circularLoading({
+  num: 6,
+  distance: 1,
+  dotSize: 0.5,
+
+});
+
  function PcIndex(props){
   const[page, setPage] = useState(0);
   let localBaseData = JSON.parse(localStorage.getItem('users'))
@@ -25,6 +33,7 @@ const userLink ={
   const[state,setState] = useState({
     data: localData? localData : []
   })
+  const[progress, setProgress] = useState(false)
   /*************APIによるuser一覧**********************************/
    /*async function userCall(){
      
@@ -64,6 +73,24 @@ const userLink ={
     
     }
    }
+   /****************************ページ更新**************************************** */
+  const updateUsers = ()=>{
+    setProgress(true)
+    axios
+    .get('https://uematsu-backend.herokuapp.com/users')
+    .then((res)=>{
+        localStorage.setItem('users', JSON.stringify(res.data));
+        let updateData = localBaseData == null? "" : localBaseData.slice(page * 2, page * 2 + 4 )
+        setState({
+          data: updateData? updateData : []
+        })
+        setProgress(false)
+    })
+    .catch((error)=>{
+        console.log(error);
+    })       
+   } 
+   /********************************************************** */
    const userShowaccess = (id)=>{
     axios
     .get(`https://uematsu-backend.herokuapp.com/history/show/${id}`)
@@ -97,12 +124,29 @@ const userLink ={
  
   return(
     <div className="image">
-      <div className="text-center mt-5 mb-4">
+      <div className="text-center mt-5 mb-1">
         <h2 data-testid="usertitle">会員一覧</h2>
       </div>
       
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
+          <Button　
+             variant="primary"
+             className="mb-2"
+             onClick={updateUsers}
+          >更新</Button>
+           {/* プログレス */}
+     
+           {progress ===true? 
+            <div id="progress" className=" pl-2 pr-2  bg-white shodow">
+              <p　className="mt-3 font-weight-bold">しばらくお待ちください。</p>
+              <div className="text-center">
+              <CircularLoading />
+              </div>
+            </div>
+          : 
+          ''
+          }
         <UserPagination 
           No={page} 
           paginationSend={(num)=>paginationNo(num)} 
