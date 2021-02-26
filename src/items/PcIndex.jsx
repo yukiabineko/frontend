@@ -101,6 +101,10 @@ const paginationStyle = {
     props.processItem(item);
     props.history.push('/items_process');
   }
+    /****************************ページ更新**************************************** */
+    const updateItems = ()=>{
+      alert('items');
+     } 
   /*****************************モーダル開く********************************************** */
   const openModal = (item)=>{
     modalData.splice(0);
@@ -120,11 +124,16 @@ const paginationStyle = {
   }
   return(
     <div className>
-      <div className="text-center mt-5 mb-4">
+      <div className="text-center mt-5 mb-2">
         <h2 data-testid="itemstitle">商品一覧</h2>
       </div>
       <Row>
-        <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
+        <Col md={{ span: 8, offset: 2 }} className="p-3 bg-light shadow">
+          <Button 
+            variant="primary"
+            onClick={updateItems}
+            >更新
+          </Button>
           <Table style={paginationStyle}>
             <tr>
               <td> 
