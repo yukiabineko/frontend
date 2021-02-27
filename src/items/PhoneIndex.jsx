@@ -115,7 +115,7 @@ const CircularLoading = circularLoading({
           localStorage.setItem('items', JSON.stringify(res.data));
           let newData = JSON.parse(localStorage.getItem('items'));
           setState(newData? newData : []);
-          setProgress(false)
+          setProgress(false);
       })
       .catch((error)=>{
         console.log(error);
