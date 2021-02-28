@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUtensils, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faUser, faDoorOpen, faShoppingCart, faUsers, faFish, faClipboard, faStore, faChartBar, faClipboardCheck, faDoorClosed } from "@fortawesome/free-solid-svg-icons";
 import Index from './users/Index';
 import Login from './Login';
 import userNew from './users/New'
@@ -194,28 +194,49 @@ import {  todayOrderExisting } from './shopping/settiing';
                 <span className="font-weight-bold text-warning"><FontAwesomeIcon icon={faUser} />{props.userData[0].name}さん</span>
               </li>
               <li className="nav-item pt-3 pb-3">
-                <Link to="/customor" className="text-light p-3">お買い物</Link>
+                <Link to="/customor" className="text-light p-3">
+                  <FontAwesomeIcon icon={faShoppingCart} className="text-slight" />
+                   お買い物
+                </Link>
              </li>
               <li className="nav-item pt-3 pb-3">
-                <Link to="/" className="text-light p-3">お客様一覧</Link>
+                <Link to="/" className="text-light p-3">
+                  <FontAwesomeIcon icon={faUsers} className="text-slight" />
+                    お客様一覧
+                </Link>
               </li>
               <li className="nav-item pt-3 pb-3">
-               <Link to="/items" className="text-light p-3">商品一覧</Link>
+               <Link to="/items" className="text-light p-3">
+                  <FontAwesomeIcon icon={faFish} className="text-slight" />
+                    商品一覧
+               </Link>
               </li>
               <li className="nav-item pt-3 pb-3">
-               <Link to="/orders" className="text-light p-3">店頭商品一覧</Link>
+               <Link to="/orders" className="text-light p-3">
+                <FontAwesomeIcon icon={faStore} className="text-slight" />
+                  店頭商品一覧
+               </Link>
              </li>
              <li className="nav-item pt-3 pb-3">
-               <Link to="/shoppings" className="text-light p-3">本日注文状況</Link>
+               <Link to="/shoppings" className="text-light p-3">
+                <FontAwesomeIcon icon={faClipboard} className="text-slight" />
+                  本日注文状況
+               </Link>
              </li>
              <li className="nav-item pt-3 pb-3">
-               <Link to="/sales" className="text-light p-3">売上速報</Link>
+               <Link to="/sales" className="text-light p-3">
+                <FontAwesomeIcon icon={faChartBar} className="text-slight" />
+                  売上速報
+               </Link>
              </li>
              {/*明日のオーダーがあれば表示*/ }
 
              { todayOrderExisting(JSON.parse(localStorage.getItem('shoppings'))).length >0? 
                <li className="nav-item pt-3 pb-3">
-                 <Link to="/reservation" className="text-light p-3">明日の予約状況</Link>
+                 <Link to="/reservation" className="text-light p-3">
+                  <FontAwesomeIcon icon={faClipboardCheck} className="text-slight" /> 
+                    明日の予約状況
+                 </Link>
                </li> 
               : 
               ''
@@ -226,7 +247,10 @@ import {  todayOrderExisting } from './shopping/settiing';
               : 
               <>
                 <li className="nav-item pt-3 pb-3">
-                  <Link to="/customor" className="text-light p-3">お買い物</Link>
+                  <Link to="/customor" className="text-light p-3">
+                    <FontAwesomeIcon icon={faShoppingCart} />
+                     お買い物
+                  </Link>
                 </li>
                 <li className="nav-item pt-3 pb-3">
                   <Link to="/users/show" className="text-light p-3">お客様ページ</Link>
@@ -247,10 +271,16 @@ import {  todayOrderExisting } from './shopping/settiing';
               className="logout"
               onClick={userlogout}
               data-testid="logintrue"
-            >ログアウト</button>
+          
+            >
+            <FontAwesomeIcon icon={faDoorClosed} />
+            ログアウト</button>
            </li>
           : 
-          <li className="nav-item pt-3 pb-3"><Link to="/login" className="text-light p-3" data-testid="loginfalse">ログイン</Link></li>
+          <li className="nav-item pt-3 pb-3"><Link to="/login" className="text-light p-3" data-testid="loginfalse">
+            <FontAwesomeIcon icon={faDoorOpen} />
+              ログイン
+          </Link></li>
           }
         </ul>
       </div>
