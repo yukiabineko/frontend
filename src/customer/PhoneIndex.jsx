@@ -72,7 +72,7 @@ const buttonHeight={
 /********************************************買い物カゴ合計金額*************************************************************************************** */
  const itemTotalMoney = ()=>{
    let total = 0;
-   props.buyCarts.map((data)=>{
+   props.buyCarts.forEach((data)=>{
      total += Number(data.price) * Number(data.num);
    })
    return total;

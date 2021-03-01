@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Table } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Row, Col, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { daySetting, customerTodayOrders,customerOrders } from './setting';
 
 

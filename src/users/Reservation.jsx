@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Row, Col, Image } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import '../users/users.css';
