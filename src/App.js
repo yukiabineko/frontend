@@ -253,10 +253,16 @@ import {  todayOrderExisting } from './shopping/settiing';
                   </Link>
                 </li>
                 <li className="nav-item pt-3 pb-3">
-                  <Link to="/users/show" className="text-light p-3">お客様ページ</Link>
+                  <Link to="/users/show" className="text-light p-3">
+                    <FontAwesomeIcon icon={faUser} className="text-light"/>
+                      お客様ページ
+                  </Link>
                 </li>
                 <li className="nav-item pt-3 pb-3">
-                  <Link to="/users_order" className="text-light p-3">注文確認</Link>
+                  <Link to="/users_order" className="text-light p-3">
+                   <FontAwesomeIcon icon={faClipboardCheck} className="text-light"/>
+                     注文確認
+                  </Link>
                 </li>
               </>
             : 
@@ -273,12 +279,12 @@ import {  todayOrderExisting } from './shopping/settiing';
               data-testid="logintrue"
           
             >
-            <FontAwesomeIcon icon={faDoorClosed} />
+            <FontAwesomeIcon icon={faDoorOpen} />
             ログアウト</button>
            </li>
           : 
           <li className="nav-item pt-3 pb-3"><Link to="/login" className="text-light p-3" data-testid="loginfalse">
-            <FontAwesomeIcon icon={faDoorOpen} />
+            <FontAwesomeIcon icon={faDoorClosed} />
               ログイン
           </Link></li>
           }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Table } from 'react-bootstrap';
+import { Form, Button, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios'
@@ -10,10 +10,6 @@ import { cartDeleteCart, sendLoginData, ordersSend} from '../store/Store';
 import Empty from './NoData';
 import { localstorageChange, cartValidate } from './setting';
 
-
-const table ={
-  width: '100%'
-}
 
 const title={
   fontFamily: 'ヒラギノ明朝',

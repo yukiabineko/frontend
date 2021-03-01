@@ -1,8 +1,5 @@
 
 /*買い物かごで同一商品が含まれているのかをチェック あればaddされない*/
-
-import { data } from "jquery";
-
 export const sameItemCheck = (datas, name, process)=>{
   let sameItemCount = 0;
   datas.map((data)=>{
@@ -57,7 +54,7 @@ export const pushDeleteButtonTolocalData = (name,orderNumber,datas)=>{
 export const cartValidate = (datas)=>{
   let check = true;
   datas.map((data)=>{
-    data.time == "" ? check = false : check = true;
+    data.time === "" ? check = false : check = true;
   })
   return check;
 }

@@ -5,12 +5,8 @@ import { connect } from 'react-redux';
 import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart } from '../store/Store';
 import { HeaderImagePhone,ArticlePhone, UlPhone, LlPhone, phoneBuyCartMain } from './phoneStyle';
 
-const style={
-  width:'980px'
-}
 
 const rightAreaTable={
   height: '200px',
@@ -40,13 +36,12 @@ const buttonHeight={
 }
 
  function PhoneIndex(props){
-  let localData = null;
-
+  
   /*買い物カゴに入れた際の在庫の更新*/
 
   if(props.fixItemData){
     props.orderItem.forEach((data,i)=>{
-      if(props.fixItemData.id == data.id){
+      if(props.fixItemData.id === data.id){
         props.orderItem[i] = props.fixItemData;
         /*localStorage.setItem('orders', JSON.stringify(localData));*/
       }
@@ -55,7 +50,7 @@ const buttonHeight={
   }
 
   /***********************ステート*************************************** */
-  const[itemData, setState] = useState(
+  const[ itemData ] = useState(
     props.orderItem? props.orderItem : []
   )
  
@@ -73,11 +68,7 @@ const buttonHeight={
     props.sendCustomerData(item);
     props.history.push('/phone_customor_show');
   }
-/*******************************************買い物カゴアイテム削除*********************************************************************** */
-const deleteCartItem = (index)=>{
-  let action = cartDeleteCart(index);
-  props.dispatch(action);
-}
+
 /********************************************買い物カゴ合計金額*************************************************************************************** */
  const itemTotalMoney = ()=>{
    let total = 0;

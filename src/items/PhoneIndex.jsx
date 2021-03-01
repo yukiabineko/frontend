@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Row, Col, Table, Button,Modal, Image } from 'react-bootstrap';
+import { Table, Button,Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
