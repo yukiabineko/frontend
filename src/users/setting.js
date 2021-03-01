@@ -148,7 +148,7 @@ export const customers =(users)=>{
 
 export const totalMoneyCalc =(orders)=>{
   let total = 0;
-  orders.map((order)=>{
+  orders.forEach((order)=>{
     total += order.price * order.num;
   })
   return total;

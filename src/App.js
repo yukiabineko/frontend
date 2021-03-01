@@ -178,8 +178,8 @@ import {  todayOrderExisting } from './shopping/settiing';
     <BrowserRouter>
     <div className='fixed-top'> 
     <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-      <a className="navbar-brand text-white" href="#"><FontAwesomeIcon icon={faUtensils} />&nbsp;
-            加工依頼アプリ</a>
+      <span className="navbar-brand text-white"><FontAwesomeIcon icon={faUtensils} />&nbsp;
+            加工依頼アプリ</span>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>

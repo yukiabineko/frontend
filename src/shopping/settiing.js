@@ -64,7 +64,7 @@ export const todayOrderExisting =(shoppings)=>{
 export  const totalSales = (datas)=>{
   let total = 0
   if(datas){
-   datas.map((data)=>{
+   datas.forEach((data)=>{
       total += Number(data.合計);
    })
   }

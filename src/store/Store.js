@@ -76,7 +76,7 @@ const ordersReducer = (state, action)=>{
 /*買い物確認削除ボタン*/
 const ordersStockChangeReducer = (state, action) =>{
   let datas = state.orderItem.slice();
-  datas.map((data)=>{
+  datas.forEach((data)=>{
     if(data.name === action.name){
       let stock = Number(data.stock);
       stock += Number(action.num); /*在庫元に戻す*/
