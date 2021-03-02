@@ -9,7 +9,7 @@ const  History = (props)=>{
 
   return(
    <div>
-    {props.pageData > 0?
+    {props.pageData?
       <>
         <MyPagination />
        <Table bordered className="mt-3">
