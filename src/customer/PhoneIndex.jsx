@@ -84,7 +84,7 @@ const buttonHeight={
  }
  /********************************************商品説明ページアクセス*************************************************************************************** */
  const showItemInfo =()=>{
-  props.history.push('/customer_item_info')
+  props.history.push('/customer_item_phone_info')
 }
   return(
     <div>

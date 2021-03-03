@@ -64,7 +64,7 @@ export const searchItem = (name)=>{
   let items = JSON.parse(localStorage.getItem('items'));
   let data  = {}
   items.forEach((item)=>{
-     if(item.name == name){
+     if(item.name === name){
        data["info"] = item.info;
        data["category"] = item.category
      }
