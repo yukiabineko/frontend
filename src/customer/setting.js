@@ -58,3 +58,16 @@ export const cartValidate = (datas)=>{
   })
   return check;
 }
+
+/* 商品の検索 */
+export const searchItem = (name)=>{
+  let items = JSON.parse(localStorage.getItem('items'));
+  let data  = {}
+  items.forEach((item)=>{
+     if(item.name == name){
+       data["info"] = item.info;
+       data["category"] = item.category
+     }
+  });
+  return data;
+}

@@ -7,6 +7,7 @@ import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { youtubeSeearchSend } from '../store/Store';
 
 
 const rightAreaTable={
@@ -83,7 +84,10 @@ const buttonHeight={
    props.history.push('/customer_confirm');
  }
  /********************************************商品説明ページアクセス*************************************************************************************** */
- const showItemInfo =()=>{
+ const showItemInfo =(item)=>{
+   let action = youtubeSeearchSend(item);
+   props.dispatch(action);
+
    props.history.push('/customer_item_info')
 }
   return(
@@ -124,7 +128,7 @@ const buttonHeight={
 
                                 <button 
                                   className="btn btn-danger btn-block"
-                                  onClick={()=>showItemInfo()}
+                                  onClick={()=>showItemInfo(item)}
                                 >
                                   <FontAwesomeIcon icon={faYoutube}  />商品説明
                                 </button>

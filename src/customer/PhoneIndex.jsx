@@ -124,7 +124,7 @@ const buttonHeight={
 
                                 <button 
                                   className="btn btn-danger btn-block"
-                                  onClick={()=>showItemInfo()}
+                                  onClick={()=>showItemInfo(item)}
                                 >
                                   <FontAwesomeIcon icon={faYoutube}  />商品説明
                                 </button>
