@@ -6,7 +6,7 @@ import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { HeaderImagePhone,ArticlePhone, UlPhone, LlPhone, phoneBuyCartMain } from './phoneStyle';
-
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 const rightAreaTable={
   height: '200px',
@@ -82,6 +82,10 @@ const buttonHeight={
    props.sendCartItemToConfirm(itemData);
    props.history.push('/phone_customer_confirm');
  }
+ /********************************************商品説明ページアクセス*************************************************************************************** */
+ const showItemInfo =()=>{
+  props.history.push('/customer_item_info')
+}
   return(
     <div>
       <img src={image} alt="画像" style={HeaderImagePhone} />
@@ -110,12 +114,21 @@ const buttonHeight={
                              '' 
                              : 
                              Number(item.stock) > 0? 
-                              <button 
-                                className="btn btn-success btn-block"
-                                onClick={()=>buyItem(item)}
-                              >
-                               <FontAwesomeIcon icon={faCartPlus}  />買い物する
-                              </button>
+                             <div>
+                                <button 
+                                  className="btn btn-success btn-block"
+                                  onClick={()=>buyItem(item)}
+                                >
+                                  <FontAwesomeIcon icon={faCartPlus}  />買い物する
+                                </button>
+
+                                <button 
+                                  className="btn btn-danger btn-block"
+                                  onClick={()=>showItemInfo()}
+                                >
+                                  <FontAwesomeIcon icon={faYoutube}  />商品説明
+                                </button>
+                             </div>
                              : 
                              <span className="text-danger font-weight-bold">売り切れ</span>
                            }

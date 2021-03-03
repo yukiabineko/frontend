@@ -26,6 +26,7 @@ import CustomorShow from './customer/Show'
 import CustomorPhoneShow  from './customer/PhoneShow'
 import Confirm from './customer/confirm';
 import PhoneConfirm from './customer/PhoneConfirm';
+import CustomerItemInfo from './customer/Info';
 import ShoppingIndex from './shopping/Index';
 import ShoppingShow from './shopping/Show';
 import Reservation from './shopping/Reservation';
@@ -346,6 +347,7 @@ import {  todayOrderExisting } from './shopping/settiing';
           <PhoneConfirm
               orderData={state.cartItem}
           />} />
+       <Route path="/customer_item_info" component={CustomerItemInfo} />
         
      <Route path="/shoppings" 
       render={()=>
