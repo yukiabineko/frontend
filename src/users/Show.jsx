@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Row, Col, Form, Button, Table } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Row, Col, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { historyDataSend, ordersSend } from '../store/Store';
+import { ordersSend } from '../store/Store';
 import { ordercheck, daySetting } from './setting';
 import History from './History';
 
@@ -25,7 +25,7 @@ const  Show = (props)=>{
  useState(sendShoppindData);
    
   /*************APIによるuser一覧**********************************/
-   async function orderCall(){
+   /*async function orderCall(){
      
     await axios
       .get(`https://uematsu-backend.herokuapp.com/history/show/${props.userData[0].id}`)
@@ -38,7 +38,7 @@ const  Show = (props)=>{
          console.log(error);
       })
  }
- 
+ */
 
 
 /******************************ログイン/未ログイン切り替え********************************************************** */

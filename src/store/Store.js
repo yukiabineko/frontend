@@ -6,7 +6,8 @@ let init_data ={
   buyCarts: [],
   historyData: null,
   pageData: null,
-  chartData: null
+  chartData: null,
+  youtubeData: null
 }
 
 const storeReducer = (state = init_data, action)=>{
@@ -33,6 +34,8 @@ const storeReducer = (state = init_data, action)=>{
       return searchReducer(state, action);  
     case 'CHART':
       return chartReducer(state, action);  
+    case 'YOUTUBE':
+      return youtubeReducer(state, action);  
     default:
       return state
   }
@@ -49,7 +52,8 @@ const loginReducer = (state, action)=>{
     buyCarts: state.buyCarts,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 const logoutReducer =(state, action)=>{
@@ -70,13 +74,14 @@ const ordersReducer = (state, action)=>{
     buyCarts: state.buyCarts,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 /*買い物確認削除ボタン*/
 const ordersStockChangeReducer = (state, action) =>{
   let datas = state.orderItem.slice();
-  datas.map((data)=>{
+  datas.forEach((data)=>{
     if(data.name === action.name){
       let stock = Number(data.stock);
       stock += Number(action.num); /*在庫元に戻す*/
@@ -89,7 +94,8 @@ const ordersStockChangeReducer = (state, action) =>{
     buyCarts: state.buyCarts,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 const cartReducer = (state, action)=>{
@@ -101,7 +107,8 @@ const cartReducer = (state, action)=>{
     buyCarts: data,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 const cartResetReducer = (state, action)=>{
@@ -113,7 +120,8 @@ const cartResetReducer = (state, action)=>{
     buyCarts: data,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 const cartUpdateReducer = (state, action)=>{
@@ -128,7 +136,8 @@ const cartUpdateReducer = (state, action)=>{
     buyCarts: data,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 const cartDeleteReducer = (state, action)=>{
@@ -141,7 +150,8 @@ const cartDeleteReducer = (state, action)=>{
     buyCarts: datas,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 
@@ -153,7 +163,8 @@ const userHistoryReducer = (state, action)=>{
     buyCarts: state.buyCarts,
     historyData: history,
     pageData: state.pageData,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 /*ページネーション検索*/
@@ -166,7 +177,8 @@ const searchReducer = (state, action)=>{
     buyCarts: state.buyCarts,
     historyData: state.historyData,
     pageData: data,
-    chartData: state.chartData
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
   }
 }
 /*グラフ用*/
@@ -179,8 +191,23 @@ const  chartReducer = (state, action)=>{
     buyCarts: state.buyCarts,
     historyData: state.historyData,
     pageData: state.pageData,
-    chartData: data
+    chartData: data,
+    youtubeData: state.youtubeData
   }
+}
+/*youtube用*/
+const  youtubeReducer = (state, action)=>{
+  let data = action.data;
+   
+   return{
+    userData: state.userData,
+    orderItem: state.orderItem,
+    buyCarts: state.buyCarts,
+    historyData: state.historyData,
+    pageData: state.pageData,
+    chartData: state.chartData,
+    youtubeData: data
+   }
 }
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
 export  const sendLoginData = (user)=>{
@@ -246,6 +273,13 @@ export const searchSend = (data)=>{
 export const chartSend = (data)=>{
   return{
     type: 'CHART',
+    data: data
+  }
+}
+/*youtube該当商品用*/
+export const youtubeSeearchSend = (data)=>{
+  return{
+    type: 'YOUTUBE',
     data: data
   }
 }

@@ -8,7 +8,6 @@ import PhoneIndex from './PhoneIndex';
 
 
  function Index(props){
-  let localData = JSON.parse(localStorage.getItem('shoppings'));
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{

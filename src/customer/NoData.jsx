@@ -1,6 +1,5 @@
 
 import '../App.css'
-import { Row, Col, Form, Button, Table } from 'react-bootstrap';
 
 const NoData = ()=>{
   return(

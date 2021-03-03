@@ -18,9 +18,6 @@ import MediaQuery from "react-responsive";
 
   useState(loginUserCheck());
   
-   const newPage = ()=>{
-    props.history.push('/items_new')
-   }
    /****************************編集**************************************** */
    const editPage = (item)=>{
     props.itemEditIdget(item);

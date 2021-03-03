@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Row, Col, Table, Button,Modal, Image } from 'react-bootstrap';
+import { Table, Button,Modal, Image } from 'react-bootstrap';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -115,7 +115,7 @@ const CircularLoading = circularLoading({
           localStorage.setItem('items', JSON.stringify(res.data));
           let newData = JSON.parse(localStorage.getItem('items'));
           setState(newData? newData : []);
-          setProgress(false)
+          setProgress(false);
       })
       .catch((error)=>{
         console.log(error);

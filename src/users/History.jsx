@@ -9,9 +9,9 @@ const  History = (props)=>{
 
   return(
    <div>
-     <MyPagination />
-    {props.pageData? 
+    {props.pageData?
       <>
+        <MyPagination />
        <Table bordered className="mt-3">
          <thead>
            <tr>
@@ -38,7 +38,7 @@ const  History = (props)=>{
        </Table>
       </>
       : 
-      <div className="p-5 bg-secondary mt-3 text-white font-weight-bold">履歴がありません。</div>
+      <div className="p-5 bg-secondary mt-3 text-white font-weight-bold text-center">履歴がありません。</div>
     }
    </div>
   )

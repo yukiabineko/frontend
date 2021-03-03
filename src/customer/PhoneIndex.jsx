@@ -5,12 +5,8 @@ import { connect } from 'react-redux';
 import image from '../images/fishs2.jpg';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart } from '../store/Store';
 import { HeaderImagePhone,ArticlePhone, UlPhone, LlPhone, phoneBuyCartMain } from './phoneStyle';
-
-const style={
-  width:'980px'
-}
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 const rightAreaTable={
   height: '200px',
@@ -40,13 +36,12 @@ const buttonHeight={
 }
 
  function PhoneIndex(props){
-  let localData = null;
-
+  
   /*買い物カゴに入れた際の在庫の更新*/
 
   if(props.fixItemData){
     props.orderItem.forEach((data,i)=>{
-      if(props.fixItemData.id == data.id){
+      if(props.fixItemData.id === data.id){
         props.orderItem[i] = props.fixItemData;
         /*localStorage.setItem('orders', JSON.stringify(localData));*/
       }
@@ -55,7 +50,7 @@ const buttonHeight={
   }
 
   /***********************ステート*************************************** */
-  const[itemData, setState] = useState(
+  const[ itemData ] = useState(
     props.orderItem? props.orderItem : []
   )
  
@@ -73,15 +68,11 @@ const buttonHeight={
     props.sendCustomerData(item);
     props.history.push('/phone_customor_show');
   }
-/*******************************************買い物カゴアイテム削除*********************************************************************** */
-const deleteCartItem = (index)=>{
-  let action = cartDeleteCart(index);
-  props.dispatch(action);
-}
+
 /********************************************買い物カゴ合計金額*************************************************************************************** */
  const itemTotalMoney = ()=>{
    let total = 0;
-   props.buyCarts.map((data)=>{
+   props.buyCarts.forEach((data)=>{
      total += Number(data.price) * Number(data.num);
    })
    return total;
@@ -91,6 +82,10 @@ const deleteCartItem = (index)=>{
    props.sendCartItemToConfirm(itemData);
    props.history.push('/phone_customer_confirm');
  }
+ /********************************************商品説明ページアクセス*************************************************************************************** */
+ const showItemInfo =()=>{
+  props.history.push('/customer_item_phone_info')
+}
   return(
     <div>
       <img src={image} alt="画像" style={HeaderImagePhone} />
@@ -119,12 +114,21 @@ const deleteCartItem = (index)=>{
                              '' 
                              : 
                              Number(item.stock) > 0? 
-                              <button 
-                                className="btn btn-success btn-block"
-                                onClick={()=>buyItem(item)}
-                              >
-                               <FontAwesomeIcon icon={faCartPlus}  />買い物する
-                              </button>
+                             <div>
+                                <button 
+                                  className="btn btn-success btn-block"
+                                  onClick={()=>buyItem(item)}
+                                >
+                                  <FontAwesomeIcon icon={faCartPlus}  />買い物する
+                                </button>
+
+                                <button 
+                                  className="btn btn-danger btn-block"
+                                  onClick={()=>showItemInfo(item)}
+                                >
+                                  <FontAwesomeIcon icon={faYoutube}  />商品説明
+                                </button>
+                             </div>
                              : 
                              <span className="text-danger font-weight-bold">売り切れ</span>
                            }

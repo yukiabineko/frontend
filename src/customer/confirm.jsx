@@ -57,7 +57,6 @@ const selectNumber =(number)=>{
 }
 /***********************サーバー送信注文確定***************************************************************** */
 const sendServer = ()=>{
-    alert(JSON.stringify(props.buyCarts));
     let result = window.confirm('注文を確定してよろしいですか？');
     if(result && cartValidate(props.buyCarts)){  /*カートの受取時間もチェック(現時点空の場合のみ)*/
       const params = new FormData();

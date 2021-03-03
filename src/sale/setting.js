@@ -2,7 +2,7 @@
 export  const totalSales = (datas)=>{
   let total = 0
   if(datas){
-    datas.map((data)=>{
+    datas.forEach((data)=>{
       let num = data.合計? Number(data.合計) : 0;
       total += num;
     })

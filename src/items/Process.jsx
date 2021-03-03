@@ -35,7 +35,7 @@ const Process = (props)=>{
 /***********************加工データサーバー送信**************************************** */
    const addProcess = (e)=>{
      e.preventDefault();
-     let data = selectedOption;
+    
      let obj={};
      obj["id"] = props.item.id;
      obj["data"] = selectedOption;

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Row, Col, Table, Button,Modal, Image } from 'react-bootstrap';
-import axios from 'axios';
+import { Row, Col, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../App.css';
@@ -22,7 +21,7 @@ import { timeSetting } from '../setting';
   
 
   /************************ステート*************************************** */
-  const[shopingData, setState] = useState(
+  const[shopingData] = useState(
     localData ?localData : []
   )
   
