@@ -19,7 +19,7 @@ import axios from 'axios';
   /******************ボタン処理************************ */
   const showYoutube =()=>{
     if(selectedOption){
-      const params = `part=snippet&q=${selectedOption.value} 魚&type=video&maxResults=10&key=AaSyDHHIzUMrX921aCvDdNuFia90JXJzANGy4Pc`;
+      const params = `part=snippet&q=${selectedOption.value} 魚&type=video&maxResults=10&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
         axios.get(`https://www.googleapis.com/youtube/v3/search?${params}`)
           .then((response)=>{
               let data = response.data.items;

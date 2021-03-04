@@ -18,8 +18,9 @@ import axios from 'axios';
   const options = formSelectItems();
   /******************ボタン処理************************ */
   const showYoutube =()=>{
+    alert(process.env.REACT_APP_YOUTUBE_API_KEY);
     if(selectedOption){
-      const params = `part=snippet&q=${selectedOption.value} 魚&type=video&maxResults=10&key=AIzaSyDHHUMrX921aCvDdNuFia90JXJzANGy4Pc`;
+      const params = `part=snippet&q=${selectedOption.value} 魚&type=video&maxResults=10&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
         axios.get(`https://www.googleapis.com/youtube/v3/search?${params}`)
           .then((response)=>{
               let data = response.data.items;
@@ -36,7 +37,7 @@ import axios from 'axios';
     <div>
      <div className="text-center mt-5 mb-4  font-weight-bold">
         <h1 className="font-weight-bold text-dark">お魚動画視聴ページ</h1>
-        <p className="text-light font-weight-bold mt-5">
+        <p className="text-darkx font-weight-bold mt-5">
           販売されているお魚を動画で調べてみましょう<br/>
         </p>
       </div>
