@@ -9,7 +9,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
- function Info(props){
+ function PhoneInfo(props){
   const[state, setState] = useState({
     date: null
   })
@@ -127,4 +127,4 @@ const backPage = ()=>{
     </div>
   )
 }
-export default withRouter(connect((state)=>state)(Info))
+export default withRouter(connect((state)=>state)(PhoneInfo))

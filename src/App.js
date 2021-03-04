@@ -28,6 +28,7 @@ import Confirm from './customer/confirm';
 import PhoneConfirm from './customer/PhoneConfirm';
 import CustomerItemInfo from './customer/Info';
 import CustomerItemPhoneInfo from './customer/PhneInfo';
+import Movie from './customer/Movie';
 import ShoppingIndex from './shopping/Index';
 import ShoppingShow from './shopping/Show';
 import Reservation from './shopping/Reservation';
@@ -35,6 +36,7 @@ import SalesIndex from './sale/Index';
 import { connect } from "react-redux";
 import { logoutAction, cartEmpty } from './store/Store';
 import {  todayOrderExisting } from './shopping/settiing';
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
  function App(props){
   const[state, setState] = useState({
@@ -266,6 +268,13 @@ import {  todayOrderExisting } from './shopping/settiing';
                      注文確認
                   </Link>
                 </li>
+
+                <li className="nav-item pt-3 pb-3">
+                  <Link to="/movie" className="text-light p-3">
+                   <FontAwesomeIcon icon={faYoutube} className="text-light"/>
+                     動画検索
+                  </Link>
+                </li>
               </>
             : 
             <></>
@@ -350,6 +359,7 @@ import {  todayOrderExisting } from './shopping/settiing';
           />} />
        <Route path="/customer_item_info" component={CustomerItemInfo} />
        <Route path="/customer_item_phone_info" component={CustomerItemPhoneInfo} />
+       <Route path="/movie" component={Movie} />
         
      <Route path="/shoppings" 
       render={()=>
