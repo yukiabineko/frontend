@@ -8,7 +8,7 @@ import { daySetting, customerTodayOrders,customerOrders } from './setting';
 
 /**************************************************************************************** */
 const  EmpShow = (props)=>{
-   
+ 
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -23,7 +23,7 @@ const  EmpShow = (props)=>{
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-         <p className="font-weight-bold text-center">【現在注文中の表品一覧】</p>
+         <p className="font-weight-bold text-center">【現在注文中の商品一覧】</p>
          {(props.historyData && customerTodayOrders(props.historyData.orders[0]).length >0)? 
            <>
             <Table bordered>

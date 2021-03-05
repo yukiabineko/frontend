@@ -25,7 +25,7 @@ import MediaQuery from "react-responsive";
 
   return(
     <div>
-       <MediaQuery minDeviceWidth={767}>
+       <MediaQuery minDeviceWidth={768}>
         <PcIndex 
           editPage={(i)=>editPage(i)}
         />
