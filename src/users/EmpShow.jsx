@@ -3,12 +3,18 @@ import { Row, Col, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { daySetting, customerTodayOrders,customerOrders } from './setting';
+import History from './HistoryPage';
 
 
 
 /**************************************************************************************** */
 const  EmpShow = (props)=>{
- 
+  const[page, setPage] = useState(0);
+  let localBaseData = customerOrders(props.historyData.orders[0]);
+  let localData = localBaseData.slice(page * 2, page * 2 + 4 );
+  const[state,setState] = useState({
+    data: localData
+  })
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
       if(props.userData.length===0){
@@ -16,6 +22,23 @@ const  EmpShow = (props)=>{
       }
     }
    useState(loginUserCheck());
+/********************************ページネーション(通常ボタン)処理**************************************** */
+const paginationNo = (num)=>{
+  switch (num) {
+    case 0:
+      setState({
+        data: customerOrders(props.historyData.orders[0]).slice(num * 2, num * 2 +4)
+      })
+     
+      break;
+    default:
+      setState({
+        data: customerOrders(props.historyData.orders[0]).slice(num * 2 + 2, (num * 2 + 2) + 2 )
+      })
+      break;
+  }
+  setPage(num);
+}
   return(
    <>
       <div className="text-center mt-5 mb-4">
@@ -67,6 +90,10 @@ const  EmpShow = (props)=>{
          <p className="font-weight-bold text-center">【過去の注文一覧】</p>
          {(props.historyData && customerOrders(props.historyData.orders[0]).length >0)? 
            <>
+           <History
+             No={page} 
+             paginationSend={(num)=>paginationNo(num)} 
+            />
             <Table bordered>
               <thead>
                 <tr>
@@ -82,7 +109,7 @@ const  EmpShow = (props)=>{
                 </tr>
               </thead>
               <tbody>
-                {customerOrders(props.historyData.orders[0]).map((data)=>(
+                {state.data.map((data)=>(
                   <tr>
                     <td className="text-center font-weight-bold">{daySetting(data.shopping_date)}</td>
                     <td className="text-center font-weight-bold">{data.name}</td>

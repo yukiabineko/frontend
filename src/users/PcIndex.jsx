@@ -97,12 +97,13 @@ const CircularLoading = circularLoading({
     .then((res)=>{
        const action = historyDataSend(res.data);
        props.dispatch(action);
+       props.history.push('/users_empshow');
 
     })
     .catch((error)=>{
        console.log(error);
     })
-     props.history.push('/users_empshow');
+     
    }
    /********************************ページネーション(通常ボタン)処理**************************************** */
   const paginationNo = (num)=>{
