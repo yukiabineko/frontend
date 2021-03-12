@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import datastore from './store/Store';
 import { Beforeunload } from 'react-beforeunload';
 
-
 ReactDOM.render(
   <Provider store={datastore}>
     <Beforeunload onBeforeunload={() => "data"}>
