@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 import axios from 'axios';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUtensils, faUser, faDoorOpen, faShoppingCart, faUsers, faFish, faClipboard, faStore, faChartBar, faClipboardCheck, faDoorClosed } from "@fortawesome/free-solid-svg-icons";
+import { faUtensils, faUser, faDoorOpen, faShoppingCart, faUsers, faFish, faClipboard, faStore, faChartBar, faClipboardCheck, faDoorClosed, faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import Index from './users/Index';
 import Login from './Login';
 import userNew from './users/New'
@@ -181,6 +181,7 @@ import useScript from "./useScript";
   }
   
   return(
+    
     <BrowserRouter>
     <div className='fixed-top'> 
     <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
@@ -273,9 +274,15 @@ import useScript from "./useScript";
 
                 <li className="nav-item pt-3 pb-3">
                   <Link to="/movie" className="text-light p-3">
-                   <FontAwesomeIcon icon={faYoutube} className="text-light"/>
+                   <FontAwesomeIcon icon={faYoutube} className="text-light mr-3"/>
                      動画検索
                   </Link>
+                </li>
+                <li className="nav-item">
+                  <button type="button" class="btn btn-secondary text-white font-weight-bold  mt-2 ml-5" id="modal-push" data-toggle="modal" data-target="#modal1">
+                   <FontAwesomeIcon icon={faCreditCard} />
+                   先払い
+                  </button>
                 </li>
               </>
             : 

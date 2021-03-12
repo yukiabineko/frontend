@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 const useScript = url =>{
    useEffect(()=>{
-     const orderArea = document.getElementById('todayorder-customer')
+     const orderArea = document.getElementById('payform')
      const script = document.createElement('script');
      script.src = "https://checkout.pay.jp";
      script.dataset.key = process.env.REACT_APP_PAYJP_API_KEY;
