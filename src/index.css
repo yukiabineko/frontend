@@ -9,7 +9,12 @@ body {
   background-size: cover;
   background-color: blue;
 }
+#subArea{
+  margin-top:5%;
+  text-align: right;
+  padding: 1%;
 
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

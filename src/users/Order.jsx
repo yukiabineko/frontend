@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { customerTodayOrders, totalMoneyCalc, statusView } from './setting';
 import Reservation from './Reservation';
 import { timeSetting } from '../setting';
+import useScript from '../useScript';
 
 const ulArea ={
   marginTop: '-4%'
@@ -18,6 +19,7 @@ const image={
 /*****************************お客様用注文一覧ページ*********************************************************** */
 const  Order = (props)=>{
  
+ 
 /******************************ログイン/未ログイン切り替え********************************************************** */
 const loginUserCheck = ()=>{
   if(props.userData.length===0){
@@ -25,7 +27,7 @@ const loginUserCheck = ()=>{
   }
 }
 useState(loginUserCheck());
-  
+  useScript();
   return(
     <>
       <div className="text-center mt-5 mb-4">
@@ -33,12 +35,20 @@ useState(loginUserCheck());
       </div> 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-          <div className="text-center">【本日受取商品】</div>
+          <div className="text-center">
+            【本日受取商品】
+          </div>
           {((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))?
-           <h3 className="mt-2">【注文合計金額: 
-           <span className="text-danger font-weight-bold">
-             {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
-           </span>円】</h3>
+           <div>
+              <h3 className="mt-2">【注文合計金額: 
+              <span className="text-danger font-weight-bold">
+                {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
+              </span>円】</h3>
+              
+              <form id ="todayorder-customer">
+
+              </form>
+           </div>
            : 
            ''}
           

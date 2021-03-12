@@ -37,8 +37,10 @@ import { connect } from "react-redux";
 import { logoutAction, cartEmpty } from './store/Store';
 import {  todayOrderExisting } from './shopping/settiing';
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import useScript from "./useScript";
 
  function App(props){
+  useScript();
   const[state, setState] = useState({
     editId: 0,
     deleteId: 0,
