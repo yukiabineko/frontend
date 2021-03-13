@@ -137,7 +137,6 @@ const  Login = (props)=>{
       .catch(function(err){
         alert(err);
       })
-      
   }
   const inputText = (e)=>{
     const target = e.target;

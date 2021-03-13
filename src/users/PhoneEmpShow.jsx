@@ -21,7 +21,7 @@ const  EmpShow = (props)=>{
         <h2 data-testid="userNewtitle" className="text-light font-weight-bold">{props.historyData? props.historyData.name : ''}&nbsp;注文履歴</h2>
       </div>
       <div className="w-100 bg-white">
-         <p className="font-weight-bold text-center">【現在注文中の表品一覧】</p>
+         <p className="font-weight-bold text-center">【現在注文中の商品一覧】</p>
          {(props.historyData && customerTodayOrders(props.historyData.orders[0]).length >0)? 
            <>
             <Table bordered className="w-100"> 

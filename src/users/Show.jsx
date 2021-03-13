@@ -71,6 +71,10 @@ const  Show = (props)=>{
                    <td>{props.userData[0].email}</td>
                  </tr>
                  <tr>
+                   <th className="bg-primary text-white w-50">電話番号</th>
+                   <td>{props.userData[0].tel}</td>
+                 </tr>
+                 <tr>
                    <th className="bg-primary text-white w-50">ご利用開始日</th>
                    <td>{daySetting(props.userData[0].create)}</td>
                  </tr>
@@ -88,11 +92,11 @@ const  Show = (props)=>{
                
                  <tr>
                    <th className="bg-primary text-white w-50">現在注文有無</th>
-                   <td className="text-center">{ordercheck(props.userData[0].orders[0]).count? ordercheck(props.userData[0].orders[0]).count : '未使用'}</td>
+                   <td className="text-center">{ordercheck(props.userData[0].orders[0]).count? "有り" : '未使用'}</td>
                  </tr>
 
                  <tr>
-                   <th className="bg-primary text-white w-50">注文日</th>
+                   <th className="bg-primary text-white w-50">最新注文日</th>
                    <td className="text-center">{ordercheck(props.userData[0].orders[0]).date? ordercheck(props.userData[0].orders[0]).date : '未使用'}</td>
                  </tr>
                

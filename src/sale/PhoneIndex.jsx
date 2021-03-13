@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 import { totalSales, salesRate} from './setting';
+import { excelExport } from "../Excel";
 
 
 
@@ -16,7 +17,10 @@ import { totalSales, salesRate} from './setting';
       }
     }
     useState(loginUserCheck()); 
-
+/**************************************************************** */
+    const downloadFile =()=>{
+      excelExport(datas);
+   }
   return(
     <div className="w-100">
        <div className="text-center text-white mt-4">
@@ -37,6 +41,11 @@ import { totalSales, salesRate} from './setting';
         <div className="text-center font-weight-bold text-white mt-2">
             <h4 className="font-weight-bold text-primary">【売上実績合計】{ totalSales(datas) }円</h4>
         </div>
+        <Button 
+          variant="success"
+          className="btn-lg"
+          onClick={downloadFile}
+        >Excel出力</Button>
         <div className="bg-white w-100 pb-2">
           {datas? 
              <Table bordered>

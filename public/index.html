@@ -29,6 +29,28 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <div class="modal fade" id="modal1" tabindex="-1"role="dialog" aria-labelledby="label1" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+         <div class="modal-header">
+           <h5 class="modal-title" id="label1">クレジットで先払い</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+           </button>
+         </div>
+         <!--body-->
+         <div class="modal-body">
+            <h5>【合計金額】</h5>
+            <p class="pay-p">クレジットカードでお支払い希望の方はカードの入力お願い致します。</p>
+            <form id="payform" class="mb-1">
+            </form>
+            <button onclick="paysend()" class="btn btn-primary btn-block">確定</button>
+         </div>
+        </div>
+       </div>
+     </div>
+   
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -40,4 +62,16 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <script>
+    function paysend(){
+     axios.post('https://uematsu-backend.herokuapp.com/orders/pay',{message: 'test'}).then(()=>{
+       alert('ok');
+       $("#modal1").modal('hide');
+     }).catch(()=>{
+
+     })
+    }
+  </script>
 </html>

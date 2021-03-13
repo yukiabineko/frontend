@@ -9,7 +9,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
- function Info(props){
+ function PhoneInfo(props){
   const[state, setState] = useState({
     date: null
   })
@@ -22,7 +22,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 useState(loginUserCheck());
 /***************************************youtubeを表示する****************************************************** */
 const showYoutube =()=>{
-  const params = `part=snippet&q=${props.youtubeData.name} 魚&type=video&maxResults=10&key=AIzaSyDHHUMrX921aCvDdNuFia90JXJzANGy4Pc`;
+  const params = `part=snippet&q=${props.youtubeData.name} 魚&type=video&maxResults=10&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
   axios.get(`https://www.googleapis.com/youtube/v3/search?${params}`)
     .then((response)=>{
         let data = response.data.items;
@@ -42,7 +42,7 @@ const backPage = ()=>{
   return(
     <div >
       <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2 className="font-weight-bold text-white">{props.youtubeData.name}説明ページ</h2>
+        <h2 className="font-weight-bold text-dark">{props.youtubeData.name}説明ページ</h2>
       </div>
       <Button 
         variant="light"
@@ -122,9 +122,7 @@ const backPage = ()=>{
         
       </div>
       }
-
-
     </div>
   )
 }
-export default withRouter(connect((state)=>state)(Info))
+export default withRouter(connect((state)=>state)(PhoneInfo))

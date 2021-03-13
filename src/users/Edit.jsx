@@ -27,6 +27,7 @@ const  Edit = (props)=>{
   const[state, setState] = useState({
     name: user.length>0? user[0].name : '',
     email: user.length>0?  user[0].email : '',
+    tel: user.length>0?  user[0].tel : '',
     password: '',
     confirmation: ''
   })
@@ -54,6 +55,7 @@ const  Edit = (props)=>{
       let data = {
         name: state.name,
         email: state.email,
+        tel: state.tel,
         password: state.password,
         confirmation: state.confirmation
       }
@@ -66,6 +68,7 @@ const  Edit = (props)=>{
           name: '',
           email: '',
           password: '',
+          tel: '',
           confirmation: ''
         })
       })
@@ -101,6 +104,11 @@ const  Edit = (props)=>{
             <Form.Group>
               <Form.Label>メールアドレス</Form.Label>
               <Form.Control type="email" name="email" placeholder="*必須です。" required onChange={userInput} value={state.email} />
+            </Form.Group>
+
+            <Form.Group>
+              <Form.Label>電話番号</Form.Label>
+              <Form.Control type="tel" name="tel" placeholder="(例)090-1111-1111" required pattern="[\d\-]*" onChange={userInput} value={state.tel} />
             </Form.Group>
 
             <Form.Group>

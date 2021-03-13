@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Table } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 import { totalSales, salesRate } from './setting';
+import { excelExport } from "../Excel";
 
  function PcIndex(props){
   
   const datas = props.chartData;
+  
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
@@ -16,6 +18,10 @@ import { totalSales, salesRate } from './setting';
       }
     }
     useState(loginUserCheck()); 
+/**************************************** */
+ const downloadFile =()=>{
+    excelExport(datas);
+ }
 
   return(
     <div>
@@ -38,31 +44,38 @@ import { totalSales, salesRate } from './setting';
         </div>
         <div className="bg-white p-5 pt-2 pb-2">
         {datas? 
-             <Table bordered>
-             <thead>
-                 <tr>
-                     <th rowSpan="2" className="bg-primary text-white font-weight-bold text-center align-middle">日付</th>
-                     <th rowSpan="2" className="bg-primary text-white font-weight-bold text-center align-middle">曜日</th>
-                     <th colSpan="3" className="bg-primary text-white font-weight-bold text-center">売上</th>
-                 </tr>
-                 <tr>
-                   <th className="bg-primary text-white font-weight-bold text-center">販売数</th>
-                   <th className="bg-primary text-white font-weight-bold text-center">売上金額</th>
-                   <th className="bg-primary text-white font-weight-bold text-center">構成比</th>
-                 </tr>
-             </thead>
-             <tbody>
-                 {datas.map((data)=>(
-                     <tr>
-                       <td className="font-weight-bold text-center">{data.day}</td>
-                       <td className="font-weight-bold text-center">{data.week}</td>
-                       <td className="font-weight-bold text-center">{data.num}</td>
-                       <td className="font-weight-bold text-center">{data.合計}</td>
-                       <td className="font-weight-bold text-center">{ salesRate(data, datas) }</td>
-                     </tr>
-                 ))}
-             </tbody>
-         </Table>
+          <div>
+            <Button 
+              variant="success"
+              className="btn-lg mb-1"
+              onClick={downloadFile}
+            >Excel出力</Button>
+            <Table bordered>
+              <thead>
+                  <tr>
+                      <th rowSpan="2" className="bg-primary text-white font-weight-bold text-center align-middle">日付</th>
+                      <th rowSpan="2" className="bg-primary text-white font-weight-bold text-center align-middle">曜日</th>
+                      <th colSpan="3" className="bg-primary text-white font-weight-bold text-center">売上</th>
+                  </tr>
+                  <tr>
+                    <th className="bg-primary text-white font-weight-bold text-center">販売数</th>
+                    <th className="bg-primary text-white font-weight-bold text-center">売上金額</th>
+                    <th className="bg-primary text-white font-weight-bold text-center">構成比</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {datas.map((data)=>(
+                      <tr>
+                        <td className="font-weight-bold text-center">{data.day}</td>
+                        <td className="font-weight-bold text-center">{data.week}</td>
+                        <td className="font-weight-bold text-center">{data.num}</td>
+                        <td className="font-weight-bold text-center">{data.合計}</td>
+                        <td className="font-weight-bold text-center">{ salesRate(data, datas) }</td>
+                      </tr>
+                  ))}
+              </tbody>
+           </Table>
+          </div>
             : 
           <div className="bg-secondary p-5 font-weight-bold text-white text-center">データがありません。</div>
           }

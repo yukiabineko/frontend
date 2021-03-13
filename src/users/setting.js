@@ -114,6 +114,11 @@ export const customerTomorrowOrders = (allData)=>{
 
 export const customerOrders = (allData)=>{
   let Orders = [];
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1;
+  const day = today.getDate();
+
 
   /*全データから抽出*/
   if(allData){
@@ -123,11 +128,22 @@ export const customerOrders = (allData)=>{
       const c_year = createDate.getFullYear();
       const c_month = createDate.getMonth() + 1;
       const c_day = createDate.getDate();
-      if(todayParams().year >= c_year && todayParams().month >= c_month && todayParams().day > c_day){
+      if( year === c_year && month === c_month && day === c_day){
+        
+      }
+      else{
         Orders.push(data);
       }
     })
   }
+  Orders.sort(function(a, b){
+    if(a.shopping_date < b.shopping_date){
+      return -1;
+    }
+    else{
+      return 1;
+    }
+  });
   return Orders;
 }
 /*お客様一覧でユーザーのうち従業員を省いた一覧*/

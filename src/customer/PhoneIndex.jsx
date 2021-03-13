@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCashRegister } from "@fortawesome/free-solid-svg-icons";
 import { HeaderImagePhone,ArticlePhone, UlPhone, LlPhone, phoneBuyCartMain } from './phoneStyle';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { youtubeSeearchSend } from '../store/Store';
 
 const rightAreaTable={
   height: '200px',
@@ -83,7 +84,10 @@ const buttonHeight={
    props.history.push('/phone_customer_confirm');
  }
  /********************************************商品説明ページアクセス*************************************************************************************** */
- const showItemInfo =()=>{
+ const showItemInfo =(item)=>{
+  let action = youtubeSeearchSend(item);
+  props.dispatch(action);
+
   props.history.push('/customer_item_phone_info')
 }
   return(
