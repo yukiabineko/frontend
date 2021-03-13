@@ -45,7 +45,7 @@
             <p class="pay-p">クレジットカードでお支払い希望の方はカードの入力お願い致します。</p>
             <form id="payform" class="mb-1">
             </form>
-            <button onclick="paysend()" class="btn btn-primary btn-block">確定</button>
+            <button id="paybt" onclick="paysend()" class="btn btn-primary btn-block">確定</button>
          </div>
         </div>
        </div>
@@ -64,14 +64,5 @@
   </body>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-  <script>
-    function paysend(){
-     axios.post('https://uematsu-backend.herokuapp.com/orders/pay',{message: 'test'}).then(()=>{
-       alert('ok');
-       $("#modal1").modal('hide');
-     }).catch(()=>{
-
-     })
-    }
-  </script>
+  <script src="/send.js"></script>
 </html>
