@@ -9,7 +9,7 @@ import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegi
 import { cartDeleteCart, sendLoginData, ordersSend} from '../store/Store';
 import Empty from './NoData';
 import { localstorageChange, cartValidate } from './setting';
-import { customerTodayOrders, totalMoneyCalc } from '../users/setting';
+
 
 const title={
   fontFamily: 'ヒラギノ明朝',
@@ -92,9 +92,7 @@ const sendServer = ()=>{
         axios.get(`https://uematsu-backend.herokuapp.com/users/${props.userData[0].id}`).then(function(response){
            let action = sendLoginData (response.data);
            props.dispatch(action);
-           /*pay機能分岐用データ作成*/
-           let paytotal = totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))
-           alert(paytotal);
+         
 
         }).catch(function(err){
          console.log(err);

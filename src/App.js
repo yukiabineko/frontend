@@ -43,6 +43,7 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
 
  function App(props){
    let paytotal = ((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))? totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0])) :0;
+   let userid = props.userData.length>0? props.userData[0].id : null;
   useScript();
   const[state, setState] = useState({
     editId: 0,
@@ -184,6 +185,8 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
   }
   /*モーダル*/
   const modalOpen = ()=>{
+    localStorage.setItem('pay',[userid, paytotal]);
+    document.getElementById('modal-total').textContent = paytotal;
     $('.js-modal').fadeIn();
         return false;
   }
