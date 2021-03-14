@@ -185,7 +185,10 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
   }
   /*モーダル*/
   const modalOpen = ()=>{
-    localStorage.setItem('pay',[userid, paytotal]);
+    let obj= {};
+    obj["id"] = userid;
+    obj["total"] = paytotal;
+    localStorage.setItem('pay', JSON.stringify(obj));
     document.getElementById('modal-total').textContent = paytotal;
     $('.js-modal').fadeIn();
         return false;
