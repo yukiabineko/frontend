@@ -15,6 +15,7 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -30,7 +31,22 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
 
-    <div class="modal fade" id="modal1" tabindex="-1"role="dialog" aria-labelledby="label1" aria-hidden="true">
+    <div class="modal js-modal">
+      <div class="modal__bg js-modal-close" id="modal-back"></div>
+      <div class="modal__content">
+        <div class="text-center border-bottom"> <h5 class="modal-title" id="label1">クレジットで先払い</h5></div>
+        <h5>【合計金額】</h5>
+        <form id="payform" class="mb-1">
+        </form>
+        <button id="paybt" onclick="paysend()" class="btn btn-primary btn-block">確定</button>
+        <button class="js-modal-close btn-danger btn-block" onclick="modalclose()" href="">閉じる</button>
+      </div><!--modal__inner-->
+    </div><!--modal-->
+
+
+
+
+   <!----<div class="modal fade" id="modal1" tabindex="-1"role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
          <div class="modal-header">
@@ -38,18 +54,19 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">&times;</span>
            </button>
-         </div>
+         </div> -->
          <!--body-->
-         <div class="modal-body">
+         <!--<div class="modal-body">
             <h5>【合計金額】</h5>
             <p class="pay-p">クレジットカードでお支払い希望の方はカードの入力お願い致します。</p>
             <form id="payform" class="mb-1">
             </form>
             <button id="paybt" onclick="paysend()" class="btn btn-primary btn-block">確定</button>
+            <button type="button" data-dismiss="modal" class="btn btn-danger btn-block" aria-label="Close">閉じる</button>
          </div>
         </div>
        </div>
-     </div>
+     </div> -->
    
     <!--
       This HTML file is a template.
@@ -62,7 +79,32 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
   <script src="/send.js"></script>
+  <style>
+    .modal{
+      display: none;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      width: 100%;
+    }
+    .modal__bg{
+      background: rgba(0,0,0,0.8);
+      height: 100vh;
+      position: absolute;
+      width: 100%;
+    }
+    .modal__content{
+      background: #fff;
+      left: 50%;
+      padding: 40px;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%,-50%);
+      width: 30%;
+    }
+  </style>
 </html>

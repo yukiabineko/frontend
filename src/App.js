@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Link, Route } from "react-router-dom";
 import "./App.css";
+import $ from 'jquery';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js'
 import axios from 'axios';
@@ -38,8 +39,10 @@ import { logoutAction, cartEmpty } from './store/Store';
 import {  todayOrderExisting } from './shopping/settiing';
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import useScript from "./useScript";
+import { customerTodayOrders, totalMoneyCalc } from './users/setting';
 
  function App(props){
+   let paytotal = ((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))? totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0])) :0;
   useScript();
   const[state, setState] = useState({
     editId: 0,
@@ -179,6 +182,11 @@ import useScript from "./useScript";
       cartItem: data
     })
   }
+  /*モーダル*/
+  const modalOpen = ()=>{
+    $('.js-modal').fadeIn();
+        return false;
+  }
   
   return(
     
@@ -278,12 +286,14 @@ import useScript from "./useScript";
                      動画検索
                   </Link>
                 </li>
+                {paytotal >0?
                 <li className="nav-item">
-                  <button type="button" class="btn btn-secondary text-white font-weight-bold  mt-2 ml-5" id="modal-push" data-toggle="modal" data-target="#modal1">
+                  <button type="button" class="btn btn-secondary text-white font-weight-bold  mt-2 ml-5" id="modal-push" onClick={modalOpen}>
                    <FontAwesomeIcon icon={faCreditCard} />
                    先払い
                   </button>
                 </li>
+               :"" }
               </>
             : 
             <></>

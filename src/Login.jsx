@@ -8,6 +8,7 @@ import { sendLoginData, searchSend, ordersSend, chartSend } from './store/Store'
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 
 
+
 //プログレスステータス
 const CircularLoading = circularLoading({
   num: 6,
@@ -42,7 +43,8 @@ const  Login = (props)=>{
             let action = sendLoginData(response.data);
             props.dispatch(action);
             /*railsからメッセージ*/
-            alert('ログインしました'); 
+            alert('ログインしました');
+            
             setState({
               name: '',
               email: '',
@@ -98,6 +100,7 @@ const  Login = (props)=>{
               props.dispatch(action);
               if(localStorage.getItem('orders') && localStorage.getItem('users')){
                 setProgres(false)
+                
                 response.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
               }
              
