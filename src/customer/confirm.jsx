@@ -81,7 +81,7 @@ const sendServer = ()=>{
   let sendData = props.buyCarts;
    let obj = {}
    obj['id'] = props.userData[0].id;
-   obj['data'] = sendData
+   obj['data'] = sendData;
 
    /* rails送信　*/
    axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
@@ -182,7 +182,8 @@ const doSelect = (e)=>{
     name: cartItemName,
     num: changeNumber,
     price: props.buyCarts[Number(e.target.name)].price,
-    process:props.buyCarts[Number(e.target.name)].process
+    process:props.buyCarts[Number(e.target.name)].process,
+    time: props.buyCarts[Number(e.target.name)].time
   }
   /*リスト(買い物カゴ)の内変更かけたものを入れ替え*/
 
