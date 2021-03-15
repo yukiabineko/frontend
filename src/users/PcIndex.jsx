@@ -173,10 +173,10 @@ const CircularLoading = circularLoading({
                        >{value.name}</button>
                     </td>
                     <td  className="text-center align-middle">
-                      {value.email}
+                      <a className="font-weight-bold" href={`mailto:${value.email}`} target="_blank" rel="noopener noreferrer">{value.email}</a>  
                     </td>
                     <td className="text-center align-middle">
-                      {value.tel}
+                    　　<a className="font-weight-bold" href={`tel:${value.tel}`} target="_blank" rel="noopener noreferrer">{value.tel}</a>
                     </td>
                     <td className="text-center">
                       <Button 

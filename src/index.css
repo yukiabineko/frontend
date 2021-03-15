@@ -23,4 +23,9 @@ input::placeholder {
   color: blue;
   font-size: "10px";
 }
+@media(min-width: 768px){
+  a[href^="tel:"]{
+    pointer-events: none;
+  }
+}
 

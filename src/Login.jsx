@@ -150,7 +150,7 @@ const  Login = (props)=>{
   return(
    <>
     <div className="text-center mt-5 mb-4">
-        <h2 className="text-secondary" data-testid="logintitle">ログイン</h2>
+        <h2 className="text-dark font-weight-bold" data-testid="logintitle">ログイン</h2>
       </div>
        
       <Row>

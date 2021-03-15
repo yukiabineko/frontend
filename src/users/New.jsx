@@ -49,7 +49,7 @@ const  New = (props)=>{
         response.data.userData.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
 
         /*railsからメッセージ*/
-        alert("お知らせ】" +response.data.message); 
+        alert("【お知らせ】" +response.data.message); 
         
         setState({
           name: '',
