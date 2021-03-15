@@ -18,7 +18,6 @@ import axios from 'axios';
   const options = formSelectItems();
   /******************ボタン処理************************ */
   const showYoutube =()=>{
-    alert(process.env.REACT_APP_YOUTUBE_API_KEY);
     if(selectedOption){
       const params = `part=snippet&q=${selectedOption.value} 魚&type=video&maxResults=10&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`;
         axios.get(`https://www.googleapis.com/youtube/v3/search?${params}`)
