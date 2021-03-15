@@ -183,6 +183,13 @@ const CircularLoading = circularLoading({
                             {value.email}
                           </td>
                         </tr>
+
+                        <tr>
+                          <th className="text-center align-middle bg-dark text-white">電話番号</th>
+                          <td  className="text-center align-middle">
+                            {value.tel}
+                          </td>
+                        </tr>
                         
 
                         <tr>

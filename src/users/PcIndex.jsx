@@ -159,6 +159,7 @@ const CircularLoading = circularLoading({
                 <tr>
                   <th className="text-center align-middle bg-dark text-white">名前</th>
                   <th className="text-center align-middle bg-dark text-white">メールアドレス</th>
+                  <th className="text-center align-middle bg-dark text-white">電話番号</th>
                   <th className="text-center align-middle bg-dark text-white"></th>
                 </tr>
               </thead>
@@ -174,17 +175,20 @@ const CircularLoading = circularLoading({
                     <td  className="text-center align-middle">
                       {value.email}
                     </td>
+                    <td className="text-center align-middle">
+                      {value.tel}
+                    </td>
                     <td className="text-center">
                       <Button 
                         variant="primary"
                         onClick={(i)=>editPage(value.id)}
-                        className="ml-3 w-25"
+                        className="ml-3"
                       >編集</Button>
 
                       <Button 
                         variant="danger"
                         onClick={(i)=>deleteUser(value.id)}
-                        className="ml-3 w-25"
+                        className="ml-3"
                       >削除</Button>
                     </td>
                   </tr>

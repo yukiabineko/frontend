@@ -6,6 +6,8 @@ import '../App.css';
 import { viewDataBranch, todayOdrersChecker } from "./settiing";
 import { daySetting } from '../users/setting';
 import { timeSetting } from '../setting';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
  const customButton ={
    border: "none",
@@ -78,7 +80,7 @@ import { timeSetting } from '../setting';
   return(
     <div className>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="itemstitle" className="font-weight-bold text-info">注文確認表</h2>
+        <h2 data-testid="itemstitle" className="font-weight-bold text-dark">注文確認表</h2>
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
@@ -100,7 +102,10 @@ import { timeSetting } from '../setting';
 
                   viewDataBranch(data.shopping_date) === 1? 
                   <tr>
-                  <td className="font-weight-bold text-center align-middle">{daySetting(data.shopping_date)}</td>
+                  <td className="font-weight-bold text-center align-middle">
+                    {daySetting(data.shopping_date)}
+                    {data.pay?  <div className="bg-warning rounded-pill mt-1 text-primary"><FontAwesomeIcon icon={faCheck} /> &thinsp;支払済</div> : ""}
+                  </td>
                   <td className="font-weight-bold text-danger align-middle text-center">{timeSetting(data.receiving_time)}</td>
                   <td className="font-weight-bold text-center align-center">
                     <button 

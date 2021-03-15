@@ -6,6 +6,8 @@ import '../App.css';
 import { viewDataBranch, todayOdrersChecker } from "./settiing";
 import { daySetting } from '../users/setting';
 import { timeSetting } from '../setting';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
  const customButton ={
    border: "none",
@@ -78,7 +80,7 @@ import { timeSetting } from '../setting';
   return(
     <div className="w-100">
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="itemstitle" className="font-weight-bold text-info">注文確認表</h2>
+        <h2 data-testid="itemstitle" className="font-weight-bold text-dark">注文確認表</h2>
       </div>
       <div className="w-100 bg-white">
           {(shopingData.length >0 && todayOdrersChecker(shopingData) > 0)? 
@@ -92,12 +94,25 @@ import { timeSetting } from '../setting';
                     <Table bordered>
                       <tbody>
                         <tr>
-                          <td colSpan="5" className="font-weight-bold text-danger bg-white text-center">受け取り時間:{timeSetting(data.receiving_time)}</td>
+                          <td colSpan="5" className="font-weight-bold text-danger bg-white text-center">
+                            受け取り時間:{timeSetting(data.receiving_time)}
+                            {data.pay?  
+                            <div className="bg-warning rounded mt-1 text-primary p-3">
+                              <FontAwesomeIcon icon={faCheck} /> &thinsp;
+                              支払済
+                            </div> 
+                              : 
+                             ""
+                            }
+                          </td>
+                          
                         </tr>
 
                         <tr>
                           <th className="bg-primary text-white text-center align-middle">受け渡し日</th>
-                          <td colSpan="4" className="font-weight-bold text-center align-middle">{daySetting(data.shopping_date)}</td>
+                          <td colSpan="4" className="font-weight-bold text-center align-middle">
+                            {daySetting(data.shopping_date)}
+                          </td>
                         </tr>
 
                         <tr>
