@@ -3,11 +3,11 @@ import { Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../App.css';
-import { viewDataBranch, todayOdrersChecker } from "./settiing";
+import { viewDataBranch, todayOdrersChecker, userRecord } from "./settiing";
 import { daySetting } from '../users/setting';
 import { timeSetting } from '../setting';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEnvelope, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
 
  const customButton ={
    border: "none",
@@ -150,6 +150,27 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
                         <tr>
                           <th className="bg-primary text-white text-center align-middle">加工法</th>
                           <td colSpan="4" className="font-weight-bold text-center align-middle">{data.process}</td>
+                        </tr>
+
+                        <tr>
+                          <th className="bg-primary text-white text-center align-middle">メールで連絡</th>
+                          <td colSpan="4" className="font-weight-bold text-center align-middle">
+                          <a 
+                            className="btn btn-success btn-block p-3" 
+                            href={`mailto:${userRecord(data.user_name).email}`} 
+                            target="_blank" rel="noopener noreferrer"
+                          ><FontAwesomeIcon icon={faEnvelope} />メールを送る</a>  
+                          </td>
+                        </tr>
+                        <tr>
+                          <th className="bg-primary text-white text-center align-middle">電話で連絡</th>
+                          <td colSpan="4" className="font-weight-bold text-center align-middle">
+                          <a 
+                            className="btn btn-success btn-block p-3" 
+                            href={`tel:${userRecord(data.user_name).tel}`} 
+                            target="_blank" rel="noopener noreferrer"
+                          ><FontAwesomeIcon icon={faMobileAlt} />電話する</a>  
+                          </td>
                         </tr>
 
 

@@ -58,8 +58,10 @@ const  Login = (props)=>{
             axios
                 .get('https://uematsu-backend.herokuapp.com/users')
                 .then((res)=>{
+                  if(response.data.admin === true){
                     localStorage.setItem('users', JSON.stringify(res.data));
-                    
+                  }
+                   
                 })
                 .catch((error)=>{
                     console.log(error);
@@ -72,15 +74,7 @@ const  Login = (props)=>{
             .catch(function(){
               alert('error');
             })
-             axios
-            .get('https://uematsu-backend.herokuapp.com/users')
-            .then((res)=>{
-                localStorage.setItem('users', JSON.stringify(res.data));
-                
-            })
-            .catch((error)=>{
-                console.log(error);
-            })
+             
            axios
             .get('https://uematsu-backend.herokuapp.com/items')
             .then((res)=>{
@@ -98,10 +92,13 @@ const  Login = (props)=>{
               localStorage.setItem('orders', JSON.stringify(res.data));
               let action = ordersSend(res.data);
               props.dispatch(action);
-              if(localStorage.getItem('orders') && localStorage.getItem('users')){
+              if(localStorage.getItem('orders') && localStorage.getItem('users') && response.data.admin === true){
                 setProgres(false)
                 
-                response.data.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+                props.history.push('/orders') 
+              }
+              else if(localStorage.getItem('orders') && response.data.admin === false){
+                props.history.push('/users/show');
               }
              
           })

@@ -3,10 +3,10 @@ import { Row, Col, Table } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import '../App.css';
-import { viewDataBranch, todayOdrersChecker } from "./settiing";
+import { viewDataBranch, todayOdrersChecker, userRecord } from "./settiing";
 import { daySetting } from '../users/setting';
 import { timeSetting } from '../setting';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
  const customButton ={
@@ -83,7 +83,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
         <h2 data-testid="itemstitle" className="font-weight-bold text-dark">注文確認表</h2>
       </div>
       <Row>
-        <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
+        <Col md={{ span: 12 }} className="p-5 bg-light shadow">
           {(shopingData.length >0 && todayOdrersChecker(shopingData) > 0)? 
             <Table bordered striped>
               <thead>
@@ -95,6 +95,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
                 <th className="bg-primary text-white text-center">個数</th>
                 <th className="bg-primary text-white text-center">加工法</th>
                 <th className="bg-primary text-white text-center">合計金額{todayOdrersChecker(shopingData).length}</th>
+                <th className="bg-primary text-white text-center">連絡</th>
               </thead>
               <tbody>
                 {shopingData.map((data,i)=>(
@@ -126,6 +127,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
                   <td className="font-weight-bold text-center align-middle">{data.process}</td>
                   <td className="font-weight-bold text-center text-danger align-middle">
                     { Number(data.price) * Number(data.num) }
+                  </td>
+                  <td>
+                  <a 
+                    className="btn btn-success btn-block p-3" 
+                    href={`mailto:${userRecord(data.user_name).email}`} 
+                    target="_blank" rel="noopener noreferrer"
+                  ><FontAwesomeIcon icon={faEnvelope} />メールを送る</a>  
                   </td>
                 </tr>
                    : 

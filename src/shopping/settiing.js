@@ -70,3 +70,14 @@ export  const totalSales = (datas)=>{
   }
   return total;
 }
+/*注文確認画面該当ユーザーレコード取得*/
+export const userRecord = (name)=>{
+  let record = null;
+  let users = JSON.parse(localStorage.getItem('users'));
+  users.forEach((user)=>{
+     if(user.name === name){
+        record = user;
+     }
+  });
+  return record;
+}

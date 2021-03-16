@@ -180,14 +180,14 @@ const CircularLoading = circularLoading({
                         <tr>
                           <th className="text-center align-middle bg-dark text-white">メールアドレス</th>
                           <td  className="text-center align-middle">
-                            {value.email}
+                            <a className="font-weight-bold" href={`mailto:${value.email}`} target="_blank" rel="noopener noreferrer">{value.email}</a>  
                           </td>
                         </tr>
 
                         <tr>
                           <th className="text-center align-middle bg-dark text-white">電話番号</th>
                           <td  className="text-center align-middle">
-                            {value.tel}
+                            <a className="font-weight-bold" href={`tel:${value.tel}`} target="_blank" rel="noopener noreferrer">{value.tel}</a>
                           </td>
                         </tr>
                         
