@@ -56,7 +56,7 @@ const  Login = (props)=>{
               num: 1
             }
             axios
-                .get('https://uematsu-backend.herokuapp.com/users')
+                .post('https://uematsu-backend.herokuapp.com/users/index')
                 .then((res)=>{
                   if(response.data.admin === true){
                     localStorage.setItem('users', JSON.stringify(res.data));

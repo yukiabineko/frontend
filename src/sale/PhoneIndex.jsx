@@ -25,7 +25,7 @@ import { excelExport } from "../Excel";
     <div className="w-100">
        <div className="text-center text-white mt-4">
         　<h1 className="font-weight-bold">売上速報</h1>
-          <h3 className="font-weight-bold">【2月】</h3>
+          <h3 className="font-weight-bold">{`【${(new Date()).getMonth() + 1}月】`}</h3>
        </div>
 
        <ResponsiveContainer width="100%" height={300} className="bg-white w-100">
@@ -58,7 +58,7 @@ import { excelExport } from "../Excel";
                  <tr>
                    <th className="bg-primary text-white font-weight-bold text-center">販売数</th>
                    <th className="bg-primary text-white font-weight-bold text-center">売上金額</th>
-                   <th className="bg-primary text-white font-weight-bold text-center">構成比</th>
+                   <th className="bg-primary text-white font-weight-bold text-center">構成比(%)</th>
                  </tr>
              </thead>
              <tbody>
