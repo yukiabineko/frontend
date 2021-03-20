@@ -92,8 +92,9 @@ const CircularLoading = circularLoading({
    } 
    /********************************************************** */
    const userShowaccess = (id)=>{
+    const sendid = {user_id: id}
     axios
-    .get(`https://uematsu-backend.herokuapp.com/history/show/${id}`)
+    .post(`https://uematsu-backend.herokuapp.com/history/show/`, sendid)
     .then((res)=>{
        const action = historyDataSend(res.data);
        props.dispatch(action);
