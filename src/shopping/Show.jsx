@@ -49,7 +49,7 @@ const  Show = (props)=>{
       .then(function (response) {
         /*処理後更新*/
          axios
-            .get('https://uematsu-backend.herokuapp.com/shoppings')
+            .post('https://uematsu-backend.herokuapp.com/shoppings/index')
             .then((res)=>{
               localStorage.removeItem('shoppings');
               localStorage.setItem('shoppings', JSON.stringify(res.data));
