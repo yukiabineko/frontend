@@ -6,7 +6,7 @@ import axios from 'axios'
 import { cartEmpty, cartUpdate, ordersStockChange } from '../store/Store';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegister } from "@fortawesome/free-solid-svg-icons";
-import { cartDeleteCart, sendLoginData, ordersSend} from '../store/Store';
+import { cartDeleteCart, sendLoginData, ordersSend, searchSend} from '../store/Store';
 import Empty from './NoData';
 import { localstorageChange, cartValidate } from './setting';
 
@@ -98,6 +98,20 @@ const sendServer = ()=>{
         }).catch(function(err){
          console.log(err);
         });
+        /*ページネーション用のステート変更*/
+        let page_data = {
+          user_id: props.userData[0].id,
+          num: 1
+        }
+        axios.post('https://uematsu-backend.herokuapp.com/history/search', page_data)
+        .then(function (response) {
+          let action = searchSend(response.data);
+          props.dispatch(action);
+        })
+        .catch(function(){
+        });
+
+
       })
       .catch(function(){
         alert('error');

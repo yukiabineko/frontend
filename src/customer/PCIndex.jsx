@@ -10,6 +10,7 @@ import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { youtubeSeearchSend } from '../store/Store';
 
 
+
 const rightAreaTable={
   height: '200px',
   overflow: 'scroll'
@@ -160,7 +161,7 @@ const buttonHeight={
             <div className="customor-right">
             <h5 style={buycheck}>買い物確認</h5>
              <p className="font-weight-bold text-center">{props.userData.length>0? props.userData[0].name : ''}さん</p>
-             <p className="font-weight-bold bg-light p-2">買い物点数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>
+             <p className="font-weight-bold bg-light p-2">買い物件数&emsp;<span className="text-danger">{props.buyCarts.length}</span>件</p>
              
              {props.buyCarts.length >0 ? 
               <div style={ rightAreaTable}>
