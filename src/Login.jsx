@@ -4,7 +4,7 @@ import './App.css'
 import { withRouter } from 'react-router'
 import axios from 'axios'
 import { connect} from 'react-redux';
-import { sendLoginData, searchSend, ordersSend, chartSend } from './store/Store';
+import { sendLoginData, searchSend, ordersSend, chartSend, keySend } from './store/Store';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 
 
@@ -44,19 +44,17 @@ const  Login = (props)=>{
             props.dispatch(action);
             /*railsからメッセージ*/
             alert('ログインしました');
+
+            let keyaction = keySend(data);
+            props.dispatch(keyaction);
             
-            setState({
-              name: '',
-              email: '',
-              password: '',
-              confirmation: ''
-            })
+            
             let data2 = {
               user_id: response.data.id,
               num: 1
             }
             axios
-                .post('https://uematsu-backend.herokuapp.com/users/index')
+                .post('https://uematsu-backend.herokuapp.com/users/index',data)
                 .then((res)=>{
                   if(response.data.admin === true){
                     localStorage.setItem('users', JSON.stringify(res.data));

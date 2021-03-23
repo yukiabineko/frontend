@@ -1,6 +1,8 @@
+
 import { createStore } from "redux";
 
 let init_data ={
+  userkey: null,
   userData: [],
   orderItem: null,
   buyCarts: [],
@@ -12,6 +14,8 @@ let init_data ={
 
 const storeReducer = (state = init_data, action)=>{
   switch (action.type) {
+    case 'KEY':
+      return keyReducer(state, action);
     case 'LOGIN':
       return loginReducer(state, action);
     case 'LOGOUT':
@@ -41,12 +45,27 @@ const storeReducer = (state = init_data, action)=>{
   }
 }
 /**************[-----redux処理---------]*********************************************************************** */
+const keyReducer =(state, action)=>{
+   let data = action.data;
+  
+   return{
+    userkey: data,
+    userData: state.userData,
+    orderItem: state.orderItem,
+    buyCarts: state.buyCarts,
+    historyData: state.historyData,
+    pageData: state.pageData,
+    chartData: state.chartData,
+    youtubeData: state.youtubeData
+  }
+}
 const loginReducer = (state, action)=>{
   let newData = state.userData.slice();
   newData.splice(0);
   newData.push(action.user);
  
   return{
+    userkey: state.userkey,
     userData: newData,
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
@@ -69,6 +88,7 @@ const ordersReducer = (state, action)=>{
   data = action.data;
  
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: data,
     buyCarts: state.buyCarts,
@@ -89,6 +109,7 @@ const ordersStockChangeReducer = (state, action) =>{
     }
   });
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: datas,
     buyCarts: state.buyCarts,
@@ -102,6 +123,7 @@ const cartReducer = (state, action)=>{
   let data = state.buyCarts.slice();
   data.push(action.data);
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: data,
@@ -115,6 +137,7 @@ const cartResetReducer = (state, action)=>{
   let data = state.buyCarts.slice();
   data.splice(0);
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: data,
@@ -131,6 +154,7 @@ const cartUpdateReducer = (state, action)=>{
     data.push(item);
   });
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: data,
@@ -145,6 +169,7 @@ const cartDeleteReducer = (state, action)=>{
   datas.splice(action.num, 1);
   
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: datas,
@@ -158,6 +183,7 @@ const cartDeleteReducer = (state, action)=>{
 const userHistoryReducer = (state, action)=>{
   let history = action.data;
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
@@ -172,6 +198,7 @@ const searchReducer = (state, action)=>{
   let data = action.data;
   
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
@@ -186,6 +213,7 @@ const  chartReducer = (state, action)=>{
   let data = action.data;
   
   return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
@@ -200,6 +228,7 @@ const  youtubeReducer = (state, action)=>{
   let data = action.data;
    
    return{
+    userkey: state.userkey,
     userData: state.userData,
     orderItem: state.orderItem,
     buyCarts: state.buyCarts,
@@ -210,6 +239,12 @@ const  youtubeReducer = (state, action)=>{
    }
 }
 /**************[-----コンポーネント送受メソッド処理---------]*********************************************************************** */
+export const keySend = (data)=>{
+  return{
+    type: 'KEY',
+    data: data
+  }
+}
 export  const sendLoginData = (user)=>{
   return{
     type:'LOGIN',

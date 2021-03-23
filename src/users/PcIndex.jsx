@@ -76,8 +76,9 @@ const CircularLoading = circularLoading({
    /****************************ページ更新**************************************** */
   const updateUsers = ()=>{
     setProgress(true)
+  
     axios
-    .post('https://uematsu-backend.herokuapp.com/users/index')
+    .post('https://uematsu-backend.herokuapp.com/users/index',props.userkey)
     .then((res)=>{
         localStorage.setItem('users', JSON.stringify(res.data));
         let updateData = localBaseData == null? "" : localBaseData.slice(page * 2, page * 2 + 4 )
