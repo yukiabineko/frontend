@@ -87,7 +87,7 @@ const sendServer = ()=>{
         /*railsからメッセージ*/
 
         alert(response.data.message); 
-        const id_data = {id: props.userData[0].id }
+        const id_data = {id: props.userData[0].id, email: props.userkey.email, password: props.userkey.password }
         axios.post(`https://uematsu-backend.herokuapp.com/users/show`, id_data).then(function(response){
            let action = sendLoginData (response.data);
            props.dispatch(action);
