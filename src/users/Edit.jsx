@@ -5,30 +5,29 @@ import './users.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { sendLoginData } from '../store/Store';
+import { circularLoading }  from '@yami-beta/react-circular-loading';
+
+//プログレスステータス
+const CircularLoading = circularLoading({
+  num: 6,
+  distance: 1,
+  dotSize: 0.5,
+
+});
+
 
 /**************************************************************************************** */
 const  Edit = (props)=>{
 
- const getuserData = ()=>{
-  let user = []
-  let datas = JSON.parse(localStorage.getItem('users'));
-  datas.forEach((data)=>{
-    if(data.id === props.id){
-     user.push(data);
-    }
-  });
-  return user
- }
-  let user = getuserData();
   const[show,setShow] =useState({
     display: 'none'
   })
-
+  const[progress,setProgres] = useState(false)
   const[state, setState] = useState({
-    name: user.length>0? user[0].name : '',
-    email: user.length>0?  user[0].email : '',
-    tel: user.length>0?  user[0].tel : '',
-    password: '',
+    name: props.userData.length>0? props.userData[0].name : '',
+    email: props.userData.length>0? props.userData[0].email : '',
+    tel: props.userData.length>0? props.userData[0].tel : '',
     confirmation: ''
   })
   /******************************ログイン/未ログイン切り替え********************************************************** */
@@ -39,10 +38,6 @@ const  Edit = (props)=>{
   }
  useState(loginUserCheck());
 
-
-  const homeComponent = ()=>{
-    props.history.push('/')  
-  }
   const userInput = (e)=>{
     const target = e.target;
     const name = target.name;
@@ -50,6 +45,7 @@ const  Edit = (props)=>{
     setState({...state, [name]: value});
   }
   const sendUserParameter = (e)=>{
+    setProgres(true);
     e.preventDefault();
     if(state.password === state.confirmation){
       let data = {
@@ -63,14 +59,20 @@ const  Edit = (props)=>{
       axios.patch(`https://uematsu-backend.herokuapp.com/users/${props.id}`, data)
       .then(function (response) {
         /*railsからメッセージ*/
-        alert(response.data.message); 
-        setState({
-          name: '',
-          email: '',
-          password: '',
-          tel: '',
-          confirmation: ''
-        })
+       
+        const id_data = {id: props.userData[0].id, email: props.userkey.email, password: props.userkey.password }
+        axios.post(`https://uematsu-backend.herokuapp.com/users/show`, id_data).then(function(res){
+           let action = sendLoginData (res.data);
+           props.dispatch(action);
+           alert(response.data.message); 
+           setProgres(false);
+           props.history.push('/users/show');
+
+        }).catch(function(err){
+         console.log(err);
+        });
+       
+
       })
       .catch(function(){
         alert('error');
@@ -88,13 +90,18 @@ const  Edit = (props)=>{
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
-        <Button 
-          variant="secondary" 
-          onClick={homeComponent}
-          className="mb-3"
-        >
-         戻る
-        </Button>
+          {/* プログレス */}
+     
+          {progress ===true? 
+            <div id="progress" className=" pl-2 pr-2  bg-white shodow">
+              <p　className="mt-3 font-weight-bold">しばらくお待ちください。</p>
+              <div className="text-center">
+              <CircularLoading />
+              </div>
+            </div>
+          : 
+          ''
+          }
           <Form onSubmit={sendUserParameter}>
             <Form.Group>
               <Form.Label>お名前</Form.Label>

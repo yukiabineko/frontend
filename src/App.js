@@ -280,6 +280,12 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
                   </Link>
                 </li>
                 <li className="nav-item pt-3 pb-3">
+                  <Link to="/users/edit" className="text-light p-3">
+                   <FontAwesomeIcon icon={faClipboardCheck} className="text-light"/>
+                     お客様情報編集
+                  </Link>
+                </li>
+                <li className="nav-item pt-3 pb-3">
                   <Link to="/users_order" className="text-light p-3">
                    <FontAwesomeIcon icon={faClipboardCheck} className="text-light"/>
                      注文確認
@@ -336,7 +342,7 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
         />} /> 
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
-      <Route path="/users/edit" render={ () => <Edit id={state.editId} />} />
+      <Route path="/users/edit" render={ () => <Edit id={props.userData.length>0 ?props.userData[0].id : ''} />} />
       <Route path="/users/show" component={UserShow} />
       <Route path="/users_empshow"  render={()=><EmpShow />} />
       <Route path="/users_phone_empshow"  render={()=><PhoneEmpShow />} />

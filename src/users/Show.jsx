@@ -8,6 +8,7 @@ import { ordercheck, daySetting } from './setting';
 import History from './History';
 
 
+
 /**************************************************************************************** */
 const  Show = (props)=>{
  const sendShoppindData = ()=>{
@@ -55,6 +56,7 @@ const  Show = (props)=>{
         <div className="text-center mt-5 mb-4  font-weight-bold">
           <h2 className="text-white font-weight-bold">{props.userData[0].name}さんページ</h2>
         </div>
+       
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
           <Row>
