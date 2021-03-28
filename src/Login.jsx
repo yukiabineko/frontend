@@ -27,7 +27,10 @@ const  Login = (props)=>{
 
   /*初期設定でユーザーリセット*/
   const firstSet =()=>{
-    localStorage.setItem('users', []);
+    let empty ={name: '', email: ''};
+    let array = [];
+    array.push(empty);
+    localStorage.setItem('users', JSON.stringify(array));
   }
   useState(firstSet);
   const newUserComponent = ()=>{
