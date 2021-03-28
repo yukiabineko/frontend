@@ -25,6 +25,11 @@ const  Login = (props)=>{
   })
   const[progress,setProgres] = useState(false)
 
+  /*初期設定でユーザーリセット*/
+  const firstSet =()=>{
+    localStorage.setItem('users', []);
+  }
+  useState(firstSet);
   const newUserComponent = ()=>{
     props.history.push('/users/new');  
   }

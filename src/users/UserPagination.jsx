@@ -18,7 +18,7 @@ const  UserPagination = (props)=>{
 
     if(localData){
       let paginationLength =  customers(localData).length;
-      if(group === 0 &&  Math.round(paginationLength) > 5 && Math.round(paginationLength / 2) > 5 ){  /*初期のページネーション データ5以上 かつ表示ボタン5以下*/
+      if(group === 0 &&  Math.round(paginationLength) > 5 && Math.round(paginationLength / 2) >= 5 ){  /*初期のページネーション データ5以上 かつ表示ボタン5以下*/
         for (let number = 1; number <= 5; number++) {
           items.push(
             <Pagination.Item key={number} active={number === active} onClick={()=>sendNumber(number-1)}>

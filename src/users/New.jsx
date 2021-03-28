@@ -39,7 +39,7 @@ const  New = (props)=>{
         email: state.email,
         tel: state.tel,
         password: state.password,
-        confirmation: state.confirmation
+        password_confirmation: state.confirmation
       }
       setShow({display: 'none'});
       axios.post('https://uematsu-backend.herokuapp.com/users', data)
