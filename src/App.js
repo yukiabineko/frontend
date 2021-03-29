@@ -11,6 +11,7 @@ import Index from './users/Index';
 import Login from './Login';
 import userNew from './users/New'
 import Edit from './users/Edit'
+import EmployeeEdit from './users/EmployeeEdit'
 import UserShow from './users/Show';
 import EmpShow from './users/EmpShow';
 import PhoneEmpShow from './users/PhoneEmpShow';
@@ -45,6 +46,7 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
    let paytotal = ((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))? totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0])) :0;
    let userid = props.userData.length>0? props.userData[0].id : null;
   useScript();
+ 
   const[state, setState] = useState({
     editId: 0,
     deleteId: 0,
@@ -55,6 +57,7 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
     shoppingShow: null,
     cartItem: null
   })
+  
   const userlogout = ()=>{
     let action = logoutAction();
     props.dispatch(action);
@@ -343,6 +346,7 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
       <Route path="/login" render={()=><Login />} />
       <Route path="/users/new" component={userNew} />
       <Route path="/users/edit" render={ () => <Edit id={props.userData.length>0 ?props.userData[0].id : ''} />} />
+      <Route path="/users/employee_edit" render={ () => <EmployeeEdit id={state.editId} />} />
       <Route path="/users/show" component={UserShow} />
       <Route path="/users_empshow"  render={()=><EmpShow />} />
       <Route path="/users_phone_empshow"  render={()=><PhoneEmpShow />} />

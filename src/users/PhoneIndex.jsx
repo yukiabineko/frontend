@@ -61,7 +61,7 @@ const CircularLoading = circularLoading({
   /****************************編集**************************************** */
    const editPage = (id)=>{
      props.editPage(id);
-     props.history.push("/users/edit");
+     props.history.push("/users/employee_edit");
    } 
 
 
@@ -69,13 +69,29 @@ const CircularLoading = circularLoading({
    function deleteUser(i){
     if(window.confirm('削除してよろしいですか？')){
       axios
-       .delete(`https://uematsu-backend.herokuapp.com/users/${i}`)
+       .delete(`https://uematsu-backend.herokuapp.com/users/${i}`,{data: props.userkey})
        .then((response)=>{
-         alert(response.data.message); 
-       })
-       .catch((error)=>{
-          console.log(error);
-       })
+         /*ユーザー更新*/
+      
+      　　axios.post('https://uematsu-backend.herokuapp.com/users/index',props.userkey)
+            .then((res)=>{
+                localStorage.setItem('users', JSON.stringify(res.data));
+                setPage(0)
+                let updateData = localBaseData == null? "" : localBaseData.slice(0, 4 )
+                alert(response.data.message); 
+                setState({
+                  data: updateData? updateData : []
+                })
+                setProgress(false)
+            })
+            .catch((error)=>{
+                console.log(error);
+            })       
+          
+        })
+        .catch((error)=>{
+            console.log(error);
+        })
     
     }
    }
