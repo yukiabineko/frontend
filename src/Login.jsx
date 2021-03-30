@@ -112,7 +112,7 @@ const  Login = (props)=>{
               console.log(error);
           })
           axios
-            .post('https://uematsu-backend.herokuapp.com/shoppings/index')
+            .post('https://uematsu-backend.herokuapp.com/shoppings/index',data)
             .then((res)=>{
               localStorage.removeItem('shoppings');
               setState(res.data);
