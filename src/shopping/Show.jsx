@@ -59,7 +59,7 @@ const  Show = (props)=>{
               console.log(error);
             })
         axios
-        .get('https://uematsu-backend.herokuapp.com/sales')
+        .post('https://uematsu-backend.herokuapp.com/sales')
         .then((res)=>{
             let action = chartSend(res.data);
             props.dispatch(action);
