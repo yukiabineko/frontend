@@ -82,6 +82,8 @@ const sendServer = ()=>{
    let obj = {}
    obj['id'] = props.userData[0].id;
    obj['data'] = sendData;
+   obj['email'] = props.userkey.email;
+   obj['password'] = props.userkey.password;
 
    /* rails送信　*/
    axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
