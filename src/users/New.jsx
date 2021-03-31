@@ -4,8 +4,17 @@ import '../App.css';
 import './users.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
-import { sendLoginData } from '../store/Store';
+import { sendLoginData, keySend } from '../store/Store';
 import { connect } from 'react-redux';
+import { circularLoading }  from '@yami-beta/react-circular-loading';
+
+//プログレスステータス
+const CircularLoading = circularLoading({
+  num: 6,
+  distance: 1,
+  dotSize: 0.5,
+
+});
 
 const  New = (props)=>{
 
@@ -20,6 +29,8 @@ const  New = (props)=>{
     password: '',
     confirmation: ''
   })
+
+  const[progress,setProgres] = useState(false)
   
 
   const loginComponent = ()=>{
@@ -33,6 +44,7 @@ const  New = (props)=>{
   }
   const sendUserParameter = (e)=>{
     e.preventDefault();
+    setProgres(true);
     if(state.password === state.confirmation){
       let data = {
         name: state.name,
@@ -46,10 +58,20 @@ const  New = (props)=>{
       .then(function (response) {
         let action = sendLoginData(response.data.userData);
         props.dispatch(action);
+
+        let key_data = {
+          email: state.email,
+          password: state.password
+        }
+
+        let keyaction = keySend(key_data);
+        props.dispatch(keyaction);
+
         response.data.userData.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
 
         /*railsからメッセージ*/
         alert("【お知らせ】" +response.data.message); 
+        setProgres(false);
         
         setState({
           name: '',
@@ -95,6 +117,19 @@ const  New = (props)=>{
         >
          戻る
         </Button>
+        {/* プログレス */}
+     
+        {progress ===true? 
+            <div id="progress" className=" pl-2 pr-2  bg-white shodow">
+              <p　className="mt-3 font-weight-bold">しばらくお待ちください。</p>
+              <div className="text-center">
+              <CircularLoading />
+              </div>
+            </div>
+          : 
+          ''
+          }
+
           <Form onSubmit={sendUserParameter}>
             <Form.Group>
               <Form.Label>お名前</Form.Label>

@@ -7,8 +7,6 @@ import { connect} from 'react-redux';
 import { sendLoginData, searchSend, ordersSend, chartSend, keySend } from './store/Store';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 
-
-
 //プログレスステータス
 const CircularLoading = circularLoading({
   num: 6,

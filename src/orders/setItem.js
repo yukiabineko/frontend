@@ -14,9 +14,11 @@ export const formSelectItems = ()=>{
     })
   }
   let options = [];
-  itemData.forEach(item=>{
-    options.push({value: item.name, label: item.name});
-  })
+  if(itemData){
+    itemData.forEach(item=>{
+      options.push({value: item.name, label: item.name});
+    })
+  }
   return options;
   
 }
