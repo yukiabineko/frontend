@@ -59,6 +59,15 @@ export const cartValidate = (datas)=>{
   return check;
 }
 
+/* カートの数チェック*/
+export const cartNumValidate = (datas)=>{
+  let check = true;
+  datas.forEach((data)=>{
+    data.num === 0 ? check = false : check = true;
+  })
+  return check;
+}
+
 /* 商品の検索 */
 export const searchItem = (name)=>{
   let items = JSON.parse(localStorage.getItem('items'));

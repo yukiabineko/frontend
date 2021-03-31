@@ -286,8 +286,8 @@ const doSelect = (e)=>{
                          order.name === data.name? 
                          /*在庫にすでに選択されている数量足した数*/
                          
-                           selectNumber(Number(order.stock) + Number(num[index])).map((value)=>(
-                             <option key={value}>{value}</option>
+                           selectNumber(Number(order.stock) + Number(num[index]) -1).map((value)=>(
+                             <option key={value}>{value+1}</option>
                            ))
                            : 
                            ''

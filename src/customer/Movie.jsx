@@ -9,12 +9,12 @@ import PhoneMovie from './PhoneMovie';
  function Movie(props){
   
 /******************************ログイン/未ログイン切り替え********************************************************** */
-    const loginUserCheck = ()=>{
-      if(props.userData.length===0){
-        props.history.push('/login');  
-      }
-    }
-   useState(loginUserCheck);
+const loginUserCheck = ()=>{
+  if(props.userData.length===0){
+    props.history.push('/login');  
+  }
+}
+useState(loginUserCheck());
   return(
     <div>
     <MediaQuery minDeviceWidth={767}>
