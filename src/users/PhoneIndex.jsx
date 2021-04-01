@@ -34,6 +34,7 @@ const CircularLoading = circularLoading({
 
  function PhoneIndex(props){
   const[page, setPage] = useState(0);
+  const[group, setGroup] = useState(0);
   let localBaseData = JSON.parse(localStorage.getItem('users'))
   let localData = localBaseData == null? "" : localBaseData.slice(page * 2, page * 2 + 4 )
   const[state,setState] = useState({
@@ -83,6 +84,9 @@ const CircularLoading = circularLoading({
                   data: updateData? updateData : []
                 })
                 setProgress(false)
+                setPage(0);
+                paginationNo(0);
+                sendGroup(0);
             })
             .catch((error)=>{
                 console.log(error);
@@ -144,6 +148,10 @@ const CircularLoading = circularLoading({
     }
     setPage(num);
   }
+  /*********************************ページグループ更新*********************************************** */
+  const sendGroup = (i)=>{
+    setGroup(i);
+  }
  
  
   return(
@@ -172,7 +180,9 @@ const CircularLoading = circularLoading({
 
         <UserPagination 
           No={page} 
+          group={group}
           paginationSend={(num)=>paginationNo(num)} 
+          sendGroup={(i)=>sendGroup(i)}
         />
 
       <div class="bg-white"></div>

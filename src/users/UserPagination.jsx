@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router';
 import { Pagination } from 'react-bootstrap';
 import { connect } from 'react-redux';
@@ -8,7 +8,7 @@ import { customers } from './setting';
 
 const  UserPagination = (props)=>{
   /*********************ステート******************************** */
-  const[group, setGroup] = useState(0);
+    let group = props.group;
     let localData = JSON.parse(localStorage.getItem('users'))
    
     let active = props.No +1;
@@ -84,11 +84,13 @@ const  UserPagination = (props)=>{
   }
   /************************ページネーション戻るボタン処理**************************************** */
   const groupMinus = () =>{
-    setGroup(group -1);
+    
+    props.sendGroup(group-1)
   }
    /************************ページネーション進むボタン処理**************************************** */
    const groupPlus = () =>{
-    setGroup(group + 1);
+
+    props.sendGroup(group + 1)
   }
   return(
    <>
