@@ -5,10 +5,22 @@ import axios from 'axios';
 import { getOption } from './setItemData';
 import Select from 'react-select';
 import { connect } from 'react-redux';
+import { circularLoading }  from '@yami-beta/react-circular-loading';
+
+
+//プログレスステータス
+const CircularLoading = circularLoading({
+  num: 6,
+  distance: 1,
+  dotSize: 0.5,
+
+});
 
 const Process = (props)=>{
+  const[progress,setProgres] = useState(false)
 /********************加工データ************************************************************** */
   const getProcessData = ()=>{
+    setProgres(true);
      axios
         .get(`https://uematsu-backend.herokuapp.com/processings/${props.item.id}`)
         .then((res)=>{
@@ -16,17 +28,17 @@ const Process = (props)=>{
            localStorage.removeItem('process');
            localStorage.setItem('process', JSON.stringify(res.data));
            setProcess(res.data);
+           setProgres(false);
         
         })
         .catch((error)=>{
            console.log(error);
+           setProgres(false);
         })
      }
 
 /*************************ステートおよび各種セット************************************************ */
-   useEffect(()=>{
-     getProcessData();
-   })
+   useState(getProcessData);
    let item = props.item;
    let options = getOption();
 
@@ -35,7 +47,7 @@ const Process = (props)=>{
 /***********************加工データサーバー送信**************************************** */
    const addProcess = (e)=>{
      e.preventDefault();
-    
+     setProgres(true);
      let obj={};
      obj["id"] = props.item.id;
      obj["data"] = selectedOption;
@@ -43,9 +55,12 @@ const Process = (props)=>{
       .then(function (response) {
         /*railsからメッセージ*/
         alert(response.data.message); 
+        setProgres(false);
+        getProcessData();
       })
       .catch(function(){
         alert('error');
+        setProgres(false);
       })
     
    }
@@ -80,6 +95,17 @@ const Process = (props)=>{
     <div className="text-center font-weight-bold h2 mt-5 mb-3">{item.name}加工法管理画面</div>
     <Row>
       <Col md={{ span: 4, offset: 4 }} className="p-5 bg-light shadow">
+        {/* プログレス */}
+        {progress ===true? 
+            <div id="progress" className=" pl-2 pr-2  bg-white shodow">
+              <p　className="mt-3 font-weight-bold">しばらくお待ちください。</p>
+              <div className="text-center">
+              <CircularLoading />
+              </div>
+            </div>
+          : 
+          ''
+          }
       <Form onSubmit={addProcess}>
         <Form.Group>
           <Form.Label>加工法の登録</Form.Label>
