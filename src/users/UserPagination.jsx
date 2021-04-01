@@ -26,9 +26,11 @@ const  UserPagination = (props)=>{
             </Pagination.Item>,
           );
         }
-        items.push(
-          <Pagination.Last onClick={()=>groupPlus()}/>
-        );
+        if(paginationLength > ( group + 1)*2 *5 ){ /*全体のレコード数からぜんかいの５の倍数をひいたかずよりつぎの５の倍数が上回るとき*/
+          items.push(
+             <Pagination.Last onClick={()=>groupPlus()} />
+           );
+          }
       }
       /********************************************************************************* */
       else if((group === 0 &&  Math.round(paginationLength) <5)|| (Math.round(paginationLength / 2) < 5) ){   /*初期のページネーション データ5以下 または表示ボタン5以下*/

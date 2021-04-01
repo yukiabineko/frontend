@@ -41,7 +41,7 @@ const CircularLoading = circularLoading({
 
   /************************ステート*************************************** */
   const[page, setPage] = useState(0);
-
+  const[group, setGroup] = useState(0);
   let localData = JSON.parse(localStorage.getItem('items')).slice(page * 2, page * 2 + 2 )
   let modalData = [];
 
@@ -94,6 +94,10 @@ const CircularLoading = circularLoading({
               localStorage.removeItem('items');
               localStorage.setItem('items', JSON.stringify(res.data));
               setState(res.data.slice(page * 2, page * 2 + 2 ))
+              setProgress(false)
+              setPage(0);
+              paginationNo(0);
+              sendGroup(0);
             })
             .catch((error)=>{
               console.log(error);
@@ -144,6 +148,10 @@ const CircularLoading = circularLoading({
     )
     setPage(num);
   }
+  /***********************************ページグループ更新*******************************************************************/
+  const sendGroup = (i)=>{
+    setGroup(i);
+  }
   return(
     <div className>
       <div className="text-center mt-5 mb-2">
@@ -178,7 +186,12 @@ const CircularLoading = circularLoading({
               </td>
               {itemData.length >0?
                <td className="w-75">
-                 <MyPagination No={page} paginationSend ={(num)=>paginationNo(num)} />
+                 <MyPagination
+                    No={page} 
+                    group={group}
+                    paginationSend={(num)=>paginationNo(num)} 
+                    sendGroup={(i)=>sendGroup(i)}
+                  />
                </td>
                 : 
                 <td></td>
@@ -188,7 +201,7 @@ const CircularLoading = circularLoading({
          
         
           {itemData.length > 0 ?
-            <Table striped bordered hover>
+            <Table striped bordered hover className="mt-2">
               <thead>
                 <tr>
                   <th className="text-center align-middle bg-dark text-white">画像</th>

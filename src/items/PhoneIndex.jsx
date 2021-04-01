@@ -42,7 +42,7 @@ const CircularLoading = circularLoading({
 
   /************************ステート*************************************** */
   const[page, setPage] = useState(0);
-
+  const[group, setGroup] = useState(0);
   let localData = JSON.parse(localStorage.getItem('items')).slice(page * 2, page * 2 + 2 )
   let modalData = [];
 
@@ -98,6 +98,20 @@ const CircularLoading = circularLoading({
        .delete(`https://uematsu-backend.herokuapp.com/items/${i}`)
        .then((response)=>{
          alert(response.data.message); 
+         axios
+            .get('https://uematsu-backend.herokuapp.com/items')
+            .then((res)=>{
+              localStorage.removeItem('items');
+              localStorage.setItem('items', JSON.stringify(res.data));
+              setState(res.data.slice(page * 2, page * 2 + 2 ))
+              setProgress(false)
+              setPage(0);
+              paginationNo(0);
+              sendGroup(0);
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
        })
        .catch((error)=>{
           console.log(error);
@@ -143,6 +157,10 @@ const CircularLoading = circularLoading({
     )
     setPage(num);
   }
+  /***********************************ページグループ更新*******************************************************************/
+  const sendGroup = (i)=>{
+    setGroup(i);
+  }
   return(
     <div className="w-100">
       <div className="text-center mt-5 mb-4">
@@ -167,7 +185,12 @@ const CircularLoading = circularLoading({
       >更新</Button>
       
       {itemData.length >0?
-        <MyPagination No={page} paginationSend ={(num)=>paginationNo(num)} />
+        <MyPagination
+          No={page} 
+          group={group}
+          paginationSend={(num)=>paginationNo(num)} 
+          sendGroup={(i)=>sendGroup(i)}
+        />
         :
         ""
              
