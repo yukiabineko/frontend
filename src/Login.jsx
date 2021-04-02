@@ -6,6 +6,7 @@ import axios from 'axios'
 import { connect} from 'react-redux';
 import { sendLoginData, searchSend, ordersSend, chartSend, keySend } from './store/Store';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
+import { customerTodayOrders, paid_confirmation } from "./users/setting";
 
 //プログレスステータス
 const CircularLoading = circularLoading({
@@ -16,8 +17,7 @@ const CircularLoading = circularLoading({
 });
 
 const  Login = (props)=>{
-  localStorage.removeItem("paidStatus");
-
+ 
   const[state, setState] = useState({
     email: '',
     password: '',
@@ -51,10 +51,19 @@ const  Login = (props)=>{
             props.dispatch(action);
             /*railsからメッセージ*/
             alert('ログインしました');
+            
+            /*クレジットカード支払いチェック*/
+            
+            if(paid_confirmation(customerTodayOrders(response.data.orders[0])) ){
+              localStorage.setItem("paidStatus",JSON.stringify({paid: true}));
+            }
+            else{
+              localStorage.setItem("paidStatus",JSON.stringify({paid: false}));
+            }
 
             let keyaction = keySend(data);
             props.dispatch(keyaction);
-            
+
             
             let data2 = {
               user_id: response.data.id,
@@ -97,6 +106,9 @@ const  Login = (props)=>{
               localStorage.setItem('orders', JSON.stringify(res.data));
               let action = ordersSend(res.data);
               props.dispatch(action);
+
+
+
               if(localStorage.getItem('orders') && localStorage.getItem('users') && response.data.admin === true){
                 setProgres(false)
                 
@@ -149,6 +161,7 @@ const  Login = (props)=>{
     const value = target.value;
     setState({...state, [name]:value});
   }
+  
   return(
    <>
     <div className="text-center mt-5 mb-4">

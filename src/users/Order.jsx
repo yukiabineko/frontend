@@ -47,7 +47,7 @@ useState(loginUserCheck());
               </span>円】</h3>
 
               { ((props.userData.length>0) && (paid_confirmation(customerTodayOrders(props.userData[0].orders[0])) ))? 
-              <span className="bg-warning p-2 text-danger font-weight-bold">支払い済</span>
+              <span className="bg-warning p-2 text-danger font-weight-bold" id="pay_conf">支払い済</span>
               :
               ""
               }
