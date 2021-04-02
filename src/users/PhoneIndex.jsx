@@ -90,7 +90,16 @@ const CircularLoading = circularLoading({
             })
             .catch((error)=>{
                 console.log(error);
-            })       
+            })
+          axios
+            .post('https://uematsu-backend.herokuapp.com/shoppings/index',props.userkey)
+            .then((res)=>{
+              localStorage.removeItem('shoppings');
+              localStorage.setItem('shoppings', JSON.stringify(res.data));
+            })
+          .catch((error)=>{
+            console.log(error);
+          })              
           
         })
         .catch((error)=>{
