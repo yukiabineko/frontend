@@ -84,7 +84,7 @@ const sendServer = ()=>{
    obj['password'] = props.userkey.password;
 
    /* rails送信　*/
-   axios.post('http://uematsu-backend.herokuapp.com/shoppings', obj)
+   axios.post('https://uematsu-backend.herokuapp.com/shoppings', obj)
       .then(function (response) {
         /*railsからメッセージ*/
 
@@ -99,7 +99,7 @@ const sendServer = ()=>{
         });
       })
       .catch(function(){
-        alert('error');
+        alert('エラーです。');
       }) 
     
     props.history.push('/customor');  /*ユーザーページへ移動*/

@@ -116,7 +116,7 @@ const sendServer = ()=>{
 
       })
       .catch(function(){
-        alert('error');
+        alert('エラーです。');
       }) 
     
     props.history.push('/customor');  /*ユーザーページへ移動*/
