@@ -40,7 +40,7 @@ import { logoutAction, cartEmpty } from './store/Store';
 import {  todayOrderExisting } from './shopping/settiing';
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import useScript from "./useScript";
-import { customerTodayOrders, totalMoneyCalc } from './users/setting';
+import { customerTodayOrders, totalMoneyCalc, paid_confirmation } from './users/setting';
 
  function App(props){
    let paytotal = ((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))? totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0])) :0;
@@ -301,7 +301,7 @@ import { customerTodayOrders, totalMoneyCalc } from './users/setting';
                      動画検索
                   </Link>
                 </li>
-                {paytotal >0?
+                { ( ((paytotal >0) && ( (props.userData.length>0) && (paid_confirmation(customerTodayOrders(props.userData[0].orders[0]))===false) )) || localStorage.getItem('paidStatus') )?
                 <li className="nav-item">
                   <button type="button" class="btn btn-secondary text-white font-weight-bold  mt-2 ml-5" id="modal-push" onClick={modalOpen}>
                    <FontAwesomeIcon icon={faCreditCard} />

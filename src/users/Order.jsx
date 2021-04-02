@@ -4,7 +4,8 @@ import { withRouter } from 'react-router';
 import '../users/users.css';
 import { connect } from 'react-redux';
 import { customerTodayOrders, totalMoneyCalc, statusView } from './setting';
-import Reservation from './Reservation';
+import Reservation from './Reservation'; 
+import { paid_confirmation } from './setting';
 import { timeSetting } from '../setting';
 import useScript from '../useScript';
 
@@ -44,7 +45,12 @@ useState(loginUserCheck());
               <span className="text-danger font-weight-bold">
                 {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
               </span>円】</h3>
-              
+
+              { ((props.userData.length>0) && (paid_confirmation(customerTodayOrders(props.userData[0].orders[0])) ))? 
+              <span className="bg-warning p-2 text-danger font-weight-bold">支払い済</span>
+              :
+              ""
+              }
               <form id ="todayorder-customer">
 
               </form>

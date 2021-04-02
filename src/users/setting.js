@@ -182,4 +182,12 @@ export const statusView = (status)=>{
       break;
   }
 }
+/*クレジット支払い済みか？*/
+export const paid_confirmation =(datas)=>{
+  let paid = false;
+  datas.forEach(data=>{
+     if(data.pay){ paid = true }
+  });
+  return paid;
+}
  

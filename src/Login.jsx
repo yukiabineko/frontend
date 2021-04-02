@@ -16,6 +16,7 @@ const CircularLoading = circularLoading({
 });
 
 const  Login = (props)=>{
+  localStorage.removeItem("paidStatus");
 
   const[state, setState] = useState({
     email: '',

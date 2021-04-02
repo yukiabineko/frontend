@@ -9,6 +9,7 @@ document.getElementById('paybt').addEventListener('click', function(){
     
     axios.post('https://uematsu-backend.herokuapp.com/orders/pay',data).then((res)=>{
         alert(res.data.message);
+        localStorage.setItem('paidStatus', {pay:true});
         $('.js-modal').hide();
     }).catch(()=>{
   })
