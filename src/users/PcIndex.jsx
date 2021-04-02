@@ -71,6 +71,7 @@ const CircularLoading = circularLoading({
       　　axios.post('https://uematsu-backend.herokuapp.com/users/index',props.userkey)
             .then((res)=>{
                 localStorage.setItem('users', JSON.stringify(res.data));
+                
                 setPage(0)
                 let updateData = localBaseData == null? "" : localBaseData.slice(0, 4 )
                 alert(response.data.message); 
@@ -84,7 +85,17 @@ const CircularLoading = circularLoading({
             })
             .catch((error)=>{
                 console.log(error);
-            })       
+            })
+
+          axios
+            .post('https://uematsu-backend.herokuapp.com/shoppings/index',props.userkey)
+            .then((res)=>{
+              localStorage.removeItem('shoppings');
+              localStorage.setItem('shoppings', JSON.stringify(res.data));
+            })
+          .catch((error)=>{
+            console.log(error);
+          })       
           
         })
         .catch((error)=>{
