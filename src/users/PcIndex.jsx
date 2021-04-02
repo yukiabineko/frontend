@@ -113,12 +113,14 @@ const CircularLoading = circularLoading({
    } 
    /********************************************************** */
    const userShowaccess = (id)=>{
+    setProgress(true);
     const sendid = {user_id: id}
     axios
     .post(`https://uematsu-backend.herokuapp.com/history/show/`, sendid)
     .then((res)=>{
        const action = historyDataSend(res.data);
        props.dispatch(action);
+       setProgress(false);
        props.history.push('/users_empshow');
 
     })

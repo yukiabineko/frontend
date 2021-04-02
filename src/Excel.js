@@ -15,21 +15,41 @@ const s2ab = (s)=>{
   for (var i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
     return buf;
 }
- export const excelExport = (datas)=>{
+/*構成比を含めたデータに変換*/
+const composition_ratio =(datas)=>{
+   let total = 0;
+   let array = [];
+
+   datas.forEach(data => {
+    if(data["合計"]){
+      total += Number(data["合計"]);
+    }
+  });
+   
+   datas.forEach(data => {
+     array.push({day: data.day, week: data.week, num: data.num, 合計: data["合計"],rate: (Number(data["合計"] / total )*100)})
+   });
+   return array;
+
+}
+ export const excelExport = (sendData)=>{
+  const datas = composition_ratio(sendData);
+ 
   var write_opts = {
     type: 'binary'
   };
   let array1 = [];
     const keyArray = Object.keys(datas);                        //キー一覧
     const keyCount = keyArray.length;                           //日付キー数
-    array1.push(["日付", "曜日", "点数","合計"]);
+    array1.push(["日付", "曜日", "点数","合計","構成比"]);
     for(let i=0; i< keyCount; i++){
       array1.push(
         [
           datas[keyArray[i]]["day"],
           datas[keyArray[i]]["week"],
           datas[keyArray[i]]["num"],
-          datas[keyArray[i]]["合計"]
+          datas[keyArray[i]]["合計"],
+          datas[keyArray[i]]["rate"]
         ]
       );
     }
