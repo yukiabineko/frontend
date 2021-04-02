@@ -130,6 +130,9 @@ const CircularLoading = circularLoading({
           let newData = JSON.parse(localStorage.getItem('items'));
           setState(newData? newData : []);
           setProgress(false);
+          setPage(0);
+          paginationNo(0);
+          sendGroup(0);
       })
       .catch((error)=>{
         console.log(error);

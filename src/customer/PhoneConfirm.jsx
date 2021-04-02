@@ -99,7 +99,7 @@ const sendServer = ()=>{
         });
       })
       .catch(function(){
-        alert('エラーです。');
+        alert('送信失敗。');
       }) 
     
     props.history.push('/customor');  /*ユーザーページへ移動*/

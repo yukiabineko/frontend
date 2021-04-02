@@ -117,7 +117,10 @@ const CircularLoading = circularLoading({
           data: updateData? updateData : []
         })
         setProgress(false)
-    })
+        setPage(0);
+        paginationNo(0);
+        sendGroup(0);
+})
     .catch((error)=>{
         console.log(error);
     })       

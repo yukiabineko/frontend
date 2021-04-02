@@ -5,7 +5,6 @@ import '../users/users.css';
 import { connect } from 'react-redux';
 import { customerTodayOrders, totalMoneyCalc, statusView } from './setting';
 import Reservation from './Reservation'; 
-import { paid_confirmation } from './setting';
 import { timeSetting } from '../setting';
 import useScript from '../useScript';
 
@@ -46,11 +45,6 @@ useState(loginUserCheck());
                 {totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0]))}
               </span>円】</h3>
 
-              { ((props.userData.length>0) && (paid_confirmation(customerTodayOrders(props.userData[0].orders[0])) ))? 
-              <span className="bg-warning p-2 text-danger font-weight-bold" id="pay_conf">支払い済</span>
-              :
-              ""
-              }
               <form id ="todayorder-customer">
 
               </form>
@@ -74,6 +68,7 @@ useState(loginUserCheck());
                     <li className="list-inline-item h5 mr-3">依頼加工:{data.process}</li>
                     <li className="list-inline-item h5 mr-3">受け取り時間:{timeSetting(data.receiving_time)}</li>
                     <li className="list-inline-item text-white pt-2 pb-2 mr-3">{ statusView(data.status) }</li>
+                    {data.pay? <span className="bg-warning font-weight-bold text-danger p-2">支払い済</span> : ''}
                   </ul>
                 
                 </Col>
