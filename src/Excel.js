@@ -49,7 +49,7 @@ const composition_ratio =(datas)=>{
           datas[keyArray[i]]["week"],
           datas[keyArray[i]]["num"],
           datas[keyArray[i]]["合計"],
-          datas[keyArray[i]]["rate"]
+          datas[keyArray[i]]["rate"]? datas[keyArray[i]]["rate"] : ""
         ]
       );
     }
