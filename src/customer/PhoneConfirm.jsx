@@ -13,12 +13,12 @@ import { localstorageChange, cartValidate } from './setting';
 
 const title={
   fontFamily: 'ヒラギノ明朝',
-  color: '#0000CD',
+  color: '#f0f0f0',
   fontWeight: 'bold',
   marginTop: '8%'
 }
 const span ={
-  color: '#6927FF',
+  color: '#f0f0f0',
   marginRight: '20px'
 }
 const th={

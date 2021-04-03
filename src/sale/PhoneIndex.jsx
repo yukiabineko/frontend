@@ -39,11 +39,11 @@ import { excelExport } from "../Excel";
         </ResponsiveContainer>
 
         <div className="text-center font-weight-bold text-white mt-2">
-            <h4 className="font-weight-bold text-primary">【売上実績合計】{ totalSales(datas) }円</h4>
+            <h4 className="font-weight-bold text-white">【売上実績合計】{ totalSales(datas) }円</h4>
         </div>
         <Button 
           variant="success"
-          className="btn-lg"
+          className="btn-lg border"
           onClick={downloadFile}
         >Excel出力</Button>
         <div className="bg-white w-100 pb-2">

@@ -92,7 +92,7 @@ const Process = (props)=>{
 
   return(
    <>
-    <div className="text-center font-weight-bold h2 mt-5 mb-3">{item.name}加工法管理画面</div>
+    <div className="text-center text-white font-weight-bold h2 mt-5 mb-3">{item.name}加工法管理画面</div>
     <Row>
       <Col md={{ span: 4, offset: 4 }} className="p-5 bg-light shadow">
         {/* プログレス */}

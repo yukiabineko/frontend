@@ -18,7 +18,7 @@ const  EmpShow = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle" className="text-light font-weight-bold">{props.historyData? props.historyData.name : ''}&nbsp;注文履歴</h2>
+        <h2 data-testid="userNewtitle" className="text-warning font-weight-bold">{props.historyData? props.historyData.name : ''}&nbsp;注文履歴</h2>
       </div>
       <div className="w-100 bg-white">
          <p className="font-weight-bold text-center">【現在注文中の商品一覧】</p>

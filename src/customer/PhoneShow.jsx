@@ -107,7 +107,7 @@ const timeChange = (e)=>{
    {props.itemData? 
      <>
       <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2 className="font-weight-bold text-info">{props.itemData.name}注文</h2>
+        <h2 className="font-weight-bold text-light">{props.itemData.name}注文</h2>
       </div>
       <div className="w-100 bg-white">
             <form onSubmit={doSubmit} className="W-100">

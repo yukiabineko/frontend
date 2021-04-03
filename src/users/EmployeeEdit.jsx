@@ -94,7 +94,7 @@ const  EmployeeEdit = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2>{state.name}情報編集</h2>
+        <h2 className="text-white font-weight-bold">{state.name}情報編集</h2>
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

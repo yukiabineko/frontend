@@ -109,7 +109,7 @@ const  New = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle">新規商品登録</h2>
+        <h2 data-testid="userNewtitle" className="text-white font-weight-bold">新規商品登録</h2>
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

@@ -31,7 +31,7 @@ useState(loginUserCheck());
   return(
     <>
       <div className="text-center mt-5 mb-4">
-        <h2 className="font-weight-bold text-light">現在注文商品</h2>
+        <h1 className="font-weight-bold text-white">現在注文商品</h1>
       </div> 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

@@ -169,7 +169,7 @@ const CircularLoading = circularLoading({
   return(
     <div className="w-100">
       <div className="text-center mt-3 mb-1">
-        <h2 data-testid="usertitle">会員一覧</h2>
+        <h2 className="text-white font-weight-bold" data-testid="usertitle">会員一覧</h2>
       </div>
       {/* プログレス */}
      
