@@ -50,13 +50,28 @@ export const pushDeleteButtonTolocalData = (name,orderNumber,datas)=>{
   });
   
 }
+/*カート時間の数値化 */
+const timeNumber = (date)=>{
+   if(date){
+    const  array = date.split(':');
+    let min = Number(array[0]) * 60  + Number(array[1]);
+    return min;
+   }
+}
+
+
 /* カートの時間のチェック*/
 export const cartValidate = (datas)=>{
-  let check = true;
+  let status  = 0
   datas.forEach((data)=>{
-    data.time === "" ? check = false : check = true;
+     if(data.time === "" || data.time === null){
+        status = 1;
+     }
+     else if(timeNumber(data.time) < 600 || timeNumber(data.time) >1140 ){
+        status = 2;
+     }
   })
-  return check;
+  return status;
 }
 
 /* カートの数チェック*/

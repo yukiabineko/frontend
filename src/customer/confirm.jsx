@@ -59,7 +59,7 @@ const selectNumber =(number)=>{
 /***********************サーバー送信注文確定***************************************************************** */
 const sendServer = ()=>{
     let result = window.confirm('注文を確定してよろしいですか？');
-    if(result && cartValidate(props.buyCarts)){  /*カートの受取時間もチェック(現時点空の場合のみ)*/
+    if(result && cartValidate(props.buyCarts) === 0){  /*カートの受取時間もチェック(現時点空の場合のみ)*/
       const params = new FormData();
     params.append('email', props.userData[0].email);
     params.append('name', props.userData[0].name);
@@ -123,8 +123,11 @@ const sendServer = ()=>{
     props.dispatch(cartEmpty());  /*買い物カゴリセット*/
 
     }
-    else if(!cartValidate(props.buyCarts)){
+    else if(cartValidate(props.buyCarts) === 1){
       alert('時間を入力してください。');
+    }
+    else if(cartValidate(props.buyCarts) === 2){
+      alert('受け取り時間が受付範囲外の注文があります。\n範囲は午前10:00から午後19:00までです。');
     }
     
   }
@@ -301,6 +304,7 @@ const doSelect = (e)=>{
                     <input 
                           name={index}
                           type="time" 
+                          min="10:00" max="19:00"
                           value={data.time}  
                           className="form-control"
                           onChange={timesChange}
