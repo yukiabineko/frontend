@@ -50,6 +50,9 @@ input::placeholder {
   background-color: orange;
   text-decoration: none;
 }
+ .navbar-toggler {
+  border-color: #fff;
+}
 .costomer-imag{
   width: 100%;
 }

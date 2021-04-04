@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { formSelectItems } from '../orders/setItem';
 import Select from 'react-select';
 import axios from 'axios';
+import { spanStyle } from '../style';
 
 
  function PcMovie(props){
@@ -35,7 +36,7 @@ import axios from 'axios';
   return(
     <div>
      <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h1 className="font-weight-bold text-dark">お魚動画視聴ページ</h1>
+        <h1 className="font-weight-bold text-dark"><span style={spanStyle}>お魚動画視聴ページ</span></h1>
         <p className="text-darkx font-weight-bold mt-5">
           販売されているお魚を動画で調べてみましょう<br/>
         </p>

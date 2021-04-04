@@ -233,7 +233,8 @@ const doSelect = (e)=>{
 /********************************************************************************************************************************** */
   return(
    <>
-       <div className="text-center mt-5 mb-3">
+       <div className="alert alert-danger mt-4 font-weight-bold">⚠️生鮮食品のためキャンセルは致しかねます。ご了承の上注文確定よろしくお願いいたします。</div>
+       <div className="text-center mt-1 mb-3">
          <h1 style={title}>
            <span style={span}><FontAwesomeIcon icon ={faShoppingCart} /></span>
            注文確認

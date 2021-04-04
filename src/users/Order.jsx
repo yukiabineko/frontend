@@ -7,7 +7,6 @@ import { customerTodayOrders, totalMoneyCalc, statusView } from './setting';
 import Reservation from './Reservation'; 
 import { timeSetting } from '../setting';
 import useScript from '../useScript';
-import { Button } from 'bootstrap';
 import axios from 'axios'
 import { sendLoginData } from '../store/Store';
 
