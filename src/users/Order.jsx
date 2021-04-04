@@ -10,6 +10,8 @@ import useScript from '../useScript';
 import axios from 'axios'
 import { sendLoginData } from '../store/Store';
 import { spanStyle } from '../style';
+import { faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ulArea ={
   marginTop: '-4%'
@@ -49,6 +51,7 @@ useState(loginUserCheck());
       <div className="text-center mt-5 mb-4">
         <h1 className="font-weight-bold text-white">
           <span style={spanStyle}>
+            <span className="mr-3 text-white"><FontAwesomeIcon icon={faShoppingBasket} /></span>
             現在注文商品
           </span>
         </h1>

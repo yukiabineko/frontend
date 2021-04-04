@@ -8,6 +8,9 @@ import {historyDataSend} from '../store/Store';
 import { customers } from './setting';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 import UserPagination from './UserPagination';
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 
 const userLink ={
   border: 'none',
@@ -169,7 +172,12 @@ const CircularLoading = circularLoading({
   return(
     <div className="w-100">
       <div className="text-center mt-3 mb-1">
-        <h2 className="text-white font-weight-bold" data-testid="usertitle">会員一覧</h2>
+      <h2 data-testid="usertitle">
+        <span style={spanStyle}>
+          <span className="mr-3 text-white font-weight-bold"><FontAwesomeIcon icon={faUsers} /></span>
+            会員一覧
+          </span>
+        </h2>
       </div>
       {/* プログレス */}
      

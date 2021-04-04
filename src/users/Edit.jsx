@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { sendLoginData } from '../store/Store';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 import { spanStyle } from '../style';
+import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //プログレスステータス
 const CircularLoading = circularLoading({
@@ -87,7 +89,11 @@ const  Edit = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 className="text-white font-weight-bold"><span style={spanStyle}>{state.name}情報編集</span></h2>
+        <h2 className="text-white font-weight-bold">
+          <span style={spanStyle}>
+           <span className="mr-3 text-white"><FontAwesomeIcon icon={faUserEdit} /></span>
+            {state.name}情報編集
+          </span></h2>
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

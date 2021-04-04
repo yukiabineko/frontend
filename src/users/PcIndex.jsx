@@ -8,6 +8,9 @@ import {historyDataSend} from '../store/Store';
 import { customers　} from './setting';
 import UserPagination from './UserPagination';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
+import { spanStyle } from '../style';
 
 const userLink ={
   border: 'none',
@@ -167,12 +170,17 @@ const CircularLoading = circularLoading({
  
   return(
     <div className="image">
-      <div className="text-center mt-5 mb-1">
-        <h2 data-testid="usertitle">会員一覧</h2>
+      <div className="text-center mt-5 mb-4">
+        <h2 data-testid="usertitle">
+        <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faUsers} /></span>
+            会員一覧
+          </span>
+        </h2>
       </div>
       
       <Row>
-        <Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
+        <Col md={{ span: 8, offset: 2 }} className="p-4 bg-light shadow">
           <Button　
              variant="primary"
              className="mb-2"

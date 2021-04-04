@@ -36,7 +36,11 @@ import { spanStyle } from '../style';
   return(
     <div>
      <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h1 className="font-weight-bold text-dark"><span style={spanStyle}>お魚動画視聴ページ</span></h1>
+        <h1 className="font-weight-bold text-dark">
+          <span style={spanStyle}>
+           <span className="mr-3 text-white"><FontAwesomeIcon icon={faYoutube} /></span>
+            お魚動画視聴ページ
+          </span></h1>
         <p className="text-darkx font-weight-bold mt-5">
           販売されているお魚を動画で調べてみましょう<br/>
         </p>

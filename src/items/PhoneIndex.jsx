@@ -5,6 +5,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 import MyPagination from './MyPagination';
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFish } from '@fortawesome/free-solid-svg-icons';
 
 
 const itemLink ={
@@ -167,7 +170,12 @@ const CircularLoading = circularLoading({
   return(
     <div className="w-100">
       <div className="text-center mt-5 mb-4">
-        <h1 className="text-white font-weight-bold" data-testid="itemstitle">商品一覧</h1>
+      <h2 data-testid="itemstitle">
+        <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faFish} /></span>
+            商品一覧
+          </span>
+        </h2>
       </div>
       {/* プログレス */}
      

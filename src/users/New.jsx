@@ -8,6 +8,8 @@ import { sendLoginData, keySend } from '../store/Store';
 import { connect } from 'react-redux';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 import { spanStyle } from '../style';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 //プログレスステータス
 const CircularLoading = circularLoading({
@@ -108,7 +110,10 @@ const  New = (props)=>{
    <>
       <div className="text-center mt-5 mb-4">
         <h2 data-testid="userNewtitle">
-          <span style={spanStyle}>新規会員登録</span>
+          <span style={spanStyle}>
+            <span className="mr-3 text-white"><FontAwesomeIcon icon={faUserPlus} /></span>
+            新規会員登録
+          </span>
         </h2>
       </div>
       <Row>

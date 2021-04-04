@@ -4,6 +4,9 @@ import axios from 'axios';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ordersSend } from '../store/Store';
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 
  function Index(props){
@@ -112,7 +115,12 @@ import { ordersSend } from '../store/Store';
   return(
     <div className="image">
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="usertitle">店頭商品一覧</h2>
+      <h2 className="text-white font-weight-bold" data-testid="usertitle">
+          <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faShoppingCart} /></span>
+              店頭商品一覧
+          </span>
+      </h2>
       </div>
       <Row>
 
