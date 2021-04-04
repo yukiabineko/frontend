@@ -85,7 +85,7 @@ useState(loginUserCheck());
                     <li className="list-inline-item h5 mr-3">依頼加工:{data.process}</li>
                     <li className="list-inline-item h5 mr-3">受け取り時間:{timeSetting(data.receiving_time)}</li>
                     <li className="list-inline-item text-white pt-2 pb-2 mr-3">{ statusView(data.status) }</li>
-                    {data.pay? <span className="bg-warning font-weight-bold text-danger p-2">支払い済</span> : ''}
+                    {data.pay? <li className="list-inline-item text-white pt-2 pb-2 mr-3"><span className="bg-warning font-weight-bold text-danger p-2">支払い済</span></li> : ''}
                   </ul>
                 
                 </Col>

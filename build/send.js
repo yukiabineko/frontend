@@ -14,6 +14,8 @@ document.getElementById('paybt').addEventListener('click', function(){
         $('.js-modal').hide();
     }).catch(()=>{
   })
+  token.value = null;
+  $('.js-modal').hide();
 })
 document.getElementById("modal-back").addEventListener('click',function(){
   $('.js-modal').hide();
