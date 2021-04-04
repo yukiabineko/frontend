@@ -7,6 +7,9 @@ import { customerTodayOrders, totalMoneyCalc, statusView } from './setting';
 import Reservation from './Reservation'; 
 import { timeSetting } from '../setting';
 import useScript from '../useScript';
+import { Button } from 'bootstrap';
+import axios from 'axios'
+import { sendLoginData } from '../store/Store';
 
 const ulArea ={
   marginTop: '-4%'
@@ -19,6 +22,18 @@ const image={
 /*****************************お客様用注文一覧ページ*********************************************************** */
 const  Order = (props)=>{
  
+  const updateView = ()=>{
+    const id_data = {id: props.userData[0].id, email: props.userkey.email, password: props.userkey.password }
+    axios.post(`https://uematsu-backend.herokuapp.com/users/show`, id_data).then(function(response){
+       let action = sendLoginData (response.data);
+       props.dispatch(action);
+     
+  
+    }).catch(function(err){
+     console.log(err);
+    });
+  }
+  useState(updateView);
  
 /******************************ログイン/未ログイン切り替え********************************************************** */
 const loginUserCheck = ()=>{
@@ -28,6 +43,7 @@ const loginUserCheck = ()=>{
 }
 useState(loginUserCheck());
   useScript();
+
   return(
     <>
       <div className="text-center mt-5 mb-4">
@@ -35,6 +51,7 @@ useState(loginUserCheck());
       </div> 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
+          
           <div className="text-center">
             【本日受取商品】
           </div>
