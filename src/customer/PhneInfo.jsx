@@ -7,6 +7,7 @@ import { searchItem } from "./setting";
 import axios from 'axios';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { spanStyle } from '../style';
 
 
  function PhoneInfo(props){
@@ -42,7 +43,7 @@ const backPage = ()=>{
   return(
     <div >
       <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2 className="font-weight-bold text-dark">{props.youtubeData.name}説明ページ</h2>
+        <h2 className="font-weight-bold text-dark"><span style={spanStyle}>{props.youtubeData.name}説明ページ</span></h2>
       </div>
       <Button 
         variant="light"
@@ -116,8 +117,8 @@ const backPage = ()=>{
        </Table>
        : 
        <div className="bg-white p-5 text-primary text-center">
-         <p className="bg-light p-5 font-weight-bold">
-           ただいま表示できません。表示するにはボタン押してください。
+         <p className="bg-primary text-white p-5 font-weight-bold">
+           表示するにはボタン押してください。
          </p>
         
       </div>

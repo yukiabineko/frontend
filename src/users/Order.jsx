@@ -9,6 +9,7 @@ import { timeSetting } from '../setting';
 import useScript from '../useScript';
 import axios from 'axios'
 import { sendLoginData } from '../store/Store';
+import { spanStyle } from '../style';
 
 const ulArea ={
   marginTop: '-4%'
@@ -46,7 +47,11 @@ useState(loginUserCheck());
   return(
     <>
       <div className="text-center mt-5 mb-4">
-        <h1 className="font-weight-bold text-white">現在注文商品</h1>
+        <h1 className="font-weight-bold text-white">
+          <span style={spanStyle}>
+            現在注文商品
+          </span>
+        </h1>
       </div> 
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
@@ -77,7 +82,7 @@ useState(loginUserCheck());
                     <li className="list-inline-item h4 ml-5">
                        <Image src={`http://yukiabineko.sakura.ne.jp/react/${data.name}.jpg`} alt="表示できません" style={image} roundedCircle />
                     </li>
-                    <li className="list-inline-item h5 mr-5">商品名:{data.name}</li>
+                    <li className="list-inline-item h5 mr-5 font-weight-bold">商品名:{data.name}</li>
                     <li className="list-inline-item h5 mr-3">価格:<span className="text-danger">{data.price}</span>円</li>
                     <li className="list-inline-item h5 mr-3">注文数:{data.num}</li>
                     <li className="list-inline-item h5 mr-3">合計:<span className="text-danger">{data.price *data.num}</span>円</li>

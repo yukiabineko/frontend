@@ -97,7 +97,7 @@ const buttonHeight={
     　　　<h4 className="text-light bg-primary font-weight-bold">本日入荷商品紹介</h4>
          <article style={ArticlePhone}>
            <section>
-             {itemData.length>0? <h2 className="customer-article-title">商品紹介</h2> : <div className="bg-secondary text-center text-white p-5 font-weight-bold">ただいま入荷商品がありません。</div>}
+             {itemData.length>0? <h2 className="customer-article-title font-weight-bold">商品紹介</h2> : <div className="bg-secondary text-center text-white p-5 font-weight-bold">ただいま入荷商品がありません。</div>}
              {itemData.length > 0 ? 
                <ul style={UlPhone}>
                  {itemData.map((item)=>(

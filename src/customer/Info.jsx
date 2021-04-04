@@ -7,6 +7,7 @@ import { searchItem } from "./setting";
 import axios from 'axios';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { spanStyle } from '../style';
 
 
  function Info(props){
@@ -44,7 +45,7 @@ const backPage = ()=>{
     <div >
       
       <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2 className="font-weight-bold text-dark">{props.youtubeData.name}説明ページ</h2>
+        <h2 className="font-weight-bold text-dark"><span style={spanStyle}>{props.youtubeData.name}説明ページ</span></h2>
       </div>
       <Button 
         variant="light"

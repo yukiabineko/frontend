@@ -7,6 +7,7 @@ import axios from 'axios';
 import { sendLoginData, keySend } from '../store/Store';
 import { connect } from 'react-redux';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
+import { spanStyle } from '../style';
 
 //プログレスステータス
 const CircularLoading = circularLoading({
@@ -106,7 +107,9 @@ const  New = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle">新規会員登録</h2>
+        <h2 data-testid="userNewtitle">
+          <span style={spanStyle}>新規会員登録</span>
+        </h2>
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

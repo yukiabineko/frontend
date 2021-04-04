@@ -95,7 +95,7 @@ const buttonHeight={
     <div >
       <img src={image} alt="画像" className="costomer-imag"/>
        <div className="customor-main">
-    　　　<h1 className="customor-main-title">本日入荷商品紹介</h1>
+    　　　<h1 className="customor-main-title font-weight-bold">本日入荷商品紹介</h1>
          <article>
            <section class="gallery">
              {itemData.length>0? <h2 className="customer-article-title">商品紹介</h2> : <div className="bg-secondary text-center text-white p-5 font-weight-bold">ただいま入荷商品がありません。</div>}

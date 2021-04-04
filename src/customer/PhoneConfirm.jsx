@@ -9,6 +9,7 @@ import { faShoppingCart, faFish, faYenSign, faCalculator, faUtensils, faCashRegi
 import { cartDeleteCart, sendLoginData, ordersSend} from '../store/Store';
 import Empty from './NoData';
 import { localstorageChange, cartValidate } from './setting';
+import { alertIconStyle, alertStyle, spanStyle } from '../style';
 
 
 const title={
@@ -215,11 +216,13 @@ const doSelect = (e)=>{
 /********************************************************************************************************************************** */
   return(
    <>
-       <div className="mt-5 alert alert-danger font-weight-bold">⚠️生鮮食品のためキャンセルは致しかねます<br/>ご了承の上注文確定よろしくお願いします。</div>
+       <div style={alertStyle}><span style={alertIconStyle}>⚠️</span>生鮮食品のためキャンセルは致しかねます<br/>ご了承の上注文確定よろしくお願いします。</div>
        <div className="text-center mt-5">
          <h1 style={title}>
            <span style={span}><FontAwesomeIcon icon ={faShoppingCart} /></span>
-           注文確認
+           <sapn style={spanStyle}>
+             注文確認
+           </sapn>
         </h1>
        </div>
        <div className="bg-white p-2"></div>

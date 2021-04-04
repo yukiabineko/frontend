@@ -76,8 +76,8 @@ import { spanStyle } from '../style';
        </Table>
        : 
        <div className="bg-white p-5 text-primary text-center">
-         <p className="bg-light p-5 font-weight-bold">
-           ただいま表示できません。表示するにはボタン押してください。
+         <p className="bg-primary text-white p-5 font-weight-bold">
+         お魚を選択してください。
          </p>
         
       </div>

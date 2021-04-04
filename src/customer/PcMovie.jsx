@@ -99,9 +99,9 @@ import { spanStyle } from '../style';
        : 
        <div className="container">
          <div className="row">
-           <div className="col-md-10 offset-md-1">
-            <p className="bg-light p-5 font-weight-bold text-center">
-              ただいま表示できません。表示するにはボタン押してください。
+           <div className="col-md-10 offset-md-1 bg-white pt-3 pt-2">
+            <p className="bg-dark p-5 font-weight-bold text-center text-white">
+              お魚を選択してください。
             </p>
            </div>
          </div>

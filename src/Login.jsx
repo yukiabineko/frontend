@@ -6,6 +6,7 @@ import axios from 'axios'
 import { connect} from 'react-redux';
 import { sendLoginData, searchSend, ordersSend, chartSend, keySend } from './store/Store';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
+import { spanStyle } from './style';
 
 
 //プログレスステータス
@@ -157,7 +158,8 @@ const  Login = (props)=>{
   return(
    <>
     <div className="text-center mt-5 mb-4">
-        <h2 className="text-dark font-weight-bold" data-testid="logintitle">ログイン</h2>
+        <h2 className="text-dark font-weight-bold" data-testid="logintitle">
+          <span style={spanStyle}>ログイン</span></h2>
       </div>
        
       <Row>

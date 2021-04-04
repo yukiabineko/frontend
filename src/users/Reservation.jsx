@@ -39,7 +39,7 @@ const  Reservation = (props)=>{
                     <li className="list-inline-item h4 ml-5">
                        <Image src={`http://yukiabineko.sakura.ne.jp/react/${data.name}.jpg`} alt="表示できません" style={image} roundedCircle />
                     </li>
-                    <li className="list-inline-item h5 mr-5">商品名:{data.name}</li>
+                    <li className="list-inline-item h5 mr-5 font-weight-bold">商品名:{data.name}</li>
                     <li className="list-inline-item h5 mr-3">価格:<span className="text-danger">{data.price}</span>円</li>
                     <li className="list-inline-item h5 mr-3">注文数:{data.num}</li>
                     <li className="list-inline-item h5 mr-3">合計:<span className="text-danger">{data.price *data.num}</span>円</li>

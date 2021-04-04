@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { cartsAdd } from '../store/Store';
 import { sameItemCheck,  selectItemCheck } from './setting';
+import { spanStyle } from '../style';
 
 const table ={
   width: '100%',
@@ -107,7 +108,7 @@ const timeChange = (e)=>{
    {props.itemData? 
      <>
       <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2 className="font-weight-bold text-info">{props.itemData.name}注文</h2>
+        <h2 className="font-weight-bold text-info"><span style={spanStyle}>{props.itemData.name}注文</span></h2>
       </div>
       <Row>
         <Col md={{ span: 8, offset: 2 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">
@@ -154,8 +155,8 @@ const timeChange = (e)=>{
                  </tr>
                </tbody>
              </Table>
-              <div className="text-left">
-                <input type="submit" value="追加"　className="btn btn-primary btn-lg" />
+              <div className="text-center">
+                <input type="submit" value="追加"　className="btn btn-primary btn-block" />
               </div>
              </form>
         </Col>    
