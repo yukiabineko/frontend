@@ -8,6 +8,7 @@ import axios from 'axios';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { spanStyle } from '../style';
+import { faFish } from '@fortawesome/free-solid-svg-icons';
 
 
  function PhoneInfo(props){
@@ -43,7 +44,11 @@ const backPage = ()=>{
   return(
     <div >
       <div className="text-center mt-5 mb-4  font-weight-bold">
-        <h2 className="font-weight-bold text-dark"><span style={spanStyle}>{props.youtubeData.name}説明ページ</span></h2>
+        <h2 className="font-weight-bold text-dark">
+          <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faFish} /></span>
+            {props.youtubeData.name}説明ページ
+          </span></h2>
       </div>
       <Button 
         variant="light"

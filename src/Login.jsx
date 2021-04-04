@@ -6,9 +6,10 @@ import axios from 'axios'
 import { connect} from 'react-redux';
 import { sendLoginData, searchSend, ordersSend, chartSend, keySend } from './store/Store';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
-import { spanStyle } from './style';
+import { spanStyle, topInfoStyle } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
+import image from './images/fishs4.jpg';
 
 
 //プログレスステータス
@@ -159,15 +160,21 @@ const  Login = (props)=>{
   
   return(
    <>
-    <div className="text-center mt-5 mb-4">
-        <h2 className="text-dark font-weight-bold" data-testid="logintitle">
-          <span style={spanStyle}>
-          <span className="mr-3 text-white"><FontAwesomeIcon icon={faUnlockAlt} /></span>
+    <img src={image} alt="画像" className="costomer-imag2"/>
+    <div className="text-center mt-4 mb-1">
+        <h2 className="text-dark font-weight-bold" data-testid="logintitle" >
+          <span style={spanStyle} >
+          <span className="mr-3 text-white"  ><FontAwesomeIcon icon={faUnlockAlt} data-testid="logintitle2" /></span>
             ログイン
           </span></h2>
       </div>
-       
       <Row>
+        <Col md={{ span: 4, offset: 4 }} className="p-5">
+           <div style={topInfoStyle}>お魚の注文と加工依頼できるサイトです。<br/>ご利用するにはログインしてください。</div>
+        </Col>
+      </Row>
+
+      <Row className="pb-5">
         <Col md={{ span: 4, offset: 4 }} className="p-5 bg-light border shadow">
           {/* プログレス */}
      
@@ -223,7 +230,6 @@ const  Login = (props)=>{
                 新規登録
               </Button>
           </Form>
-          
         </Col>
       </Row>
    </>

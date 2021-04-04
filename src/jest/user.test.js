@@ -31,19 +31,19 @@ describe('ログイン表示', ()=>{
       render(<Provider store={store}><App><Login/></App></Provider>, container);
     });
     let userTitle = container.querySelector("[data-testid='logintitle']")
-    expect(userTitle.textContent).toBe("ログイン");
+    expect(userTitle.textContent).toBe( "ログイン");
   });
 });
 describe('新規ユーザー登録表示', ()=>{
   it("新規ページ表示", () => {
       let component = shallow(<New.WrappedComponent />);
-      expect(component.find("[data-testid='userNewtitle']").text()).toBe('新規会員登録');
+      expect(component.find("[data-testid='userNewtitle']").text()).toBe("<FontAwesomeIcon />新規会員登録");
   });
 });
 describe('ログインフォーム', ()=>{
   it('ログイン失敗', () => {
     let component = shallow(<Login.WrappedComponent />);
-    expect(component.find("[data-testid='logintitle']").text()).toBe('ログイン');
+    expect(component.find("[data-testid='logintitle2']").text()).toBe("<FontAwesomeIcon />");
     component.find("[data-testid='ml']").simulate('change',{target:{email: 'taro@example.com'}});
     component.find("[data-testid='ps']").simulate('change',{target:{password: ''}});
     component.find("[data-testid='loginForm']").simulate('submit', { preventDefault () {} });
