@@ -59,23 +59,46 @@ const  New = (props)=>{
       setShow({display: 'none'});
       axios.post('https://uematsu-backend.herokuapp.com/users', data)
       .then(function (response) {
-        let action = sendLoginData(response.data.userData);
-        props.dispatch(action);
-
-        let key_data = {
-          email: state.email,
-          password: state.password
-        }
-
-        let keyaction = keySend(key_data);
-        props.dispatch(keyaction);
-
-        response.data.userData.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
-
-        /*railsからメッセージ*/
-        alert("【お知らせ】" +response.data.message); 
-        setProgres(false);
         
+         /*自動ログイン状態*/
+        let data = {
+          name: state.name,
+        }
+        if(response.data.message === "登録しました"){
+          let action = sendLoginData(response.data.userData);
+          props.dispatch(action);
+
+            /*railsからメッセージ*/
+          alert("【お知らせ】" +response.data.message); 
+          setProgres(false);
+
+          let key_data = {
+              email: state.email,
+              password: state.password
+          }
+
+          let keyaction = keySend(key_data);
+          props.dispatch(keyaction);
+          
+          axios
+            .post('https://uematsu-backend.herokuapp.com/users/user_show', data)
+            .then((res)=>{
+              
+            })
+            .catch((error)=>{
+                console.log(error);
+            })       
+          response.data.userData.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
+        }
+        else{
+          let alertMsg = "";
+          let messages = response.data.message
+          messages.forEach(message => {
+            alertMsg += message + "\n";
+          });
+          alert("【登録失敗】\n" + alertMsg); 
+          setProgres(false);
+        }
         setState({
           name: '',
           email: '',
@@ -93,18 +116,8 @@ const  New = (props)=>{
     }
 
 
-    /*自動ログイン状態*/
-    let data = {
-      name: state.name,
-    }
-    axios
-    .post('https://uematsu-backend.herokuapp.com/users/user_show', data)
-    .then((res)=>{
-      
-    })
-    .catch((error)=>{
-        console.log(error);
-    })       
+    
+    
   }
   return(
    <>
