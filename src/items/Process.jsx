@@ -6,6 +6,9 @@ import { getOption } from './setItemData';
 import Select from 'react-select';
 import { connect } from 'react-redux';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 
 
 //プログレスステータス
@@ -92,7 +95,12 @@ const Process = (props)=>{
 
   return(
    <>
-    <div className="text-center text-white font-weight-bold h2 mt-5 mb-3">{item.name}加工法管理画面</div>
+    <div className="text-center text-white font-weight-bold h2 mt-5 mb-3">
+       <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faUtensils} /></span>
+          {item.name}加工法管理画面
+          </span>
+    </div>
     <Row>
       <Col md={{ span: 4, offset: 4 }} className="p-5 bg-light shadow">
         {/* プログレス */}

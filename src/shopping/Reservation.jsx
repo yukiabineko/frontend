@@ -5,6 +5,9 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { todayOrderExisting } from './settiing';
 import { timeSetting } from '../setting';
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faListOl } from '@fortawesome/free-solid-svg-icons';
 
  /******************************従業員側明日の予約確認ページ********************************************************** */
 
@@ -21,7 +24,12 @@ const  Reservation = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 className="text-white font-weight-bold">明日の予約一覧表</h2>
+        <h2 className="text-white font-weight-bold">
+        <span style={spanStyle}>
+            <span className="mr-3 text-white"><FontAwesomeIcon icon={faListOl} /></span>
+              明日の予約一覧表
+            </span>
+        </h2>
       </div> 
       <Row>
         <Col md={{ span: 10, offset: 1 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

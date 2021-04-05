@@ -4,6 +4,9 @@ import { withRouter } from 'react-router';
 import axios from 'axios';
 import '../users/users.css';
 import { connect } from 'react-redux';
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faFish } from '@fortawesome/free-solid-svg-icons';
 
 /**************************************************************************************** */
 const  ItemEdit = (props)=>{
@@ -111,7 +114,12 @@ useState(loginUserCheck());
   return(
     <>
        <div className="text-center mt-5 mb-4">
-         <h2 data-testid="userNewtitle" className="text-white font-weight-bold">{state.name}編集</h2>
+         <h2 data-testid="userNewtitle" className="text-white font-weight-bold">
+          <span style={spanStyle}>
+            <span className="text-white mr-3"><FontAwesomeIcon icon={faFish} size="lg" /><FontAwesomeIcon icon={faEdit} size="sm" /></span>
+            {state.name}編集
+          </span> 
+         </h2>
        </div>
        <Row>
          <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

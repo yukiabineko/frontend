@@ -8,6 +8,8 @@ import { daySetting } from '../users/setting';
 import { timeSetting } from '../setting';
 import { faCheck, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { spanStyle } from '../style';
+import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 
  const customButton ={
    border: "none",
@@ -80,7 +82,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
   return(
     <div className>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="itemstitle" className="font-weight-bold text-dark">注文確認表</h2>
+        <h2 data-testid="itemstitle" className="font-weight-bold text-dark">
+        <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faListAlt} /></span>
+            注文確認表
+          </span>
+        </h2>
       </div>
       <Row>
         <Col md={{ span: 12 }} className="p-5 bg-light shadow">

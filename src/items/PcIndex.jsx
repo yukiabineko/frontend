@@ -161,7 +161,7 @@ const CircularLoading = circularLoading({
   return(
     <div className>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="itemstitle">
+        <h2 data-testid="itemstitle" className="font-weight-bold">
         <span style={spanStyle}>
           <span className="mr-3 text-white"><FontAwesomeIcon icon={faFish} /></span>
             商品一覧

@@ -3,6 +3,9 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import { connect } from 'react-redux';
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFish, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const  New = (props)=>{
 
@@ -109,7 +112,12 @@ const  New = (props)=>{
   return(
    <>
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="userNewtitle" className="text-white font-weight-bold">新規商品登録</h2>
+        <h2 data-testid="userNewtitle" className="text-white font-weight-bold">
+          <span style={spanStyle}>
+            <span className="text-white mr-3"><FontAwesomeIcon icon={faFish} size="lg" /><FontAwesomeIcon icon={faPlus} size="sm" /></span>
+            新規商品登録
+          </span> 
+        </h2>
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="pt-3 pl-5 pr-5 pb-4 bg-light shadow">

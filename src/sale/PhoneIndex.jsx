@@ -5,6 +5,9 @@ import { Table, Button } from 'react-bootstrap';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 import { totalSales, salesRate} from './setting';
 import { excelExport } from "../Excel";
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartBar } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -24,7 +27,13 @@ import { excelExport } from "../Excel";
   return(
     <div className="w-100">
        <div className="text-center text-white mt-4">
-        　<h1 className="font-weight-bold">売上速報</h1>
+        　<h1 className="font-weight-bold">
+          <span style={spanStyle}>
+            <span className="mr-3 text-white"><FontAwesomeIcon icon={faChartBar} /></span>
+              売上速報
+            </span>
+          
+         </h1>
           <h3 className="font-weight-bold">{`【${(new Date()).getMonth() + 1}月】`}</h3>
        </div>
 

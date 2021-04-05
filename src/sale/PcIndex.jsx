@@ -5,6 +5,9 @@ import { Table, Button } from 'react-bootstrap';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,ResponsiveContainer } from 'recharts';
 import { totalSales, salesRate } from './setting';
 import { excelExport } from "../Excel";
+import { spanStyle } from '../style';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartBar } from '@fortawesome/free-regular-svg-icons';
 
  function PcIndex(props){
   
@@ -26,8 +29,14 @@ import { excelExport } from "../Excel";
   return(
     <div>
        <div className="text-center text-white mt-4">
-        　<h1 className="font-weight-bold">売上速報</h1>
-          <h3 className="font-weight-bold">{`【${(new Date()).getMonth() + 1}月】`}</h3>
+        　<h1 className="font-weight-bold">
+        <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faChartBar} /></span>
+            売上速報
+          </span>
+          
+         </h1>
+          <h4 className="font-weight-bold">{`【${(new Date()).getMonth() + 1}月】`}</h4>
        </div>
        <ResponsiveContainer width="100%" height={300} className="bg-white">
             <BarChart  data={datas} margin={{ top: 5, right: 0, left: 10, bottom: 5, }}>

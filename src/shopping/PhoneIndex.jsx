@@ -7,7 +7,8 @@ import { viewDataBranch, todayOdrersChecker, userRecord } from "./settiing";
 import { daySetting } from '../users/setting';
 import { timeSetting } from '../setting';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faEnvelope, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faEnvelope, faListAlt, faMobileAlt } from '@fortawesome/free-solid-svg-icons';
+import { spanStyle } from '../style';
 
  const customButton ={
    border: "none",
@@ -80,7 +81,12 @@ import { faCheck, faEnvelope, faMobileAlt } from '@fortawesome/free-solid-svg-ic
   return(
     <div className="w-100">
       <div className="text-center mt-5 mb-4">
-        <h2 data-testid="itemstitle" className="font-weight-bold text-white">注文確認表</h2>
+        <h2 data-testid="itemstitle" className="font-weight-bold text-white">
+        <span style={spanStyle}>
+          <span className="mr-3 text-white"><FontAwesomeIcon icon={faListAlt} /></span>
+            注文確認表
+          </span>
+        </h2>
       </div>
       <div className="w-100 bg-white">
           {(shopingData.length >0 && todayOdrersChecker(shopingData) > 0)? 
