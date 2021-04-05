@@ -23,10 +23,12 @@ export const alertIconStyle={
 
 /*topフラッシュスタイル*/
 export const topInfoStyle={
-  background: "#EE0000",
-  color: "#fff",
+  background: "#fff",
+  color: "#000999",
   fontWeight:"bold",
   textAlign:"center",
-  margin: "-4% 0 -5% 0",
-  padding:"20px 0"
+  margin: "10% 0 -5% 0",
+  padding:"20px 0",
+  position: "relative",
+  border:"1px solid #f0f0f0"
 }

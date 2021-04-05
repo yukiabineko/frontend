@@ -9,7 +9,7 @@ import { circularLoading }  from '@yami-beta/react-circular-loading';
 import { spanStyle, topInfoStyle } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUnlockAlt } from '@fortawesome/free-solid-svg-icons';
-import image from './images/fishs4.jpg';
+import image from './images/fishs2.jpg';
 
 
 //プログレスステータス
@@ -170,7 +170,7 @@ const  Login = (props)=>{
       </div>
       <Row>
         <Col md={{ span: 4, offset: 4 }} className="p-5">
-           <div style={topInfoStyle}>お魚の注文と加工依頼できるサイトです。<br/>ご利用するにはログインしてください。</div>
+           <div class="login-info" style={topInfoStyle}>お魚の注文と加工依頼できるサイトです。<br/>ご利用するにはログインしてください。</div>
         </Col>
       </Row>
 
