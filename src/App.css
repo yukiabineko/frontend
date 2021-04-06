@@ -121,8 +121,8 @@ article{
     position: absolute;
     font-family: "Font Awesome 5 Free",'Quicksand','Avenir','Arial',sans-serif;
     font-weight: 900;
-    content: 'お知らせ';
-    background: #ff0000;
+    content: 'ご案内';
+    background: rgb(221, 152, 23);
     color: #fff;
     left: 0px;
     bottom: 100%;

@@ -88,6 +88,15 @@ const  New = (props)=>{
             .catch((error)=>{
                 console.log(error);
             })       
+            axios
+              .get('https://uematsu-backend.herokuapp.com/items')
+              .then((res)=>{
+                localStorage.removeItem('items');
+                localStorage.setItem('items', JSON.stringify(res.data));
+              })
+              .catch((error)=>{
+                console.log(error);
+              })
           response.data.userData.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
         }
         else{

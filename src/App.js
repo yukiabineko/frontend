@@ -204,8 +204,8 @@ import { customerTodayOrders, totalMoneyCalc, paid_confirmation  } from './users
     <BrowserRouter>
     <div className='fixed-top'> 
     <nav className="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
-      <span className="navbar-brand text-white"><FontAwesomeIcon icon={faUtensils} />&nbsp;
-            加工依頼アプリ</span>
+      <span className="navbar-brand text-white font-weight-bold"><FontAwesomeIcon icon={faUtensils} />&nbsp;
+            お魚加工依頼アプリ</span>
       <button className="navbar-toggler border-white bg-light font-weight-bold" type="button " data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
