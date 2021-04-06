@@ -83,27 +83,41 @@ useState(loginUserCheck());
       }
       axios.patch(`https://uematsu-backend.herokuapp.com/items/${props.item.id}`, data)
       .then(function (response) {
-        /*railsからメッセージ*/
-        alert(response.data.message); 
-        /* 商品一覧更新*/
-        axios
-          .get('https://uematsu-backend.herokuapp.com/items')
-          .then((res)=>{
-            localStorage.removeItem('items');
-            setState(res.data);
-            localStorage.setItem('items', JSON.stringify(res.data));
-            props.history.push('/items')
-          })
-          .catch((error)=>{
-            console.log(error);
-          })
-        setState({
-          name: '',
-          price: '',
-          category: '',
-          info: ''
-        })
-        props.history.push('/items');
+
+        /*バリデーションに引っからない場合*/
+
+        if(response.data.message === "編集しました。"){
+          /*railsからメッセージ*/
+            alert(response.data.message); 
+            /* 商品一覧更新*/
+            axios
+              .get('https://uematsu-backend.herokuapp.com/items')
+              .then((res)=>{
+                localStorage.removeItem('items');
+                setState(res.data);
+                localStorage.setItem('items', JSON.stringify(res.data));
+                props.history.push('/items')
+              })
+              .catch((error)=>{
+                console.log(error);
+              })
+              setState({
+                name: '',
+                price: '',
+                category: '',
+                info: ''
+              })
+              props.history.push('/items');
+           }
+        /*バリデーションに引っかかる場合*/
+        else{
+          let alertMsg = "";
+            let messages = response.data.message
+            messages.forEach(message => {
+              alertMsg += message + "\n";
+            });
+            alert("【編集失敗】\n" + alertMsg); 
+        }
       })
       .catch(function(){
       })

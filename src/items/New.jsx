@@ -77,31 +77,44 @@ const  New = (props)=>{
       }
       axios.post('https://uematsu-backend.herokuapp.com/items', data)
       .then(function (response) {
+        /*バリデーションに引っからない場合*/
 
-        /* 商品一覧更新*/
-        axios
-          .get('https://uematsu-backend.herokuapp.com/items')
-          .then((res)=>{
-            localStorage.removeItem('items');
-            setState(res.data);
-            localStorage.setItem('items', JSON.stringify(res.data));
-            props.history.push('/items')
-          })
-          .catch((error)=>{
-            console.log(error);
-          })
-
-        /*railsからメッセージ*/
-        alert(response.data.message); 
-        setState({
-          name: '',
-          price: '',
-          category: '',
-          info: ''
-        })
+         if(response.data.message === "商品登録しました。"){
+             /* 商品一覧更新*/
+           axios
+            .get('https://uematsu-backend.herokuapp.com/items')
+            .then((res)=>{
+              localStorage.removeItem('items');
+              setState(res.data);
+              localStorage.setItem('items', JSON.stringify(res.data));
+              props.history.push('/items')
+            })
+            .catch((error)=>{
+              console.log(error);
+            })
+            /*railsからメッセージ*/
+              alert(response.data.message); 
+              setState({
+                name: '',
+                price: '',
+                category: '',
+                info: ''
+              })
+        /*バリデーションに引っかかる場合*/
+         }
+         else{
+           let alertMsg = "";
+            let messages = response.data.message
+            messages.forEach(message => {
+              alertMsg += message + "\n";
+            });
+            alert("【登録失敗】\n" + alertMsg); 
+           
+         }
+        
       })
-      .catch(function(){
-        alert('error');
+      .catch(function(err){
+        alert(err);
       })
       setShow({display: 'none'});
     }

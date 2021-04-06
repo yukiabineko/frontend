@@ -28,7 +28,7 @@ const  MyPagination = (props)=>{
   /**************************************************************************************************** */
   else if((group === 0 && paginationLength <5) || (Math.round(paginationLength / 5) < 5)){   /*初期のページネーション データ5以下 または表示ボタン5以下*/
   
-    for (let number = 1; number <= Math.round(paginationLength /5); number++) {
+    for (let number = 1; number <= Math.ceil(paginationLength /5); number++) {
       items.push(
         <Pagination.Item key={number} active={number === active} onClick={()=>sendNumber(number-1)}>
           {number}
