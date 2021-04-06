@@ -32,8 +32,8 @@ const CircularLoading = circularLoading({
  function PcIndex(props){
   const[page, setPage] = useState(0);
   const[group, setGroup] = useState(0);
-  let localBaseData = JSON.parse(localStorage.getItem('users'))
-  let localData = localBaseData == null? "" : localBaseData.slice(page * 2, page * 2 + 4 )
+  let localBaseData = JSON.parse(localStorage.getItem('users'));
+  let localData = localBaseData == null? "" : customers(localBaseData).slice(0,5);
   const[state,setState] = useState({
     data: localData? localData : []
   })
@@ -76,7 +76,7 @@ const CircularLoading = circularLoading({
                 localStorage.setItem('users', JSON.stringify(res.data));
                 
                 setPage(0)
-                let updateData = localBaseData == null? "" : localBaseData.slice(0, 4 )
+                let updateData = localBaseData == null? "" : localBaseData.slice(0, 5)
                 alert(response.data.message); 
                 setState({
                   data: updateData? updateData : []
@@ -115,7 +115,7 @@ const CircularLoading = circularLoading({
     .post('https://uematsu-backend.herokuapp.com/users/index',props.userkey)
     .then((res)=>{
         localStorage.setItem('users', JSON.stringify(res.data));
-        let updateData = localBaseData == null? "" : localBaseData.slice(page * 2, page * 2 + 4 )
+        let updateData = localBaseData == null? "" : localBaseData.slice(page * 5, page * 5 + 5 )
         setState({
           data: updateData? updateData : []
         })
@@ -148,16 +148,17 @@ const CircularLoading = circularLoading({
    }
    /********************************ページネーション(通常ボタン)処理**************************************** */
   const paginationNo = (num)=>{
+  
     switch (num) {
       case 0:
         setState({
-          data: JSON.parse(localStorage.getItem('users')).slice(num * 2, num * 2 +4)
+          data: customers(JSON.parse(localStorage.getItem('users'))).slice(num * 5, num * 5 + 5)
         })
        
         break;
       default:
         setState({
-          data: JSON.parse(localStorage.getItem('users')).slice(num * 2 + 2, (num * 2 + 2) + 2 )
+          data: customers(JSON.parse(localStorage.getItem('users'))).slice(num * 5, num * 5 + 5)
         })
         break;
     }
@@ -216,7 +217,7 @@ const CircularLoading = circularLoading({
                 </tr>
               </thead>
               <tbody>
-                {customers(state.data).map((value)=>(
+                {state.data.map((value)=>(
                   <tr key={value.name}>
                      <td className="text-center align-middle">
                        <button 

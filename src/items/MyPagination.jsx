@@ -11,7 +11,7 @@ const  MyPagination = (props)=>{
   let active = props.No +1;
   let items = [];
   
-  if(group === 0 &&  Math.round(paginationLength) > 5 && Math.round(paginationLength / 2) >= 5 ){  /*初期のページネーション データ5以上 かつ表示ボタン5以下*/
+  if(group === 0 &&  Math.round(paginationLength) > 5 && Math.round(paginationLength / 5) >= 5 ){  /*初期のページネーション データ5以上 かつ表示ボタン5以下*/
     for (let number = 1; number <= 5; number++) {
       items.push(
         <Pagination.Item key={number} active={number === active} onClick={()=>sendNumber(number-1)}>
@@ -19,16 +19,16 @@ const  MyPagination = (props)=>{
         </Pagination.Item>,
       );
     }
-    if(paginationLength > ( group + 1)*2 *5 ){ /*全体のレコード数からぜんかいの５の倍数をひいたかずよりつぎの５の倍数が上回るとき*/
+    if(paginationLength > ( group + 1)*5 *5 ){ /*全体のレコード数からぜんかいの５の倍数をひいたかずよりつぎの５の倍数が上回るとき*/
       items.push(
          <Pagination.Last onClick={()=>groupPlus()} />
        );
       }
   }
   /**************************************************************************************************** */
-  else if((group === 0 && paginationLength <5) || (Math.round(paginationLength / 2) < 5)){   /*初期のページネーション データ5以下 または表示ボタン5以下*/
+  else if((group === 0 && paginationLength <5) || (Math.round(paginationLength / 5) < 5)){   /*初期のページネーション データ5以下 または表示ボタン5以下*/
   
-    for (let number = 1; number <= Math.round(paginationLength /2); number++) {
+    for (let number = 1; number <= Math.round(paginationLength /5); number++) {
       items.push(
         <Pagination.Item key={number} active={number === active} onClick={()=>sendNumber(number-1)}>
           {number}
@@ -37,7 +37,7 @@ const  MyPagination = (props)=>{
     }
   }
   /****************************************************************************************************** */
-  else if(group >=1 && paginationLength > (group + 1) * 2 * 5 ){
+  else if(group >=1 && paginationLength > (group + 1) * 5 * 5 ){
     items.push(
       <Pagination.First onClick={()=>groupMinus()} />
     );
@@ -48,18 +48,18 @@ const  MyPagination = (props)=>{
         </Pagination.Item>,
       );
     }
-    if(paginationLength > ( group + 1)*2 *5 ){ /*全体のレコード数からぜんかいの５の倍数をひいたかずよりつぎの５の倍数が上回るとき*/
+    if(paginationLength > ( group + 1)*5 *5 ){ /*全体のレコード数からぜんかいの５の倍数をひいたかずよりつぎの５の倍数が上回るとき*/
      items.push(
         <Pagination.Last onClick={()=>groupPlus()} />
       );
      }
   }
   /******************************************************************************************* */
-  else if(group >=1 && paginationLength  < (group + 1)*2 * 5 ){   /*次の５のばいすうこえない*/
+  else if(group >=1 && paginationLength  < (group + 1)*5 * 5 ){   /*次の５のばいすうこえない*/
     items.push(
       <Pagination.First onClick={()=>groupMinus()} />
     );
-    for (let number = group * 5 + 1; number <=  Math.round(paginationLength /2)  ; number++) {
+    for (let number = group * 5 + 1; number <=  Math.round(paginationLength /5)  ; number++) {
       items.push(
         <Pagination.Item key={number} active={number === active} onClick={()=>sendNumber(number-1)}>
           {number}

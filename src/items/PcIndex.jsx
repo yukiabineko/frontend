@@ -45,7 +45,7 @@ const CircularLoading = circularLoading({
   /************************ステート*************************************** */
   const[page, setPage] = useState(0);
   const[group, setGroup] = useState(0);
-  let localData = JSON.parse(localStorage.getItem('items')).slice(page * 2, page * 2 + 2 )
+  let localData = JSON.parse(localStorage.getItem('items')).slice(0, 5 );
   let modalData = [];
 
   const[itemData, setState] = useState(
@@ -96,7 +96,7 @@ const CircularLoading = circularLoading({
             .then((res)=>{
               localStorage.removeItem('items');
               localStorage.setItem('items', JSON.stringify(res.data));
-              setState(res.data.slice(page * 2, page * 2 + 2 ))
+              setState(res.data.slice(0,7 ))
               setProgress(false)
               setPage(0);
               paginationNo(0);
@@ -126,7 +126,7 @@ const CircularLoading = circularLoading({
       .then((res)=>{
           localStorage.removeItem('items');
           localStorage.setItem('items', JSON.stringify(res.data));
-          let newData = JSON.parse(localStorage.getItem('items')).slice(page * 2, page * 2 + 2 );
+          let newData = JSON.parse(localStorage.getItem('items')).slice(page * 5, page * 5 + 5 );
           setState(newData? newData : []);
           setProgress(false)
           setPage(0);
@@ -149,9 +149,16 @@ const CircularLoading = circularLoading({
   }
   /********************************ページネーション処理**************************************** */
   const paginationNo = (num)=>{
-    setState(
-      JSON.parse(localStorage.getItem('items')).slice(num * 2, num * 2 + 2 )
-    )
+    
+    switch (num) {
+      case 0:
+        setState( JSON.parse(localStorage.getItem('items')).slice(num * 5, num * 5 + 5));
+       
+        break;
+      default:
+        setState(JSON.parse(localStorage.getItem('items')).slice(num * 5, (num * 5 + 5)  ));
+        break;
+    }
     setPage(num);
   }
   /***********************************ページグループ更新*******************************************************************/
