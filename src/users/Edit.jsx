@@ -47,6 +47,7 @@ const  Edit = (props)=>{
     const value = target.value;
     setState({...state, [name]: value});
   }
+  /*編集処理*/
   const sendUserParameter = (e)=>{
     setProgres(true);
     e.preventDefault();
@@ -62,20 +63,32 @@ const  Edit = (props)=>{
       axios.patch(`https://uematsu-backend.herokuapp.com/users/${props.id}`, data)
       .then(function (response) {
         /*railsからメッセージ*/
-       
-        const id_data = {id: props.userData[0].id, email: props.userkey.email, password: props.userkey.password }
-        axios.post(`https://uematsu-backend.herokuapp.com/users/show`, id_data).then(function(res){
-           let action = sendLoginData (res.data);
-           props.dispatch(action);
-           alert(response.data.message); 
-           setProgres(false);
-           props.history.push('/users/show');
 
-        }).catch(function(err){
-         console.log(err);
-        });
-       
+        /*バリデーション通過*/
+        if(response.data.message === "編集しました"){
+          const id_data = {id: props.userData[0].id, email: props.userkey.email, password: props.userkey.password }
+          axios.post(`https://uematsu-backend.herokuapp.com/users/show`, id_data).then(function(res){
+            let action = sendLoginData (res.data);
+            props.dispatch(action);
+            alert(response.data.message); 
+            setProgres(false);
+            props.history.push('/users/show');
 
+          }).catch(function(err){
+          console.log(err);
+          });
+        }
+        /*バリデーションブロック時*/
+
+        else{
+          let alertMsg = "";
+          let messages = response.data.message
+          messages.forEach(message => {
+            alertMsg += message + "\n";
+          });
+          alert("【編集失敗】\n" + alertMsg); 
+          setProgres(false);
+        }
       })
       .catch(function(){
         alert('error');

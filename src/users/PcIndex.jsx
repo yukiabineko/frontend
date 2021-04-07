@@ -57,10 +57,10 @@ const CircularLoading = circularLoading({
     useState(userCall());*/
 
   /****************************編集**************************************** */
-   const editPage = (id)=>{
+  /* const editPage = (id)=>{
      props.editPage(id);
      props.history.push("/users/employee_edit");
-   } 
+   } */
 
 
    /****************************削除*********************************************** */
@@ -232,16 +232,16 @@ const CircularLoading = circularLoading({
                     　　<a className="font-weight-bold" href={`tel:${value.tel}`} target="_blank" rel="noopener noreferrer">{value.tel}</a>
                     </td>
                     <td className="text-center">
-                      <Button 
+                      {/*<Button 
                         variant="primary"
                         onClick={(i)=>editPage(value.id)}
                         className="ml-3"
-                      >編集</Button>
+                      >編集</Button> */}
 
                       <Button 
                         variant="danger"
                         onClick={(i)=>deleteUser(value.id)}
-                        className="ml-3"
+                        className="btn btn-block"
                       >削除</Button>
                     </td>
                   </tr>

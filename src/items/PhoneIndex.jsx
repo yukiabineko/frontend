@@ -46,7 +46,7 @@ const CircularLoading = circularLoading({
   /************************ステート*************************************** */
   const[page, setPage] = useState(0);
   const[group, setGroup] = useState(0);
-  let localData = JSON.parse(localStorage.getItem('items')).slice(page * 2, page * 2 + 2 )
+  let localData = JSON.parse(localStorage.getItem('items')).slice(0, 5 );
   let modalData = [];
 
   const[itemData, setState] = useState(
@@ -158,9 +158,15 @@ const CircularLoading = circularLoading({
   }
    /********************************ページネーション処理**************************************** */
    const paginationNo = (num)=>{
-    setState(
-      JSON.parse(localStorage.getItem('items')).slice(num * 2, num * 2 + 2 )
-    )
+    switch (num) {
+      case 0:
+        setState( JSON.parse(localStorage.getItem('items')).slice(num * 5, num * 5 + 5));
+       
+        break;
+      default:
+        setState(JSON.parse(localStorage.getItem('items')).slice(num * 5, (num * 5 + 5)  ));
+        break;
+    }
     setPage(num);
   }
   /***********************************ページグループ更新*******************************************************************/
@@ -191,7 +197,7 @@ const CircularLoading = circularLoading({
         }
       <Button　
         variant="primary"
-        className="mb-2"
+        className="mb-2 border-white"
         onClick={updateItems}
       >更新</Button>
       

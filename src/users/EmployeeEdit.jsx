@@ -71,8 +71,10 @@ const  EmployeeEdit = (props)=>{
       axios.patch(`https://uematsu-backend.herokuapp.com/users/${props.id}`, data)
       .then(function (response) {
         /*railsからメッセージ*/
-       
-        axios.post('https://uematsu-backend.herokuapp.com/users/index',props.userkey)
+
+        /*バリデーション通過*/
+        if(response.data.message === "編集しました"){
+          axios.post('https://uematsu-backend.herokuapp.com/users/index',props.userkey)
             .then((res)=>{
                 localStorage.setItem('users', JSON.stringify(res.data));
                 alert(response.data.message); 
@@ -82,11 +84,22 @@ const  EmployeeEdit = (props)=>{
             .catch((error)=>{
                 console.log(error);
             })      
-       
+        }
+        /*バリデーションブロック時*/
 
+        else{
+          alert(response.data.message);
+          let alertMsg = "";
+          let messages = response.data.message
+          messages.forEach(message => {
+            alertMsg += message + "\n";
+          });
+          alert("【編集失敗】\n" + alertMsg); 
+          setProgres(false);
+        }
       })
-      .catch(function(){
-        alert('error');
+      .catch(function(err){
+        alert(err);
       })
     }
     /*password不一致警告解除*/
@@ -158,14 +171,12 @@ const  EmployeeEdit = (props)=>{
                 className="btn-block mt-4">
                   送信
               </Button>
-
-              
           </Form>
-          
         </Col>
       </Row>
    </>
   )
 }
+
 export default withRouter(connect(state=>state)(EmployeeEdit));
 /***************************************************************************************************** */

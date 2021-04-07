@@ -97,6 +97,12 @@ const  New = (props)=>{
               .catch((error)=>{
                 console.log(error);
               })
+              setState({
+                name: '',
+                email: '',
+                password: '',
+                confirmation: ''
+              })
           response.data.userData.admin === true? props.history.push('/orders') :  props.history.push('/users/show');
         }
         else{
@@ -108,12 +114,6 @@ const  New = (props)=>{
           alert("【登録失敗】\n" + alertMsg); 
           setProgres(false);
         }
-        setState({
-          name: '',
-          email: '',
-          password: '',
-          confirmation: ''
-        })
       })
       .catch(function(){
         alert('error');

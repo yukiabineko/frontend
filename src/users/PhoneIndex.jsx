@@ -21,10 +21,6 @@ const userLink ={
   textDecoration: 'underline',
   
 }
-const buttonWidth={
-  width: '45%',
-  marginRight:'5%'
-}
 
 //プログレスステータス
 const CircularLoading = circularLoading({
@@ -39,7 +35,7 @@ const CircularLoading = circularLoading({
   const[page, setPage] = useState(0);
   const[group, setGroup] = useState(0);
   let localBaseData = JSON.parse(localStorage.getItem('users'))
-  let localData = localBaseData == null? "" : localBaseData.slice(page * 2, page * 2 + 4 )
+  let localData = localBaseData == null? "" : customers(localBaseData).slice(0,5);
   const[state,setState] = useState({
      data: localData? localData : []
   })
@@ -63,10 +59,10 @@ const CircularLoading = circularLoading({
     useState(userCall());*/
 
   /****************************編集**************************************** */
-   const editPage = (id)=>{
+   /*const editPage = (id)=>{
      props.editPage(id);
      props.history.push("/users/employee_edit");
-   } 
+   } */
 
 
    /****************************削除*********************************************** */
@@ -151,13 +147,13 @@ const CircularLoading = circularLoading({
     switch (num) {
       case 0:
         setState({
-          data: JSON.parse(localStorage.getItem('users')).slice(num * 2, num * 2 +4)
+          data: customers(JSON.parse(localStorage.getItem('users'))).slice(num * 5, num * 5 + 5)
         })
        
         break;
       default:
         setState({
-          data: JSON.parse(localStorage.getItem('users')).slice(num * 2 + 2, (num * 2 + 2) + 2 )
+          data: customers(JSON.parse(localStorage.getItem('users'))).slice(num * 5, num * 5 + 5)
         })
         break;
     }
@@ -241,16 +237,16 @@ const CircularLoading = circularLoading({
 
                         <tr>
                             <td colSpan="2">
-                              <Button 
+                             {/* <Button 
                                 variant="primary"
                                 onClick={(i)=>editPage(value.id)}
                                 style={buttonWidth}
-                              >編集</Button>
+                               >編集</Button>*/}
 
                               <Button 
                                 variant="danger"
                                 onClick={(i)=>deleteUser(value.id)}
-                                style={buttonWidth}
+                                className="btn btn-block"
                               >削除</Button>
                           </td>
                         </tr>
