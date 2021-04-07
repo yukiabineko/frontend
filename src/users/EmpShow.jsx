@@ -11,7 +11,7 @@ import History from './HistoryPage';
 const  EmpShow = (props)=>{
   const[page, setPage] = useState(0);
   let localBaseData = customerOrders(props.historyData.orders[0]);
-  let localData = localBaseData.slice(page * 2, page * 2 + 4 );
+  let localData = localBaseData.reverse().slice(0, 5)
   const[state,setState] = useState({
     data: localData
   })
@@ -27,13 +27,13 @@ const paginationNo = (num)=>{
   switch (num) {
     case 0:
       setState({
-        data: customerOrders(props.historyData.orders[0]).slice(num * 2, num * 2 +4)
+        data: customerOrders(props.historyData.orders[0]).reverse().slice(num * 5, num * 5 + 5)
       })
      
       break;
     default:
       setState({
-        data: customerOrders(props.historyData.orders[0]).slice(num * 2 + 2, (num * 2 + 2) + 2 )
+        data: customerOrders(props.historyData.orders[0]).reverse().slice(num * 5, (num * 5) + 5 )
       })
       break;
   }

@@ -3,10 +3,17 @@ import { Table } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { daySetting, customerTodayOrders,customerOrders } from './setting';
+import History from './HistoryPage';
 
 
 /**************************************************************************************** */
 const  EmpShow = (props)=>{
+  const[page, setPage] = useState(0);
+  let localBaseData = customerOrders(props.historyData.orders[0]);
+  let localData = localBaseData.reverse().slice(0, 5)
+  const[state,setState] = useState({
+    data: localData
+  })
    
 /******************************ログイン/未ログイン切り替え********************************************************** */
     const loginUserCheck = ()=>{
@@ -15,6 +22,24 @@ const  EmpShow = (props)=>{
       }
     }
    useState(loginUserCheck());
+/********************************ページネーション(通常ボタン)処理**************************************** */
+const paginationNo = (num)=>{
+  switch (num) {
+    case 0:
+      setState({
+        data: customerOrders(props.historyData.orders[0]).reverse().slice(num * 5, num * 5 + 5)
+      })
+     
+      break;
+    default:
+      setState({
+        data: customerOrders(props.historyData.orders[0]).reverse().slice(num * 5, (num * 5) + 5 )
+      })
+      break;
+  }
+  setPage(num);
+/************************************************************************************************** */
+}
   return(
    <>
       <div className="text-center mt-5 mb-4">
@@ -73,9 +98,13 @@ const  EmpShow = (props)=>{
          <p className="font-weight-bold text-center">【過去の注文一覧】</p>
          {(props.historyData && customerOrders(props.historyData.orders[0]).length >0)? 
            <>
+            <History
+             No={page} 
+             paginationSend={(num)=>paginationNo(num)} 
+            />
             <Table bordered className="w-100">
               <tbody>
-                {customerOrders(props.historyData.orders[0]).map((data)=>(
+                {state.data.map((data)=>(
                   <tr>
                     <Table bordered>
                     <tbody>
