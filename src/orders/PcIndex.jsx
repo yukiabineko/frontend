@@ -8,6 +8,11 @@ import { spanStyle } from '../style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
+const buttonStyle={
+   width: "42%",
+   marginRight: "1%",
+   marginLeft:"5%"
+}
 
  function Index(props){
   const[state,setState] = useState({
@@ -165,13 +170,13 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
                       <Button 
                         variant="primary"
                         onClick={(i)=>editPage(value.id)}
-                        className="ml-3"
+                        style={buttonStyle}
                       >編集</Button>
 
                       <Button 
                         variant="danger"
                         onClick={(i)=>deleteOrder(value.id)}
-                        className="ml-3"
+                        style={buttonStyle}
                       >削除</Button>
                     </td>
                   </tr>

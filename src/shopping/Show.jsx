@@ -6,6 +6,7 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faTruck, faClipboard } from "@fortawesome/free-solid-svg-icons";
 import { chartSend } from '../store/Store';
+import { spanStyle } from '../style';
 
 const font ={
   fontSize: '24px'
@@ -79,8 +80,8 @@ const  Show = (props)=>{
     
   return(
    <>
-    <div className="text-center mt-5">
-      <h2 className="font-weight-bold">注文状況確認/変更</h2>
+    <div className="text-center mt-5 mb-4">
+      <h2 className="font-weight-bold"><span style={spanStyle}>注文状況確認/変更</span></h2>
     </div>
     <Row>
       < Col md={{ span: 8, offset: 2 }} className="p-5 bg-light shadow">
