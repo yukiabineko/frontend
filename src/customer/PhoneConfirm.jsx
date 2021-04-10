@@ -64,7 +64,7 @@ const sendServer = ()=>{
     params.append('name', props.userData[0].name);
 
      /* PHP送信　*/
-    axios.post('http://yukiabineko.sakura.ne.jp/mail.php',
+    axios.post('https://yukiabineko.sakura.ne.jp/mail.php',
 　　　 params,
       {
         headers:{
