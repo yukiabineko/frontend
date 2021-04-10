@@ -161,11 +161,15 @@ import { spanStyle } from '../style';
                         <tr>
                           <th className="bg-primary text-white text-center align-middle">メールで連絡</th>
                           <td colSpan="4" className="font-weight-bold text-center align-middle">
-                          <a 
-                            className="btn btn-success btn-block p-3" 
-                            href={`mailto:${userRecord(data.user_name).email}`} 
-                            target="_blank" rel="noopener noreferrer"
-                          ><FontAwesomeIcon icon={faEnvelope} />メールを送る</a>  
+                          {userRecord(data.user_name).email? 
+                              <a 
+                              className="btn btn-success btn-block p-3" 
+                              href={`mailto:${userRecord(data.user_name).email}`} 
+                              target="_blank" rel="noopener noreferrer"
+                            ><FontAwesomeIcon icon={faEnvelope} />メールを送る</a>  
+                              : 
+                              ""
+                              }
                           </td>
                         </tr>
                         <tr>

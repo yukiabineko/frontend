@@ -136,11 +136,16 @@ import { faListAlt } from '@fortawesome/free-regular-svg-icons';
                     { Number(data.price) * Number(data.num) }
                   </td>
                   <td>
-                  <a 
-                    className="btn btn-success btn-block p-3" 
-                    href={`mailto:${userRecord(data.user_name).email}`} 
-                    target="_blank" rel="noopener noreferrer"
-                  ><FontAwesomeIcon icon={faEnvelope} />メールを送る</a>  
+                  {userRecord(data.user_name).email? 
+                   <a 
+                   className="btn btn-success btn-block p-3" 
+                   href={`mailto:${userRecord(data.user_name).email}`} 
+                   target="_blank" rel="noopener noreferrer"
+                 ><FontAwesomeIcon icon={faEnvelope} />メールを送る</a>  
+                  : 
+                  ""
+                  }
+                 
                   </td>
                 </tr>
                    : 
