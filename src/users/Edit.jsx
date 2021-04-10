@@ -5,7 +5,7 @@ import './users.css';
 import { withRouter } from 'react-router';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { sendLoginData } from '../store/Store';
+import { sendLoginData, keySend  } from '../store/Store';
 import { circularLoading }  from '@yami-beta/react-circular-loading';
 import { spanStyle } from '../style';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +22,8 @@ const CircularLoading = circularLoading({
 
 /**************************************************************************************** */
 const  Edit = (props)=>{
+
+  const oldMail = props.userData.length>0? props.userData[0].email : '';
 
   const[show,setShow] =useState({
     display: 'none'
@@ -55,6 +57,7 @@ const  Edit = (props)=>{
       let data = {
         name: state.name,
         email: state.email,
+        oldmail: oldMail,
         tel: state.tel,
         password: state.password,
         confirmation: state.confirmation
@@ -66,10 +69,14 @@ const  Edit = (props)=>{
 
         /*バリデーション通過*/
         if(response.data.message === "編集しました"){
-          const id_data = {id: props.userData[0].id, email: props.userkey.email, password: props.userkey.password }
+          const id_data = {id: props.userData[0].id, email: state.email, password: state.password }
           axios.post(`https://uematsu-backend.herokuapp.com/users/show`, id_data).then(function(res){
             let action = sendLoginData (res.data);
             props.dispatch(action);
+
+            let action2 = keySend({email: state.email, password: state.password});
+            props.dispatch(action2);
+
             alert(response.data.message); 
             setProgres(false);
             props.history.push('/users/show');

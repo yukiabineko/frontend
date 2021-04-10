@@ -44,7 +44,7 @@ import { customerTodayOrders, totalMoneyCalc, paid_confirmation  } from './users
 
 
  function App(props){
-  
+   
    let paytotal = ((props.userData.length>0) && (customerTodayOrders(props.userData[0].orders[0]).length >0))? totalMoneyCalc(customerTodayOrders(props.userData[0].orders[0])) :0;
    let userid = props.userData.length>0? props.userData[0].id : null;
   useScript();
