@@ -58,10 +58,12 @@ const selectNumber =(number)=>{
 /***********************サーバー送信注文確定***************************************************************** */
 const sendServer = ()=>{
     let result = window.confirm('注文を確定してよろしいですか？');
+    let sendData = props.buyCarts;
     if(result && cartValidate(props.buyCarts) === 0){  /*カートの受取時間もチェック(現時点空の場合のみ)*/
       const params = new FormData();
     params.append('email', props.userData[0].email);
     params.append('name', props.userData[0].name);
+    params.append('orders',JSON.stringify(sendData));
 
      /* PHP送信　*/
     axios.post('https://yukiabineko.sakura.ne.jp/mail.php',
@@ -77,7 +79,7 @@ const sendServer = ()=>{
     })
 
 
-  let sendData = props.buyCarts;
+ 
    let obj = {}
    obj['id'] = props.userData[0].id;
    obj['data'] = sendData;
