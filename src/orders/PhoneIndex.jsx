@@ -48,7 +48,7 @@ const buttonWidth ={
 
   /****************************編集**************************************** */
    const editPage = (id)=>{
-     props.orderEditIdget(id);
+     props.editPage(id);
      props.history.push("/orders_edit");
    } 
 
