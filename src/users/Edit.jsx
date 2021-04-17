@@ -24,6 +24,7 @@ const CircularLoading = circularLoading({
 const  Edit = (props)=>{
 
   const oldMail = props.userData.length>0? props.userData[0].email : '';
+  const oldpass = props.userkey? props.userkey.password : "";
 
   const[show,setShow] =useState({
     display: 'none'
@@ -58,6 +59,7 @@ const  Edit = (props)=>{
         name: state.name,
         email: state.email,
         oldmail: oldMail,
+        oldpass: oldpass,
         tel: state.tel,
         password: state.password,
         confirmation: state.confirmation
